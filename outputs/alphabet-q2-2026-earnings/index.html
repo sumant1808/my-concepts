@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alphabet (GOOGL) — Q2 2026 Earnings Analysis (Light)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --border:rgba(15,23,42,0.09);
+    --text:#0f1420;
+    --muted:#64708a;
+    --green:#0a8a4a;
+    --red:#d92d2d;
+    --blue:#1d5fd6;
+    --amber:#b5720a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(15,23,42,0.06) 1px, transparent 0) 0 0/24px 24px,
+      var(--bg);
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+    height:100%; overflow:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed; top:0; left:0; right:0; height:4px;
+    background:linear-gradient(90deg, var(--blue), var(--green) 50%, var(--amber));
+    z-index:60;
+  }
+  .serif{font-family:'Instrument Serif',serif;}
+  .tab{font-variant-numeric:tabular-nums;}
+
+  .deck{position:relative; width:100vw; height:100vh; height:100dvh;}
+  .slide{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column;
+    justify-content:center;
+    padding:clamp(24px,5vw,80px) clamp(24px,7vw,120px);
+    opacity:0; visibility:hidden;
+    transform:translateY(16px);
+    transition:opacity .5s ease, transform .5s ease, visibility .5s;
+    overflow:hidden;
+  }
+  .slide.active{opacity:1; visibility:visible; transform:translateY(0);}
+
+  .slide > *{
+    opacity:0; transform:translateY(10px);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .slide.active > *{opacity:1; transform:translateY(0);}
+  .slide.active > *:nth-child(1){transition-delay:.05s;}
+  .slide.active > *:nth-child(2){transition-delay:.12s;}
+  .slide.active > *:nth-child(3){transition-delay:.19s;}
+  .slide.active > *:nth-child(4){transition-delay:.26s;}
+  .slide.active > *:nth-child(5){transition-delay:.33s;}
+  .slide.active > *:nth-child(6){transition-delay:.40s;}
+
+  @media (prefers-reduced-motion:reduce){
+    .slide, .slide > *{transition:none !important; transform:none !important;}
+  }
+
+  .eyebrow{
+    color:var(--muted); text-transform:uppercase; letter-spacing:.12em;
+    font-size:clamp(10px,1vw,13px); font-weight:600; margin-bottom:12px;
+  }
+  h1{font-family:'Instrument Serif',serif; font-weight:400; font-size:clamp(32px,5vw,64px); line-height:1.05; margin-bottom:10px;}
+  h2{font-family:'Instrument Serif',serif; font-weight:400; font-size:clamp(26px,3.6vw,46px); line-height:1.1; margin-bottom:18px;}
+  .sub{color:var(--muted); font-size:clamp(13px,1.3vw,17px); max-width:60ch;}
+
+  .grid{display:grid; gap:clamp(10px,1.4vw,20px);}
+  .g4{grid-template-columns:repeat(4,1fr);}
+  .g3{grid-template-columns:repeat(3,1fr);}
+  .g2{grid-template-columns:repeat(2,1fr);}
+
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:clamp(14px,1.6vw,26px);
+    box-shadow:0 1px 3px rgba(15,23,42,0.05), 0 8px 24px -12px rgba(15,23,42,0.10);
+  }
+  .kpi-label{color:var(--muted); font-size:clamp(10px,.9vw,13px); text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;}
+  .kpi-value{font-size:clamp(20px,2.6vw,38px); font-weight:600;}
+  .kpi-sub{margin-top:6px; font-size:clamp(11px,1vw,14px); color:var(--muted);}
+  .pos{color:var(--green);} .neg{color:var(--red);} .neu{color:var(--blue);} .warn{color:var(--amber);}
+
+  .decision-box{
+    border-radius:16px; padding:clamp(16px,2vw,28px); display:flex; align-items:center; gap:20px;
+    border:1px solid var(--border);
+    box-shadow:0 1px 3px rgba(15,23,42,0.05), 0 8px 24px -12px rgba(15,23,42,0.10);
+  }
+  .decision-box.green{background:rgba(10,138,74,0.07); border-color:rgba(10,138,74,0.30);}
+  .decision-box.red{background:rgba(217,45,45,0.07); border-color:rgba(217,45,45,0.30);}
+  .decision-box.blue{background:rgba(29,95,214,0.07); border-color:rgba(29,95,214,0.30);}
+  .dot{width:14px; height:14px; border-radius:50%; flex-shrink:0;}
+  .dot.green{background:var(--green);} .dot.red{background:var(--red);} .dot.blue{background:var(--blue);}
+
+  table{width:100%; border-collapse:collapse; font-size:clamp(11px,1vw,15px);}
+  th{text-align:left; color:var(--muted); font-weight:500; text-transform:uppercase; font-size:clamp(9px,.8vw,11px); letter-spacing:.06em; padding:8px 10px; border-bottom:1px solid var(--border);}
+  td{padding:9px 10px; border-bottom:1px solid var(--border);}
+  tr:last-child td{border-bottom:none;}
+  .pill{display:inline-block; padding:2px 10px; border-radius:999px; font-size:clamp(9px,.8vw,12px); font-weight:600;}
+  .pill.beat{background:rgba(10,138,74,0.12); color:var(--green);}
+  .pill.miss{background:rgba(217,45,45,0.12); color:var(--red);}
+
+  ul.bullets{list-style:none;}
+  ul.bullets li{position:relative; padding-left:20px; margin-bottom:10px; font-size:clamp(13px,1.2vw,17px); color:var(--text); line-height:1.5;}
+  ul.bullets li::before{content:"—"; position:absolute; left:0; color:var(--muted);}
+
+  .foot{position:absolute; bottom:clamp(14px,2vw,28px); left:clamp(24px,7vw,120px); right:clamp(24px,7vw,120px); display:flex; justify-content:space-between; align-items:center; color:var(--muted); font-size:clamp(10px,.85vw,12px);}
+  .progress{position:fixed; top:4px; left:0; height:2px; background:var(--text); opacity:.35; z-index:50; transition:width .4s ease;}
+  .navhint{position:fixed; bottom:16px; right:24px; color:var(--muted); font-size:11px; z-index:50;}
+  .dots{position:fixed; bottom:16px; left:50%; transform:translateX(-50%); display:flex; gap:7px; z-index:50;}
+  .dots button{
+    width:7px; height:7px; border-radius:50%; border:none; padding:0;
+    background:rgba(15,23,42,0.18); cursor:pointer; transition:background .3s, transform .3s;
+  }
+  .dots button.active{background:var(--blue); transform:scale(1.3);}
+  @media (prefers-reduced-motion:reduce){.slide{transition:none;}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1: TITLE -->
+  <section class="slide active">
+    <div class="eyebrow">Pathfinder Equity Research &nbsp;·&nbsp; Post-Earnings Note</div>
+    <h1>Alphabet Inc.<br>Q2 2026 Earnings Analysis</h1>
+    <p class="sub">NASDAQ: GOOGL / GOOG &nbsp;·&nbsp; Reported after market close, July 22, 2026 &nbsp;·&nbsp; Analysis as of July 23, 2026</p>
+    <div class="foot"><span>GOOGL — Q2 FY2026</span><span>01 / 10</span></div>
+  </section>
+
+  <!-- SLIDE 2: DECISION SUMMARY -->
+  <section class="slide">
+    <div class="eyebrow">Decision Summary</div>
+    <h2>Beat-and-raise on revenue, but capex hike clouds the reaction</h2>
+    <div class="decision-box blue" style="margin-bottom:20px;">
+      <div class="dot blue"></div>
+      <div>
+        <div style="font-weight:700; font-size:clamp(16px,1.6vw,22px);">Post-earnings bias: WAIT / NEUTRAL-TO-CAUTIOUS</div>
+        <div class="sub" style="margin-top:4px;">Headline beat is real, but the print is a mixed signal — a genuine cloud-driven upside surprise offset by a soft adjusted-EPS read and a third consecutive capex guidance raise. Let the stock find a level over 1–2 sessions before sizing a position.</div>
+      </div>
+    </div>
+    <div class="grid g3">
+      <div class="card"><div class="kpi-label">Revenue</div><div class="kpi-value pos tab">$119.8B</div><div class="kpi-sub">+24% YoY, beat $116.9–117.0B est.</div></div>
+      <div class="card"><div class="kpi-label">GAAP EPS</div><div class="kpi-value pos tab">$9.11</div><div class="kpi-sub">vs ~$2.87–2.91 est. — inflated by $98–99B unrealized equity gains</div></div>
+      <div class="card"><div class="kpi-label">After-hours reaction</div><div class="kpi-value neg tab">-1% to -5%</div><div class="kpi-sub">Volatile two-way tape; settled lower on capex commentary (*)</div></div>
+    </div>
+    <div class="foot"><span>GOOGL — Q2 FY2026</span><span>02 / 10</span></div>
+  </section>
+
+  <!-- SLIDE 3: HEADLINE NUMBERS -->
+  <section class="slide">
+    <div class="eyebrow">Headline Print</div>
+    <h2>Revenue and margins: a clean beat on the core business</h2>
+    <div class="grid g4">
+      <div class="card"><div class="kpi-label">Total Revenue</div><div class="kpi-value tab">$119.8B</div><div class="kpi-sub pos">+24% YoY (+23% cc)</div></div>
+      <div class="card"><div class="kpi-label">Operating Income</div><div class="kpi-value tab">$40.8B</div><div class="kpi-sub pos">+30% YoY</div></div>
+      <div class="card"><div class="kpi-label">Operating Margin</div><div class="kpi-value tab">34%</div><div class="kpi-sub pos">+2 pts YoY</div></div>
+      <div class="card"><div class="kpi-label">Net Income (GAAP)</div><div class="kpi-value tab">$112.1B</div><div class="kpi-sub warn">+298% YoY — mostly unrealized gains</div></div>
+    </div>
+    <ul class="bullets" style="margin-top:22px;">
+      <li>Excluding the ~$98B other-income gain (largely unrealized marks on Anthropic and SpaceX stakes), core operating performance is the cleaner read: operating income +30%, margin at 34%.</li>
+      <li>This was the 12th consecutive quarter of double-digit revenue growth.</li>
+    </ul>
+    <div class="foot"><span>GOOGL — Q2 FY2026</span><span>03 / 10</span></div>
+  </section>
+
+  <!-- SLIDE 4: SEGMENTS -->
+  <section class="slide">
+    <div class="eyebrow">Segment Breakdown</div>
+    <h2>Cloud is the standout; Search growth decelerated slightly</h2>
+    <table>
+      <tr><th>Segment</th><th>Q2 2026 Revenue</th><th>YoY Growth</th><th>Note</th></tr>
+      <tr><td>Google Search & other</td><td class="tab">$63.3B</td><td class="tab pos">+17%</td><td>Slight miss vs. some buy-side ad checks (*)</td></tr>
+      <tr><td>YouTube Ads</td><td class="tab">$11.06B</td><td class="tab pos">+13%</td><td>Beat $10.8B est.; World Cup viewership tailwind</td></tr>
+      <tr><td>Subscriptions, Platforms & Devices</td><td class="tab">$12.9B</td><td class="tab pos">+15%</td><td>Play, hardware, non-ad YouTube</td></tr>
+      <tr><td>Google Cloud</td><td class="tab">$24.8B</td><td class="tab pos">+82%</td><td>Beat ~$22.5B est.; op. income $8.8B vs $2.8B YoY</td></tr>
+      <tr><td>Other Bets</td><td class="tab">$0.38B</td><td class="tab neu">+2%</td><td>Still loss-making</td></tr>
+    </table>
+    <div class="foot"><span>GOOGL — Q2 FY2026</span><span>04 / 10</span></div>
+  </section>
+
+  <!-- SLIDE 5: EARNINGS HISTORY -->
+  <section class="slide">
+    <div class="eyebrow">Earnings History</div>
+    <h2>Seven straight EPS beats — but this one has an asterisk</h2>
+    <table>
+      <tr><th>Quarter</th><th>EPS Est.</th><th>EPS Actual</th><th>Result</th></tr>
+      <tr><td>Q2 2025</td><td class="tab">$2.16</td><td class="tab">$2.31</td><td><span class="pill beat">Beat +6.9%</span></td></tr>
+      <tr><td>Q3 2025</td><td class="tab">$2.27</td><td class="tab">$2.87</td><td><span class="pill beat">Beat +26.4%</span></td></tr>
+      <tr><td>Q4 2025</td><td class="tab">$2.61</td><td class="tab">$2.82</td><td><span class="pill beat">Beat +8.1%</span></td></tr>
+      <tr><td>Q1 2026</td><td class="tab">$2.64–2.67</td><td class="tab">~$5.1–5.2</td><td><span class="pill beat">Beat, large</span></td></tr>
+      <tr><td>Q2 2026</td><td class="tab">$2.87–2.91</td><td class="tab">$9.11</td><td><span class="pill beat">Beat (GAAP) — adj. EPS ~$2.85 slightly light</span></td></tr>
+    </table>
+    <p class="sub" style="margin-top:16px;">GOOGL has beaten consensus EPS in each of the last 7 quarters. Revenue has also topped Street estimates in each of the last 4 quarters. Note: several recent quarters, including this one, carry large non-operating gains from Alphabet's equity stakes, so headline EPS beats overstate the operating trend (*).</p>
+    <div class="foot"><span>GOOGL — Q2 FY2026</span><span>05 / 10</span></div>
+  </section>
+
+  <!-- SLIDE 6: EPS QUALITY -->
+  <section class="slide">
+    <div class="eyebrow">Beat Quality</div>
+    <h2>Why the "beat" doesn't tell the whole story</h2>
+    <div class="grid g2">
+      <div class="card">
+        <div class="kpi-label">Other income (gains on equity securities)</div>
+        <div class="kpi-value warn tab">~$98–99B</div>
+        <div class="kpi-sub">vs. $1.2–2.7B a year ago — largely unrealized marks on Alphabet's Anthropic and SpaceX holdings</div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">Adjusted EPS (ex-gain, per CNBC/LSEG)</div>
+        <div class="kpi-value neg tab">$2.85</div>
+        <div class="kpi-sub">vs. $2.89 expected — a modest miss on the operating basis</div>
+      </div>
+    </div>
+    <ul class="bullets" style="margin-top:22px;">
+      <li>The $9.11 headline print is real GAAP EPS, but the swing factor is a mark-to-market gain, not incremental operating cash flow — treat it as noise for valuation purposes, not signal.</li>
+      <li>The metric that matters more for the multiple: operating margin at 34% (+2 pts) and Cloud's swing to a materially higher operating margin.</li>
+    </ul>
+    <div class="foot"><span>GOOGL — Q2 FY2026</span><span>06 / 10</span></div>
+  </section>
+
+  <!-- SLIDE 7: CAPEX / BULL-BEAR -->
+  <section class="slide">
+    <div class="eyebrow">Key Swing Factor</div>
+    <h2>Capex guidance raised again — the bull/bear fault line</h2>
+    <div class="grid g3">
+      <div class="card"><div class="kpi-label">Q2 Capex</div><div class="kpi-value tab">$44.9B</div><div class="kpi-sub pos">~+100% YoY, +26% QoQ</div></div>
+      <div class="card"><div class="kpi-label">FY2026 Capex Guide</div><div class="kpi-value warn tab">$195–205B</div><div class="kpi-sub">Raised from $180–190B last quarter</div></div>
+      <div class="card"><div class="kpi-label">RPO (backlog)</div><div class="kpi-value pos tab">$514B</div><div class="kpi-sub">Beat $488B est.</div></div>
+    </div>
+    <div class="grid g2" style="margin-top:20px;">
+      <div class="card">
+        <div style="font-weight:700; color:var(--green); margin-bottom:8px;">Bull case</div>
+        <p class="sub">Cloud's 82% growth and $514B in RPO show the AI infrastructure spend is converting to booked, monetizable demand — capex is scaling with visible revenue, not ahead of it.</p>
+      </div>
+      <div class="card">
+        <div style="font-weight:700; color:var(--red); margin-bottom:8px;">Bear case</div>
+        <p class="sub">This is the third consecutive capex guidance raise in a year, management flagged 2027 spend will step up further, and free cash flow has been under pressure — the payback window keeps extending.</p>
+      </div>
+    </div>
+    <div class="foot"><span>GOOGL — Q2 FY2026</span><span>07 / 10</span></div>
+  </section>
+
+  <!-- SLIDE 8: STOCK REACTION -->
+  <section class="slide">
+    <div class="eyebrow">Market Reaction</div>
+    <h2>A genuinely two-sided after-hours tape</h2>
+    <ul class="bullets">
+      <li>Shares swung between roughly $337 and $350 in after-hours trading (prior close ~$342), before settling lower — reports at the time of writing showed GOOGL down approximately 1%–5% depending on the exact snapshot.</li>
+      <li>Initial reaction was positive on the cloud beat and RPO number, then faded as analysts and the earnings call turned to the capex guidance raise.</li>
+      <li>Some sell-side voices (e.g., Deepwater's Gene Munster) argued the stock should be higher given the scale of the cloud beat, calling the muted reaction a function of a slight search miss and capex optics rather than fundamentals.</li>
+      <li>Alphabet entered the print up roughly 4% over the trailing three months, outperforming Meta and Microsoft, roughly flat vs. Amazon, over the same window.</li>
+    </ul>
+    <p class="sub" style="margin-top:14px;">Note: precise options-implied move and historical 8-quarter average earnings-day move are not available in this session (no live options-chain feed connected) — treat any single-session % moves above as directional, not final settlement prices (*).</p>
+    <div class="foot"><span>GOOGL — Q2 FY2026</span><span>08 / 10</span></div>
+  </section>
+
+  <!-- SLIDE 9: WHAT TO WATCH -->
+  <section class="slide">
+    <div class="eyebrow">Forward Watch List</div>
+    <h2>Five things that will drive the next leg</h2>
+    <ol style="list-style:decimal; padding-left:22px;">
+      <li class="sub" style="margin-bottom:14px; font-size:clamp(13px,1.2vw,17px); color:var(--text);"><b>Cloud margin trajectory</b> — op. margin already stepped up to ~35% from ~14% a year ago; can it hold as capacity comes online?</li>
+      <li class="sub" style="margin-bottom:14px; font-size:clamp(13px,1.2vw,17px); color:var(--text);"><b>2027 capex commentary</b> — management flagged spend increasing "significantly" again next year; watch for a number at the next print.</li>
+      <li class="sub" style="margin-bottom:14px; font-size:clamp(13px,1.2vw,17px); color:var(--text);"><b>Search growth durability</b> — 17% growth is strong but decelerated from Q1's 19%; AI Overviews monetization and Gemini 4 competitive response are the swing factors.</li>
+      <li class="sub" style="margin-bottom:14px; font-size:clamp(13px,1.2vw,17px); color:var(--text);"><b>RPO conversion</b> — the $514B backlog needs to convert into recognized Cloud revenue on schedule to justify the capex.</li>
+      <li class="sub" style="margin-bottom:14px; font-size:clamp(13px,1.2vw,17px); color:var(--text);"><b>Free cash flow</b> — FCF has been under pressure from the capex ramp; a stabilizing FCF print would be the clearest "de-risking" signal for the stock.</li>
+    </ol>
+    <div class="foot"><span>GOOGL — Q2 FY2026</span><span>09 / 10</span></div>
+  </section>
+
+  <!-- SLIDE 10: TRADE PLAN -->
+  <section class="slide">
+    <div class="eyebrow">Positioning Note</div>
+    <h2>Trade plan across the three reaction scenarios</h2>
+    <div class="grid g3">
+      <div class="card">
+        <div style="font-weight:700; color:var(--green); margin-bottom:6px;">Gap up / rally</div>
+        <p class="sub">If the market ultimately rewards the Cloud beat and RPO number, existing longs/LEAPS can be held; avoid chasing the first green candle — let the capex narrative settle for a session.</p>
+      </div>
+      <div class="card">
+        <div style="font-weight:700; color:var(--red); margin-bottom:6px;">Gap down / fade</div>
+        <p class="sub">A capex-led selloff toward prior support is a better risk/reward entry point for a long than chasing strength, given the underlying operating trend is intact.</p>
+      </div>
+      <div class="card">
+        <div style="font-weight:700; color:var(--blue); margin-bottom:6px;">Flat / chop</div>
+        <p class="sub">Two-sided, low-conviction tape (as seen in the immediate after-hours action) argues for patience — wait for the next 2–3 sessions of institutional positioning to clarify direction before adding size.</p>
+      </div>
+    </div>
+    <div class="decision-box blue" style="margin-top:22px;">
+      <div class="dot blue"></div>
+      <div class="sub" style="color:var(--text);">Bottom line: the operating business (Cloud, margins, RPO) is stronger than the tape suggests; the headline EPS beat is not — separate the two before sizing any post-earnings trade.</div>
+    </div>
+    <div class="foot"><span>GOOGL — Q2 FY2026</span><span>10 / 10</span></div>
+  </section>
+
+</div>
+<div class="navhint">← → / space · swipe · scroll</div>
+<div class="dots" id="dots"></div>
+
+<script>
+(function(){
+  class PresentationController{
+    constructor(slideSelector, progressEl, dotsEl){
+      this.slides = document.querySelectorAll(slideSelector);
+      this.progressEl = progressEl;
+      this.dotsEl = dotsEl;
+      this.idx = 0;
+      this.total = this.slides.length;
+      this.wheelLock = false;
+      this.touchStartX = null;
+      this._buildDots();
+      this._bindKeyboard();
+      this._bindWheel();
+      this._bindTouch();
+      this.render();
+    }
+    _buildDots(){
+      for(let i=0;i<this.total;i++){
+        const b = document.createElement('button');
+        b.setAttribute('aria-label', 'Go to slide ' + (i+1));
+        b.addEventListener('click', ()=> this.goTo(i));
+        this.dotsEl.appendChild(b);
+      }
+    }
+    _bindKeyboard(){
+      window.addEventListener('keydown', e=>{
+        if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){ e.preventDefault(); this.go(1); }
+        if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); this.go(-1); }
+      });
+    }
+    _bindWheel(){
+      window.addEventListener('wheel', e=>{
+        if(this.wheelLock || Math.abs(e.deltaY) < 20) return;
+        this.wheelLock = true;
+        this.go(e.deltaY > 0 ? 1 : -1);
+        setTimeout(()=> this.wheelLock=false, 600);
+      }, {passive:true});
+    }
+    _bindTouch(){
+      window.addEventListener('touchstart', e=>{ this.touchStartX = e.touches[0].clientX; }, {passive:true});
+      window.addEventListener('touchend', e=>{
+        if(this.touchStartX===null) return;
+        const dx = e.changedTouches[0].clientX - this.touchStartX;
+        if(Math.abs(dx) > 50) this.go(dx < 0 ? 1 : -1);
+        this.touchStartX = null;
+      }, {passive:true});
+    }
+    go(delta){ this.goTo(this.idx + delta); }
+    goTo(i){
+      this.idx = Math.min(this.total - 1, Math.max(0, i));
+      this.render();
+    }
+    render(){
+      this.slides.forEach((s,i)=> s.classList.toggle('active', i === this.idx));
+      this.progressEl.style.width = ((this.idx+1)/this.total*100) + '%';
+      [...this.dotsEl.children].forEach((d,i)=> d.classList.toggle('active', i === this.idx));
+    }
+  }
+
+  new PresentationController('.slide', document.getElementById('progress'), document.getElementById('dots'));
+})();
+</script>
+</body>
+</html>
