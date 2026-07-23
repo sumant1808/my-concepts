@@ -1,0 +1,686 @@
+<title>Solid-State Batteries &amp; the Future of the EV</title>
+<style>
+:root {
+  --ntt-future-blue:        #0072BC;
+  --ntt-future-blue-150:    #005B96;
+  --ntt-future-blue-50:     #19A3FC;
+  --ntt-smart-navy:         #070F26;
+  --ntt-white:              #FFFFFF;
+  --ntt-turquoise:          #00DFED;
+  --ntt-turquoise-100:      #009AA4;
+  --ntt-turquoise-50:       #7BF7FF;
+  --ntt-green:              #00CB5D;
+  --ntt-green-150:          #068941;
+  --ntt-green-50:           #38F990;
+  --ntt-yellow:             #FFC400;
+  --ntt-yellow-100:         #FFDB66;
+  --ntt-yellow-50:          #FFEDB2;
+  --ntt-orange:             #FF7A00;
+  --ntt-orange-100:         #E42600;
+  --ntt-orange-150:         #B22000;
+  --ntt-text-grey:          #2E404D;
+  --ntt-grey-100:           #949494;
+  --ntt-grey-50:            #E8E8E8;
+  --ntt-black:              #000000;
+  --ntt-off-white:          #F8F8F8;
+  --ntt-grey-25:            #F4F5F6;
+  --ntt-navy-700:           oklch(0.26 0.04 256);
+  --ntt-navy-600:           oklch(0.34 0.045 256);
+  --surface-page:      var(--ntt-white);
+  --surface-card:      var(--ntt-white);
+  --surface-sunken:    var(--ntt-grey-25);
+  --surface-raised:    var(--ntt-white);
+  --surface-inverse:   var(--ntt-smart-navy);
+  --text-heading:      var(--ntt-smart-navy);
+  --text-body:         var(--ntt-text-grey);
+  --text-muted:        var(--ntt-grey-100);
+  --text-inverse:      var(--ntt-white);
+  --text-link:         var(--ntt-future-blue);
+  --text-on-accent:    var(--ntt-white);
+  --border-subtle:     var(--ntt-grey-50);
+  --border-strong:     var(--ntt-text-grey);
+  --border-focus:      var(--ntt-future-blue);
+  --action-primary:        var(--ntt-future-blue);
+  --action-primary-hover:  var(--ntt-future-blue-150);
+  --action-primary-text:   var(--ntt-white);
+  --action-secondary-text:        var(--ntt-future-blue);
+  --action-secondary-border:      var(--ntt-future-blue);
+  --action-secondary-hover-bg:    color-mix(in srgb, var(--ntt-future-blue) 8%, transparent);
+  --focus-ring: color-mix(in srgb, var(--ntt-future-blue) 40%, transparent);
+  --status-success:       var(--ntt-green-150);
+  --status-success-bg:    color-mix(in srgb, var(--ntt-green) 14%, var(--ntt-white));
+  --status-info:          var(--ntt-future-blue);
+  --status-info-bg:       color-mix(in srgb, var(--ntt-future-blue) 10%, var(--ntt-white));
+  --status-warning:       var(--ntt-orange);
+  --status-warning-bg:    color-mix(in srgb, var(--ntt-yellow) 22%, var(--ntt-white));
+  --status-danger:        var(--ntt-orange-150);
+  --status-danger-bg:     color-mix(in srgb, var(--ntt-orange-100) 12%, var(--ntt-white));
+  --chart-1: var(--ntt-future-blue);
+  --chart-2: var(--ntt-turquoise-100);
+  --chart-3: var(--ntt-green);
+  --chart-4: var(--ntt-yellow);
+  --chart-5: var(--ntt-orange);
+  --chart-6: var(--ntt-future-blue-50);
+}
+[data-theme="dark"], .theme-dark {
+  --surface-page:      var(--ntt-smart-navy);
+  --surface-card:      var(--ntt-navy-700);
+  --surface-sunken:    color-mix(in srgb, var(--ntt-smart-navy) 70%, #000);
+  --surface-raised:    var(--ntt-navy-700);
+  --surface-inverse:   var(--ntt-white);
+  --text-heading:      var(--ntt-white);
+  --text-body:         var(--ntt-off-white);
+  --text-muted:        var(--ntt-grey-100);
+  --text-inverse:      var(--ntt-smart-navy);
+  --text-link:         var(--ntt-future-blue-50);
+  --text-on-accent:    var(--ntt-white);
+  --border-subtle:     var(--ntt-navy-600);
+  --border-strong:     var(--ntt-grey-100);
+  --border-focus:      var(--ntt-future-blue-50);
+  --action-primary:        var(--ntt-future-blue);
+  --action-primary-hover:  var(--ntt-future-blue-50);
+  --action-primary-text:   var(--ntt-white);
+  --action-secondary-text:     var(--ntt-future-blue-50);
+  --action-secondary-border:   var(--ntt-future-blue-50);
+  --action-secondary-hover-bg: color-mix(in srgb, var(--ntt-future-blue-50) 14%, transparent);
+  --focus-ring: color-mix(in srgb, var(--ntt-future-blue-50) 50%, transparent);
+  --status-success-bg: color-mix(in srgb, var(--ntt-green) 20%, var(--ntt-smart-navy));
+  --status-info-bg:    color-mix(in srgb, var(--ntt-future-blue) 24%, var(--ntt-smart-navy));
+  --status-warning-bg: color-mix(in srgb, var(--ntt-orange) 22%, var(--ntt-smart-navy));
+  --status-danger-bg:  color-mix(in srgb, var(--ntt-orange-100) 24%, var(--ntt-smart-navy));
+}
+:root {
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-body:    Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-mono:    ui-monospace, Menlo, Consolas, monospace;
+  --weight-regular: 400;
+  --weight-bold:    700;
+  --text-display:  3.75rem;
+  --text-h1:       3rem;
+  --text-h2:       2.25rem;
+  --text-h3:       1.75rem;
+  --text-h4:       1.375rem;
+  --text-body-lg:  1.25rem;
+  --text-size-body: 1rem;
+  --text-sm:       0.875rem;
+  --text-xs:       0.75rem;
+  --leading-tight:   1.1;
+  --leading-snug:    1.25;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+  --tracking-tight:  -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.04em;
+  --tracking-caps:   0.08em;
+  --type-title-family:  var(--font-display);
+  --type-body-family:   var(--font-body);
+}
+.ntt-type, .ntt-type :where(h1, h2, h3, h4, h5, h6, p, li, a, span, button, input, td, th) { font-family: var(--font-body); }
+.ntt-type :where(h1, h2, h3, h4, h5, h6) { font-family: var(--font-display); color: var(--text-heading); line-height: var(--leading-snug); font-weight: var(--weight-bold); margin: 0; }
+.ntt-type :where(p, li) { color: var(--text-body); line-height: var(--leading-normal); }
+.type-display { font-family: var(--font-display); font-size: var(--text-display); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); font-weight: var(--weight-bold); color: var(--text-heading); }
+.type-h1 { font-family: var(--font-display); font-size: var(--text-h1); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); font-weight: var(--weight-bold); color: var(--text-heading); }
+.type-h2 { font-family: var(--font-display); font-size: var(--text-h2); line-height: var(--leading-snug); font-weight: var(--weight-bold); color: var(--text-heading); }
+.type-h3 { font-family: var(--font-display); font-size: var(--text-h3); line-height: var(--leading-snug); font-weight: var(--weight-bold); color: var(--text-heading); }
+.type-h4 { font-family: var(--font-display); font-size: var(--text-h4); line-height: var(--leading-snug); font-weight: var(--weight-bold); color: var(--text-heading); }
+.type-body-lg { font-family: var(--font-body); font-size: var(--text-body-lg); line-height: var(--leading-normal); color: var(--text-body); }
+.type-body { font-family: var(--font-body); font-size: var(--text-size-body); line-height: var(--leading-normal); color: var(--text-body); }
+.type-sm { font-family: var(--font-body); font-size: var(--text-sm); line-height: var(--leading-normal); color: var(--text-body); }
+.type-caption { font-family: var(--font-body); font-size: var(--text-xs); line-height: var(--leading-normal); color: var(--text-muted); }
+.type-eyebrow { font-family: var(--font-body); font-size: var(--text-sm); font-weight: var(--weight-bold); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--action-primary); }
+:root {
+  --space-0: 0; --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.5rem; --space-6: 2rem; --space-7: 3rem; --space-8: 4rem; --space-9: 6rem; --space-10: 8rem;
+  --radius-none: 0; --radius-sm: 2px; --radius-md: 4px; --radius-lg: 8px; --radius-xl: 16px; --radius-full: 999px;
+  --border-width: 1px; --border-width-strong: 2px;
+  --container-sm: 640px; --container-md: 960px; --container-lg: 1200px; --container-xl: 1440px; --gutter: var(--space-5);
+  --control-h-sm: 32px; --control-h-md: 40px; --control-h-lg: 48px;
+  --z-base: 0; --z-dropdown: 1000; --z-sticky: 1100; --z-overlay: 1200; --z-modal: 1300; --z-toast: 1400;
+}
+:root {
+  --shadow-xs: 0 1px 2px color-mix(in srgb, var(--ntt-smart-navy) 8%, transparent);
+  --shadow-sm: 0 1px 3px color-mix(in srgb, var(--ntt-smart-navy) 10%, transparent), 0 1px 2px color-mix(in srgb, var(--ntt-smart-navy) 6%, transparent);
+  --shadow-md: 0 4px 12px color-mix(in srgb, var(--ntt-smart-navy) 12%, transparent), 0 2px 4px color-mix(in srgb, var(--ntt-smart-navy) 8%, transparent);
+  --shadow-lg: 0 12px 28px color-mix(in srgb, var(--ntt-smart-navy) 16%, transparent), 0 4px 8px color-mix(in srgb, var(--ntt-smart-navy) 8%, transparent);
+  --shadow-xl: 0 24px 56px color-mix(in srgb, var(--ntt-smart-navy) 22%, transparent);
+  --ring: 0 0 0 3px var(--focus-ring);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1); --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --duration-fast: 120ms; --duration-base: 200ms; --duration-slow: 320ms;
+  --transition-base: all var(--duration-base) var(--ease-standard);
+  --gradient-future: linear-gradient(120deg, var(--ntt-future-blue) 0%, var(--ntt-turquoise) 100%);
+  --gradient-energy: linear-gradient(120deg, var(--ntt-future-blue) 0%, var(--ntt-green) 100%);
+  --gradient-warm: linear-gradient(120deg, var(--ntt-orange) 0%, var(--ntt-yellow) 100%);
+  --gradient-navy: linear-gradient(160deg, var(--ntt-smart-navy) 0%, #0e1c3f 100%);
+  --scrim-navy: linear-gradient(180deg, color-mix(in srgb, var(--ntt-smart-navy) 0%, transparent) 0%, color-mix(in srgb, var(--ntt-smart-navy) 78%, transparent) 100%);
+  --overlay-cover: color-mix(in srgb, var(--ntt-smart-navy) 62%, transparent);
+}
+@media (prefers-reduced-motion: reduce) { :root { --duration-fast: 0ms; --duration-base: 0ms; --duration-slow: 0ms; } }
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; font-family: var(--font-body); font-size: var(--text-size-body); line-height: var(--leading-normal); color: var(--text-body); background: var(--surface-page); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: var(--weight-bold); color: var(--text-heading); line-height: var(--leading-snug); margin: 0 0 var(--space-3); text-wrap: balance; }
+h1 { font-size: var(--text-h1); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); }
+h2 { font-size: var(--text-h2); } h3 { font-size: var(--text-h3); } h4 { font-size: var(--text-h4); }
+p { margin: 0 0 var(--space-4); text-wrap: pretty; }
+a { color: var(--text-link); text-decoration: none; } a:hover { text-decoration: underline; }
+img, svg, video { max-width: 100%; display: block; }
+hr { border: 0; border-top: var(--border-width) solid var(--border-subtle); margin: var(--space-6) 0; }
+code, pre, kbd, samp { font-family: var(--font-mono); font-size: 0.9em; }
+:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+::selection { background: color-mix(in srgb, var(--ntt-future-blue) 22%, transparent); }
+small { font-size: var(--text-sm); } strong, b { font-weight: var(--weight-bold); }
+</style>
+<style>
+html { scroll-behavior:smooth; }
+body { margin:0; background:var(--ntt-smart-navy); color:rgba(255,255,255,.82); font-family:var(--font-body); overflow-x:hidden; }
+::selection { background:rgba(0,223,237,.35); }
+b, strong { color:#fff; }
+.exhibit .ex-body b, .exhibit .ex-body strong, .lightband b, .lightband strong { color:inherit; }
+.eyebrow, .sect-k, .act-k { font:700 12px/1.5 var(--font-body); text-transform:uppercase; letter-spacing:.18em; color:var(--ntt-turquoise); }
+.sect-k { margin:0 0 26px; }
+.cover { min-height:100svh; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; }
+.cover-in { display:flex; align-items:center; gap:60px; max-width:1280px; margin:0 auto; padding:26px 40px 0; flex:1; min-height:0; width:100%; box-sizing:border-box; }
+.cover-copy { flex:1 1 58%; min-width:320px; }
+.mast { margin:16px 0 0; font-family:var(--font-display); font-weight:700; font-size:clamp(42px,6vw,86px); line-height:1.02; letter-spacing:-.02em; color:#fff; }
+.stand { margin:24px 0 0; font-size:clamp(16px,1.5vw,20px); line-height:1.6; max-width:560px; color:rgba(255,255,255,.85); }
+.byline { margin:22px 0 0; font:700 13px/1.4 var(--font-body); text-transform:uppercase; letter-spacing:.16em; color:var(--ntt-turquoise); }
+.cover-art { flex:0 1 40%; height:min(70vh, 640px); min-height:300px; display:flex; align-items:center; justify-content:center; }
+.actline { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:16px clamp(22px,4vw,58px); border-top:1px solid rgba(255,255,255,.14); margin-top:26px; padding:21px 40px 25px; }
+.actline a { display:flex; align-items:center; gap:11px; color:rgba(255,255,255,.62); text-decoration:none; font:700 12px/1 var(--font-body); letter-spacing:.14em; text-transform:uppercase; white-space:nowrap; transition:color .15s; }
+.actline a b { font-family:var(--font-display); font-weight:700; font-size:19px; line-height:1; letter-spacing:0; color:var(--ntt-turquoise); position:relative; top:-1px; }
+.actline a:hover { color:#fff; text-decoration:none; }
+.scrollcue { position:absolute; right:42px; bottom:104px; color:rgba(255,255,255,.55); font:700 12px/1 var(--font-body); letter-spacing:.22em; text-transform:uppercase; text-decoration:none; display:flex; align-items:center; gap:10px; }
+.scrollcue span { font-size:16px; animation:cuebob 1.8s ease-in-out infinite; }
+@keyframes cuebob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+.scrollcue:hover { color:#fff; }
+.act-open, .epi { display:flex; flex-direction:column; justify-content:center; padding:150px 40px 70px; position:relative; overflow:hidden; max-width:1280px; margin:0 auto; box-sizing:border-box; }
+.act-t { margin:16px 0 0; font-family:var(--font-display); font-weight:700; font-size:clamp(44px,6.6vw,92px); line-height:1.02; letter-spacing:-.02em; color:#fff; max-width:1000px; }
+.act-s { margin:24px 0 0; font-size:clamp(16px,1.4vw,19px); line-height:1.6; max-width:620px; color:rgba(255,255,255,.75); }
+.flow { max-width:1280px; margin:0 auto; padding:24px 40px 96px; box-sizing:border-box; }
+.prose { max-width:760px; font-size:16.5px; line-height:1.75; }
+.prose p { margin:0 0 22px; }
+.bigline { margin:60px 0 34px; font-family:var(--font-display); font-weight:700; font-size:clamp(30px,4vw,54px); line-height:1.12; letter-spacing:-.015em; color:#fff; max-width:900px; }
+.bigline em { font-style:normal; color:var(--ntt-turquoise); }
+.flow > .bigline:first-child { margin-top:0; }
+.exhibit { margin:44px 0; background:#fff; border-radius:18px; padding:40px 44px 34px; color:var(--text-body); box-shadow:0 30px 80px rgba(0,0,0,.45); }
+.exhibit-raw { background:transparent; padding:0; box-shadow:none; color:inherit; }
+.ex-label { display:flex; align-items:baseline; gap:18px; margin:0 0 26px; }
+.exhibit-raw .ex-label { margin-bottom:18px; }
+.ex-num { font:700 12px/1 var(--font-mono); letter-spacing:.16em; color:var(--ntt-future-blue); background:color-mix(in srgb, var(--ntt-future-blue) 10%, #fff); border:1px solid color-mix(in srgb, var(--ntt-future-blue) 30%, #fff); padding:6px 10px; border-radius:5px; white-space:nowrap; }
+.exhibit-raw .ex-num { background:rgba(0,114,188,.18); border-color:rgba(0,114,188,.5); color:var(--ntt-turquoise); }
+.ex-title { font:700 17px/1.3 var(--font-display); color:var(--text-heading); letter-spacing:-.01em; }
+.exhibit-raw .ex-title { color:#fff; }
+.ex-note { margin-top:22px; font-size:12px; line-height:1.6; color:var(--text-muted); }
+.exhibit-raw .ex-note { color:rgba(255,255,255,.45); }
+.statwall { display:grid; grid-template-columns:repeat(4,1fr); gap:44px; margin:48px 0 32px; }
+.statwall-3 { grid-template-columns:repeat(3,1fr); }
+.stat b { display:block; font-family:var(--font-display); font-weight:700; font-size:clamp(38px,4.2vw,60px); line-height:.95; color:var(--ntt-turquoise); }
+.stat i { display:block; width:40px; height:4px; background:var(--ntt-future-blue); margin:20px 0 14px; }
+.stat u { display:block; text-decoration:none; font:700 12px/1.4 var(--font-body); text-transform:uppercase; letter-spacing:.08em; color:#fff; margin-bottom:10px; }
+.stat p { margin:0; font-size:15px; line-height:1.6; color:rgba(255,255,255,.68); }
+.mega { display:flex; gap:6vw; align-items:center; max-width:1280px; margin:0 auto; padding:60px 0; box-sizing:border-box; flex-wrap:wrap; }
+.mega-num { font-family:var(--font-display); font-weight:700; font-size:clamp(90px,13vw,190px); line-height:.9; letter-spacing:-.04em; color:var(--ntt-orange); flex:0 0 auto; min-width:2.35em; }
+.mega-blue .mega-num { color:var(--ntt-turquoise); }
+.mega-side { flex:1 1 420px; max-width:680px; font-size:16.5px; line-height:1.7; }
+.mega-lead { font-family:var(--font-display); font-weight:700; font-size:clamp(22px,2.4vw,30px); line-height:1.15; color:#fff; margin:0 0 20px; letter-spacing:-.01em; }
+.mega-punch { font-weight:700; color:var(--ntt-turquoise); font-size:17px; }
+.gapbars { margin-top:34px; display:flex; flex-direction:column; gap:20px; }
+.gb-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+.gb-head span { font-size:12.5px; color:rgba(255,255,255,.6); }
+.gb-head b { font-family:var(--font-display); font-size:22px; color:#fff; }
+.gb-track { background:rgba(255,255,255,.1); border-radius:6px; height:14px; overflow:hidden; }
+.gb-fill { height:100%; width:var(--w); border-radius:6px; }
+.ladder { margin:60px 0 0; }
+.lad-row { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; border-radius:14px; overflow:hidden; }
+.lad { padding:28px 26px 30px; background:rgba(255,255,255,.05); position:relative; }
+.lad b { font-family:var(--font-display); font-size:26px; color:rgba(255,255,255,.35); }
+.lad u { display:block; text-decoration:none; font:700 13px/1.3 var(--font-body); text-transform:uppercase; letter-spacing:.08em; color:#fff; margin:10px 0 8px; }
+.lad p { margin:0; font-size:14.5px; line-height:1.55; color:rgba(255,255,255,.66); }
+.lad.l1 { box-shadow:inset 0 3px 0 var(--ntt-orange-100); }
+.lad.l2 { box-shadow:inset 0 3px 0 var(--ntt-grey-100); }
+.lad.l3 { box-shadow:inset 0 3px 0 var(--ntt-future-blue); }
+.lad.l4 { box-shadow:inset 0 3px 0 var(--ntt-turquoise); background:rgba(0,223,237,.07); }
+.lad-tag { position:absolute; top:24px; right:20px; font:700 12px/1 var(--font-body); letter-spacing:.1em; color:var(--ntt-yellow); }
+.ladder .ex-note { color:rgba(255,255,255,.4); }
+.catchline { margin:60px auto; max-width:900px; text-align:center; font-family:var(--font-display); font-weight:700; font-size:clamp(26px,3.4vw,44px); line-height:1.2; color:#fff; letter-spacing:-.01em; }
+.callout { margin-top:26px; background:rgba(0,223,237,.06); border-left:4px solid var(--ntt-turquoise); padding:19px 26px; border-radius:0 12px 12px 0; max-width:920px; }
+.callout b { display:block; font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.14em; color:var(--ntt-turquoise); margin-bottom:9px; }
+.callout p { margin:0; font-size:15.5px; line-height:1.6; color:rgba(255,255,255,.87); }
+.checkcard { background:rgba(0,203,93,.08); border:1px solid rgba(0,203,93,.35); border-radius:14px; padding:26px 30px; }
+.checkcard > b { display:block; font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.12em; color:var(--ntt-green); margin-bottom:16px; }
+.checkcard ul { margin:0; padding:0; list-style:none; }
+.checkcard li { padding:7px 0 7px 26px; position:relative; font-size:15.5px; color:rgba(255,255,255,.87); }
+.checkcard li::before { content:"\2713"; position:absolute; left:0; color:var(--ntt-green); font-weight:700; }
+.debts { margin-top:40px; align-items:stretch; display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.debt { display:flex; flex-direction:column; background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:32px 34px; }
+.debt .callout, .debt .debt-stats { margin-top:auto; }
+.debt-t { font-family:var(--font-display); font-size:26px; color:#fff; }
+.debt-lead { font-weight:700; color:#fff; margin:14px 0 4px; font-size:16px; }
+.debt ul { margin:12px 0 0; padding-left:18px; }
+.debt li { margin:8px 0; font-size:15px; line-height:1.6; color:rgba(255,255,255,.76); }
+.debt-stats { display:flex; gap:36px; margin-top:26px; }
+.debt-stats b { display:block; font-family:var(--font-display); font-size:26px; color:var(--ntt-orange-100); }
+.debt-stats span { font-size:13px; color:rgba(255,255,255,.6); }
+.manifesto { margin:44px 0 0; padding:0; list-style:none; counter-reset:mf; }
+.manifesto li { counter-increment:mf; display:grid; grid-template-columns:90px 1fr 200px; gap:24px; align-items:baseline; padding:26px 0; border-top:1px solid rgba(255,255,255,.12); }
+.manifesto li::before { content:"0" counter(mf); font-family:var(--font-display); font-weight:700; font-size:48px; line-height:1; color:var(--ntt-turquoise); }
+.manifesto b { display:block; font-family:var(--font-display); font-weight:700; font-size:clamp(19px,2vw,25px); line-height:1.2; color:#fff; letter-spacing:-.01em; }
+.manifesto p { margin:10px 0 0; font-size:15px; line-height:1.6; color:rgba(255,255,255,.7); grid-column:2; }
+.manifesto span { font:700 12px/1.5 var(--font-body); text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.38); text-align:right; align-self:start; padding-top:12px; }
+.epi { text-align:left; padding:100px 40px 60px; }
+.epi .act-t { font-size:clamp(38px,5.2vw,70px); }
+.epi .act-s { margin:20px 0 0; }
+.epi-list { margin:52px 0 0; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:auto auto auto; column-gap:48px; row-gap:24px; }
+.epi-list > div { display:grid; grid-template-rows:subgrid; grid-row:span 3; align-content:start; min-width:0; }
+.epi-list b { font-family:var(--font-display); font-weight:700; font-size:32px; line-height:1; color:var(--ntt-turquoise); flex:none; }
+.epi-list u { display:block; text-decoration:none; font-family:var(--font-display); font-weight:700; font-size:clamp(19px,2.05vw,26px); line-height:1.22; color:#fff; letter-spacing:-.01em; margin:16px 0 12px; align-self:start; }
+.epi-list p { margin:0; align-self:start; font-size:15.5px; color:rgba(255,255,255,.66); }
+.foot { border-top:1px solid rgba(255,255,255,.12); }
+.foot-grid { max-width:1280px; margin:0 auto; padding:24px 40px 30px; display:grid; grid-template-columns:1fr 1.3fr; gap:56px; align-items:start; font-size:12px; line-height:1.6; color:rgba(255,255,255,.5); }
+.foot-brand p { margin:8px 0 0; }
+.foot-src b { display:block; font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.14em; color:rgba(255,255,255,.45); margin-bottom:6px; }
+.foot-src p { margin:0; }
+#bar { position:fixed; top:0; left:0; right:0; z-index:900; display:flex; align-items:center; gap:22px; padding:0 26px; height:54px; background:rgba(7,15,38,.86); backdrop-filter:blur(10px); border-bottom:1px solid rgba(255,255,255,.08); transform:translateY(-100%); transition:transform .3s ease; }
+#bar.on { transform:none; }
+#bar-acts { flex:1; display:flex; justify-content:center; gap:clamp(14px,2.4vw,34px); overflow:hidden; }
+#bar-acts a { display:flex; align-items:center; gap:7px; font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.11em; color:rgba(255,255,255,.5); text-decoration:none; white-space:nowrap; transition:color .15s; }
+#bar-acts a b { font-family:var(--font-display); font-weight:700; font-size:13px; line-height:1; letter-spacing:0; color:rgba(255,255,255,.65); position:relative; top:-1px; }
+#bar-acts a:hover { color:#fff; text-decoration:none; }
+#bar-acts a.on, #bar-acts a.on b { color:var(--ntt-turquoise); }
+#idxbtn { background:none; border:1px solid rgba(255,255,255,.3); color:#fff; font:700 12px/1 var(--font-body); letter-spacing:.12em; text-transform:uppercase; border-radius:999px; padding:8px 18px; cursor:pointer; }
+#idxbtn:hover { border-color:var(--ntt-turquoise); color:var(--ntt-turquoise); }
+#prog { position:absolute; left:0; bottom:-1px; height:2px; width:0; background:linear-gradient(90deg, var(--ntt-future-blue), var(--ntt-turquoise)); }
+#chindex { position:fixed; inset:0; z-index:1000; background:rgba(7,15,38,.98); backdrop-filter:blur(8px); display:none; overflow:auto; }
+#chindex.open { display:block; }
+.chin { max-width:820px; margin:0 auto; padding:56px 36px 80px; }
+.chin-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:50px; }
+#idxclose { background:none; border:1.5px solid rgba(255,255,255,.4); color:#fff; width:44px; height:44px; border-radius:50%; font-size:22px; cursor:pointer; }
+.chrow { display:flex; gap:26px; align-items:baseline; padding:24px 0; border-bottom:1px solid rgba(255,255,255,.14); text-decoration:none; }
+.chrow span { font-family:var(--font-display); font-weight:700; font-size:18px; color:var(--ntt-turquoise); width:40px; flex:none; }
+.chrow b { font-family:var(--font-display); font-weight:700; font-size:clamp(24px,3.2vw,36px); color:#fff; letter-spacing:-.01em; }
+.chrow:hover b { color:var(--ntt-turquoise); }
+.tline { display:grid; grid-template-columns:1fr 130px 1fr 130px 1fr; grid-template-rows:auto auto auto auto; gap:0; margin-top:44px; }
+.tl-node { text-align:center; padding:0 18px; display:grid; grid-template-rows:subgrid; grid-row:span 4; align-items:start; justify-items:center; }
+.tl-dot { width:62px; height:62px; border:2px solid; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto; background:rgba(255,255,255,.03); grid-row:1; }
+.tl-node u { display:block; text-decoration:none; font:700 12px/1.3 var(--font-body); text-transform:uppercase; letter-spacing:.08em; color:rgba(255,255,255,.75); margin-top:18px; align-self:end; }
+.tl-node b { display:block; font-family:var(--font-display); font-weight:700; font-size:20px; line-height:1.2; color:#fff; margin:7px 0 10px; align-self:start; }
+.tl-node p { margin:0 auto; font-size:14.5px; line-height:1.6; color:rgba(255,255,255,.66); max-width:340px; }
+.tl-link { position:relative; height:62px; display:flex; align-items:center; justify-content:center; grid-row:1; }
+.tline > :nth-child(1) { grid-column:1; } .tline > :nth-child(2) { grid-column:2; } .tline > :nth-child(3) { grid-column:3; } .tline > :nth-child(4) { grid-column:4; } .tline > :nth-child(5) { grid-column:5; }
+.tl-link::before { content:""; position:absolute; left:-46px; right:-46px; top:50%; border-top:2px dashed rgba(255,255,255,.3); }
+.tl-pill { position:relative; z-index:1; background:var(--ntt-smart-navy); border:1.5px solid var(--ntt-turquoise); border-radius:13px; padding:8px 14px; text-align:center; font:600 12px/1.3 var(--font-body); text-transform:uppercase; letter-spacing:.07em; color:var(--ntt-turquoise); white-space:nowrap; }
+.tl-pill b { display:block; font-family:var(--font-display); font-weight:700; font-size:15px; line-height:1; color:#fff; }
+.banklist { margin-top:32px; border-top:1px solid rgba(255,255,255,.14); }
+.bk { display:grid; grid-template-columns:200px 170px 1fr; gap:26px; align-items:baseline; padding:24px 0; border-bottom:1px solid rgba(255,255,255,.1); }
+.bk b { font-family:var(--font-display); font-weight:700; font-size:20px; color:#fff; letter-spacing:-.01em; }
+.bk em { font-family:var(--font-display); font-weight:700; font-style:normal; font-size:17px; color:var(--ntt-turquoise); }
+.bk p { margin:0; font-size:14.5px; line-height:1.6; color:rgba(255,255,255,.68); }
+.bk span { font:700 12px/1.5 var(--font-body); text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.4); text-align:right; }
+.mtable { margin-top:36px; border-top:2px solid rgba(255,255,255,.35); }
+.mt-h, .mt-r { display:grid; grid-template-columns:120px 210px 1fr 250px; gap:22px; align-items:baseline; padding:15px 0; border-bottom:1px solid rgba(255,255,255,.1); }
+.mt-h { font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.12em; color:rgba(255,255,255,.45); border-bottom-color:rgba(255,255,255,.25); }
+.mt-r b { font-size:15px; color:#fff; }
+.mt-r p { margin:0; font-size:14px; line-height:1.55; color:rgba(255,255,255,.66); }
+.mt-r em { font-style:normal; font-size:13px; color:var(--ntt-turquoise); }
+.pull { margin:44px 0 0; max-width:900px; }
+.pull p { margin:0; font-family:var(--font-display); font-weight:700; font-size:clamp(26px,4vw,44px); line-height:1.18; letter-spacing:-.015em; color:#fff; }
+.pull footer { margin-top:22px; font-size:14px; color:rgba(255,255,255,.6); display:flex; align-items:center; gap:14px; }
+.pq-av { width:44px; height:44px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font:700 16px/1 var(--font-display); color:#fff; flex:none; background:var(--ntt-future-blue); }
+.scene { padding:100px clamp(24px,6vw,90px) 60px; max-width:1280px; margin:0 auto; box-sizing:border-box; }
+.scene-in { width:100%; max-width:1180px; margin:0 auto; }
+.scene-open { position:relative; }
+.scene-open::before { content:attr(data-n); position:absolute; right:20px; top:60px; font-family:var(--font-display); font-weight:700; font-size:clamp(120px,20vw,260px); line-height:.8; color:transparent; -webkit-text-stroke:1.5px rgba(255,255,255,.10); pointer-events:none; }
+.sc-title { margin:0 0 26px; font-family:var(--font-display); font-weight:700; font-size:clamp(22px,2.4vw,30px); line-height:1.15; letter-spacing:-.01em; color:var(--ntt-turquoise); }
+.pre-rv { opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s ease; }
+.rv { opacity:1; transform:none; }
+@media (max-width:900px) {
+  .statwall, .statwall-3 { grid-template-columns:repeat(2,1fr); }
+  .lad-row { grid-template-columns:repeat(2,1fr) !important; }
+  .tline { grid-template-columns:1fr; grid-template-rows:none; }
+  .tl-link { display:none; }
+  .tl-node { grid-row:auto; padding:20px 0; }
+  .mt-h, .mt-r, .bk { grid-template-columns:1fr; gap:6px; }
+  .mt-h { display:none; }
+  .debts { grid-template-columns:1fr; }
+  .epi-list { grid-template-columns:1fr; }
+  .manifesto li { grid-template-columns:1fr; }
+  .manifesto span { text-align:left; }
+}
+</style>
+
+<section class="cover" id="prologue">
+  <div class="cover-in">
+    <div class="cover-copy">
+      <p class="eyebrow">EV &amp; Automotive Focus &middot; Exec Research Brief &middot; July 2026</p>
+      <h1 class="mast">Solid-state batteries<br>and the future of<br>the EV.</h1>
+      <p class="stand"><b style="color:var(--ntt-turquoise);">The one-line thesis:</b> the physics case is real and independently demonstrated — but every cost figure, launch date, and safety claim in circulation still needs a discount applied.</p>
+      <p class="byline">Deep Research Brief &middot; Solid-State Battery Technology</p>
+    </div>
+    <div class="cover-art">
+      <div class="mega-num" style="font-size:clamp(70px,9vw,130px);">2027<span style="color:var(--ntt-turquoise);">&ndash;</span>28</div>
+    </div>
+  </div>
+  <nav class="actline" aria-label="Acts">
+    <a href="#act1"><b>I</b><span>Market &amp; value</span></a>
+    <a href="#act2"><b>II</b><span>Players</span></a>
+    <a href="#act3"><b>III</b><span>Risk</span></a>
+    <a href="#act4"><b>IV</b><span>Technology</span></a>
+    <a href="#act5"><b>V</b><span>Automaker programs</span></a>
+    <a href="#epilogue"><b>VI</b><span>Closing</span></a>
+  </nav>
+  <a class="scrollcue" href="#act1">Scroll<span>&darr;</span></a>
+</section>
+
+<!-- ACT I — MARKET & VALUE CHAIN -->
+<section class="scene scene-open" data-n="I" id="act1">
+  <div class="scene-in">
+    <p class="act-k">Act I</p>
+    <h2 class="act-t">A technology<br>still pricing itself.</h2>
+    <p class="act-s">Nobody agrees on what a solid-state cell costs today — and that uncertainty is the single most important fact for anyone underwriting this transition.</p>
+  </div>
+</section>
+
+<section class="scene">
+  <div class="scene-in">
+    <h3 class="sc-title">Li-ion has a Tier 1 price anchor. Solid-state does not.</h3>
+    <p class="bigline">Conventional lithium-ion hit a record-low <em>$139/kWh</em>, then <em>$132/kWh</em> the following year (BloombergNEF, tier 1). Solid-state has no equivalent single authoritative figure — only a scatter of disagreeing estimates.</p>
+    <div class="exhibit">
+      <div class="ex-label"><span class="ex-num">EXHIBIT 01</span><span class="ex-title">Four sources, four different cost multiples — a preserved conflict, not resolved</span></div>
+      <div class="ex-body">
+        <div class="gapbars">
+          <div><div class="gb-head"><span>Battery Scorecard 2026 (tier 2)</span><b>4&ndash;6&times;</b></div><div class="gb-track"><div class="gb-fill" style="--w:55%;background:var(--ntt-turquoise);"></div></div></div>
+          <div><div class="gb-head"><span>Secondary aggregation, unverified (tier 3)</span><b>3&ndash;10&times;</b></div><div class="gb-track"><div class="gb-fill" style="--w:90%;background:var(--ntt-future-blue);"></div></div></div>
+          <div><div class="gb-head"><span>China trade press (tier 2)</span><b>~4&times;</b></div><div class="gb-track"><div class="gb-fill" style="--w:42%;background:var(--ntt-yellow);"></div></div></div>
+          <div><div class="gb-head"><span>CATL self-description (tier 2)</span><b>3&ndash;5&times;</b></div><div class="gb-track"><div class="gb-fill" style="--w:45%;background:var(--ntt-orange);"></div></div></div>
+        </div>
+      </div>
+      <p class="ex-note">No automaker or cell-maker disclosure gives a single authoritative current $/kWh figure. A peer-reviewed ScienceDirect study citing a $113/kWh sulfide-cell floor could not be fetched (HTTP 403) — flagged unverified. Source: cost-economics.md.</p>
+    </div>
+  </div>
+</section>
+
+<section class="scene">
+  <div class="scene-in">
+    <h3 class="sc-title">The value chain, and what's driving the premium</h3>
+    <div class="tline">
+      <div class="tl-node"><div class="tl-dot" style="border-color:var(--ntt-future-blue);">&#9679;</div><u>Raw materials</u><b>Li&#8322;S + Li carbonate</b><p>Lithium sulfide is 70&ndash;80% of sulfide-cell electrolyte cost; lithium carbonate roughly doubled in Q1 2026 [needs verification].</p></div>
+      <div class="tl-link"><div class="tl-pill">Dry-room<br><b>processing</b></div></div>
+      <div class="tl-node"><div class="tl-dot" style="border-color:var(--ntt-turquoise);">&#9679;</div><u>Cell manufacturing</u><b>Sulfide electrolyte</b><p>70&ndash;80% of total cell cost. Material pricing fell from ~75,000 to ~15,000 yuan/kg 2023&rarr;2025, ~7,000 yuan/kg expected 2026.</p></div>
+      <div class="tl-link"><div class="tl-pill">Pack &amp;<br><b>vehicle integration</b></div></div>
+      <div class="tl-node"><div class="tl-dot" style="border-color:var(--ntt-green);">&#9679;</div><u>End customer</u><b>No margin map exists</b><p>No Tier 1 source breaks out stage-by-stage margins for solid-state specifically — an explicit gap in cost-economics.md.</p></div>
+    </div>
+    <p class="callout" style="margin-top:44px;"><b>Demand forecast, read as forecast not fact</b><p>~13M EV units with solid-state batteries by 2030 (~15% of EV market), ~47.6% CAGR 2026&ndash;2034 — both Tier 2/secondary-sourced, pending direct BNEF confirmation.</p></p>
+  </div>
+</section>
+
+<section class="scene">
+  <div class="scene-in">
+    <h3 class="sc-title">The honest exec summary for Act I</h3>
+    <p class="catchline">A large, fast-growing addressable market — priced several multiples above the chemistry it aims to replace, on a timeline nobody can pin down.</p>
+  </div>
+</section>
+
+<!-- ACT II — STAKEHOLDERS & PLAYERS -->
+<section class="scene scene-open" data-n="II" id="act2">
+  <div class="scene-in">
+    <p class="act-k">Act II</p>
+    <h2 class="act-t">A field without<br>settled winners.</h2>
+    <p class="act-s">Three tiers are racing this at once: dedicated startups betting the company on it, Asian cell-makers treating it as one product line, and automakers running in-house or JV programs.</p>
+  </div>
+</section>
+
+<section class="scene">
+  <div class="scene-in">
+    <h3 class="sc-title">The players, at a glance</h3>
+    <div class="banklist">
+      <div class="bk"><b>QuantumScape</b><em>Licensing, oxide/gel</em><p>Non-exclusive license to VW's PowerCo for up to 40&ndash;80 GWh/yr. Zero revenue since 2010 founding; CEO Jagdeep Singh stepped down Feb 2024, succeeded by Siva Sivaram. Still shipping "B-sample" cells only.</p></div>
+      <div class="bk"><b>Solid Power</b><em>Sulfide, NASDAQ</em><p>Supplies electrolyte into the Samsung SDI/BMW co-development deal; holds a DOE grant for Ni/Co-free chemistries. Current CEO/leadership unconfirmed this pass &mdash; flagged gap.</p></div>
+      <div class="bk"><b>Samsung SDI</b><em>"SolidStack"</em><p>2027 mass-production target, 900 Wh/L claimed (+40% vs. its P5 Li-ion line), 1,100+ patents, anode-less design eliminates the traditional separator (tier 1 company release).</p></div>
+      <div class="bk"><b>CATL</b><em>Sulfide, state-backed</em><p>Semi-solid mass production late 2026, small-batch all-solid-state 2027; self-assessed maturity 4 of 7&ndash;8 target. No Tier 1 CATL primary source found for its own roadmap &mdash; entirely Tier 2 trade press.</p></div>
+      <div class="bk"><b>Panasonic / ProLogium</b><em>Patents / oxide</em><p>Panasonic co-leads patents with Toyota (2022 study); ProLogium (Taiwan) pursues all-inorganic solid electrolyte for high ionic conductivity.</p></div>
+      <div class="bk"><b>Factorial Energy</b><em>Multi-OEM supplier</em><p>Supplies Mercedes-Benz, Stellantis, Hyundai/Kia per trade press &mdash; no primary company-IR confirmation of the full partner list found. Flagged gap.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="scene">
+  <div class="scene-in">
+    <h3 class="sc-title">Patents: Toyota dominates the count, but treat the numbers as estimates</h3>
+    <div class="statwall">
+      <div class="stat"><b>8,000+</b><i></i><u>Toyota patents, 2019&ndash;22</u><p>Solid-state-related, many joint with Idemitsu Kosan [needs verification &mdash; Tier 2 count presented as settled fact].</p></div>
+      <div class="stat"><b>195</b><i></i><u>Toyota + Idemitsu combined</u><p>Sulfide electrolyte patents built over ~30 years of joint R&amp;D [needs verification].</p></div>
+      <div class="stat"><b>302&rarr;1,288</b><i></i><u>Global filings, 2017&rarr;2025</u><p>Over 4&times; growth in 8 years; sulfide is the largest cluster at 8,676 cumulative patents [needs verification, tier 2 patent-analytics firm].</p></div>
+      <div class="stat"><b>0</b><i></i><u>Active infringement suits</u><p>No cross-border patent litigation found &mdash; architectures (sulfide vs. oxide/gel) are distinct enough that no one is contesting the same IP yet.</p></div>
+    </div>
+    <p class="callout"><b>Research institutions</b><p>Oak Ridge National Lab (Dr. Ilias Belharouak, tier 2 only &mdash; needs primary-source follow-up), Idemitsu Kosan &amp; Sumitomo Metal Mining (Toyota's materials partners), Stanford (QuantumScape's academic lineage), Yale's Center for Materials Innovation (appears in DOE/ARPA-E listings, no solid-state project detail confirmed).</p></p>
+  </div>
+</section>
+
+<!-- ACT III — REGULATORY & RISK -->
+<section class="scene scene-open" data-n="III" id="act3">
+  <div class="scene-in">
+    <p class="act-k">Act III</p>
+    <h2 class="act-t">Old chokepoints,<br>new rules.</h2>
+    <p class="act-s">Solid-state doesn't escape the geopolitics of the battery supply chain — it inherits it, plus a layer of chemistry-specific catch-up regulation.</p>
+  </div>
+</section>
+
+<section class="scene">
+  <div class="scene-in">
+    <h3 class="sc-title">China's concentration is the starting condition</h3>
+    <div class="statwall statwall-3">
+      <div class="stat"><b>~80%</b><i></i><u>Battery supply-chain share</u><p>Across many segments; ≥95% in precursor and LFP cathode materials [needs verification, tier 2].</p></div>
+      <div class="stat"><b>97&ndash;98%</b><i></i><u>Synthetic graphite anode market</u><p>Described as a deliberate export-control chokepoint (Carnegie Endowment, tier 2, corroborated).</p></div>
+      <div class="stat"><b>70%</b><i></i><u>Global cobalt from the DRC</u><p>New export-quota regime from 16 Oct 2025: 96,600-tonne annual ceiling for 2026&ndash;27, ~48% of 2024 production.</p></div>
+    </div>
+    <p class="callout"><b>The one hedge</b><p>Lithium-metal-anode solid-state designs are framed by Carnegie as a partial long-term mitigant — projecting reduced graphite (~25% by 2035) and cobalt (~10% by 2035) dependence. A forward-looking hedge, not present-day relief: today's lithium-price volatility (roughly doubling in Q1 2026) still bites solid-state economics as hard as conventional Li-ion.</p></p>
+  </div>
+</section>
+
+<section class="scene">
+  <div class="scene-in">
+    <h3 class="sc-title">Export controls have sharpened — and gone extraterritorial</h3>
+    <p class="prose">China's Ministry of Commerce/Customs imposed new controls effective <b>8 November 2025</b> on lithium-ion batteries ≥300 Wh/kg, manufacturing equipment, LFP cathode materials, and graphite anode tech — with extraterritorial reach from <b>1 December 2025</b> at a 0.1% de minimis threshold, explicitly modeled on the US's own 29 September 2025 expansion (tier 1, corroborated by Mayer Brown analysis). On the US side, Section 30D "Foreign Entity of Concern" rules bar Clean Vehicle Credit eligibility for FEOC battery components (2024) and FEOC critical minerals (2025) — final rules took effect 5 July 2024. No solid-state-specific FEOC guidance exists yet; general Li-ion rules are presumed to apply, but this is inference, not confirmed policy [needs verification].</p>
+    <div class="exhibit">
+      <div class="ex-label"><span class="ex-num">EXHIBIT 02</span><span class="ex-title">Standards &amp; safety — certified under existing rules, built for a different failure mode</span></div>
+      <div class="ex-body" style="color:var(--text-body);">
+        <p style="margin:0 0 14px;">UN 38.3 remains the mandatory international transport-safety regime — eight tests, unchanged for solid-state cells despite different failure modes. Factorial announced UN 38.3 certification for a 100Ah lithium-metal solid-state cell (tier 1 company release) — a single-company claim, not a general regulatory finding.</p>
+        <p style="margin:0;">China published <b>GB/T 43568-2026</b>, the world's first national standard for automotive solid-state batteries. <b>[Conflict flagged]</b>: one Feb-2026 source describes a comment period ending 28 Feb with approval expected April; a later report presents it as already in force from 1 July 2026. Plausibly consistent, but no Tier 1 government-gazette source independently confirms the exact date.</p>
+      </div>
+      <p class="ex-note">EU Battery Regulation (EU) 2023/1542: 65% recycling efficiency for lithium-based batteries by end-2025, rising to 70% by end-2030 (tier 1). No solid-state-specific recycling regulation (sulfide/ceramic handling, H&#8322;S risk) was found — flagged as a likely genuine regulatory gap, not a search artifact.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ACT IV — TRENDS & TECHNOLOGY -->
+<section class="scene scene-open" data-n="IV" id="act4">
+  <div class="scene-in">
+    <p class="act-k">Act IV</p>
+    <h2 class="act-t">The engineering<br>still being solved.</h2>
+    <p class="act-s">Under every roadmap date sits a set of unresolved materials-science and manufacturing problems — three competing electrolyte chemistries, a dendrite problem, and a stack-pressure cost burden.</p>
+  </div>
+</section>
+
+<section class="scene">
+  <div class="scene-in">
+    <h3 class="sc-title">Sulfide vs. oxide vs. polymer &mdash; the chemistry that drives who partners with whom</h3>
+    <div class="ladder">
+      <div class="lad-row" style="grid-template-columns:repeat(3,1fr);">
+        <div class="lad l1"><b>01</b><u>Sulfide</u><p>Highest ionic conductivity, closest to liquid electrolytes. Requires dry-room/inert processing (air/moisture-sensitive). Dominant automotive path: Toyota, Samsung SDI, CATL, Solid Power, BMW.</p></div>
+        <div class="lad l3"><b>02</b><u>Oxide</u><p>Widest electrochemical stability window, chemically robust. Requires high-temp sintering; hard to produce thin, defect-free layers at scale. Notably less automotive-dominant today.</p></div>
+        <div class="lad l4"><b>03</b><u>Polymer</u><p>Lower energy density but most scalable today — compatible with roll-to-roll Li-ion-like processes. Underpins already-commercial semi-SSBs, at the cost of needing 60&ndash;90&deg;C to reach usable conductivity.</p></div>
+      </div>
+      <p class="ex-note" style="margin-top:18px;">This comparison rests primarily on a Tier 3 source used as a lead only [needs verification] — the IEA's Tier 1 Semi-/Almost-/All-SSB framing corroborates only the high-level structure, not these specific figures.</p>
+    </div>
+  </div>
+</section>
+
+<section class="scene">
+  <div class="scene-in">
+    <h3 class="sc-title">Dendrites, interfacial resistance, and stack pressure</h3>
+    <div class="mega mega-blue">
+      <div class="mega-num">800</div>
+      <div class="mega-side">
+        <p class="mega-lead">Cycles at ~25&deg;C that QuantumScape's ceramic separator is reported to resist dendrite formation at automotive-relevant power densities (tier 1, corroborated by SEC filing).</p>
+        <p class="mega-punch">Its "Cobra" manufacturing process claims ~25&times; faster/more compact production than the prior method.</p>
+      </div>
+    </div>
+    <p class="prose">Manufacturing scale-up is where the remaining hard problems concentrate (source: manufacturing-scaleup-challenges.md — reviewed clean, no flags). Interfacial resistance between electrode and solid electrolyte is the central obstacle distinguishing solid-state from liquid-electrolyte cells (Springer, tier 1 peer-reviewed); for dry-processed electrodes, residual porosity is the primary driver of that resistance. A Nature Communications co-rolling technique achieved &gt;80% capacity retention after 500 cycles at just 2 MPa stack pressure — substantially below non-co-rolled equivalents (tier 1 peer-reviewed). Yet BMW/Solid Power's own i7 prototype program still lists "managing cell expansion, regulating operating pressure, and optimizing temperature" as active test focus as of May 2026 (tier 1 official BMW) &mdash; proof this remains unresolved even at automotive validation stage.</p>
+    <p class="callout"><b>No oxide-electrolyte data</b><p>Available stack-pressure and interfacial-resistance figures are sulfide-oriented only — no equivalent data found for oxide-electrolyte systems specifically. A genuine coverage gap.</p></p>
+  </div>
+</section>
+
+<section class="scene">
+  <div class="scene-in">
+    <h3 class="sc-title">Charging speed and safety — claims vs. verified data</h3>
+    <p class="prose">Industry claims cluster around single-digit-minute 10&ndash;80% fast charging on 800&ndash;1,200V architectures, but the strongest concrete figures are OEM-stated targets (Toyota's ~10 minutes) rather than independently verified third-party results. Trade-press claims of "80% in 4.5 minutes" are Tier 2/3 vendor claims pending independent verification. On safety, the core rationale — solid electrolytes are non-flammable, removing a key thermal-runaway pathway — is a structural chemistry argument, not an independently quantified comparative figure [needs verification]; no dedicated third-party comparative safety study was surfaced in this research pass.</p>
+  </div>
+</section>
+
+<!-- ACT V — EV/AUTOMOTIVE PROGRAMS -->
+<section class="scene scene-open" data-n="V" id="act5">
+  <div class="scene-in">
+    <p class="act-k">Act V &middot; Priority focus</p>
+    <h2 class="act-t">Where roadmap ambition<br>meets manufacturing reality.</h2>
+    <p class="act-s">Every major global automaker has an active program. This is where the gap between promise and proof is most visible — and best documented (20 citations, 11 Tier 1).</p>
+  </div>
+</section>
+
+<section class="scene">
+  <div class="scene-in">
+    <h3 class="sc-title">The 2025&ndash;2030 arc</h3>
+    <div class="tline">
+      <div class="tl-node"><div class="tl-dot" style="border-color:var(--ntt-future-blue);">&#9679;</div><u>2025</u><b>Pilot lines open</b><p>Nissan Yokohama pilot (Jan), Honda Sakura demo line starts production (Jan), Mercedes/Factorial EQS road test begins (Feb).</p></div>
+      <div class="tl-link"><div class="tl-pill">Groundbreaking &amp;<br><b>prototype trials</b></div></div>
+      <div class="tl-node"><div class="tl-dot" style="border-color:var(--ntt-turquoise);">&#9679;</div><u>2026&ndash;27</u><b>Scale-up begins</b><p>Toyota/Idemitsu sulfide pilot plant groundbreaking (Jan 2026); BMW/Solid Power i7 trials (May 2026); Samsung SDI mass-production target (2027).</p></div>
+      <div class="tl-link"><div class="tl-pill">Commercial<br><b>launch window</b></div></div>
+      <div class="tl-node"><div class="tl-dot" style="border-color:var(--ntt-green);">&#9679;</div><u>2028&ndash;30</u><b>First commercial cells</b><p>Toyota 2027&ndash;28 (Toyota) / 2028 (IEA) &mdash; conflict. Nissan 2028 (majority) / 2029 (one outlet) &mdash; conflict. Hyundai/Kia: 2030 at the earliest, the most conservative target.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="scene">
+  <div class="scene-in">
+    <h3 class="sc-title">Automaker-by-automaker: targets, partners, status mid-2026</h3>
+    <div class="mtable">
+      <div class="mt-h"><span>Target</span><span>Automaker</span><span>Status</span><span>Flag</span></div>
+      <div class="mt-r"><b>2027&ndash;28</b><b>Toyota / Idemitsu / Sumitomo</b><p>Sulfide pilot plant groundbreaking 29 Jan 2026; "several hundred tons" capacity by end-2027; Lexus first application.</p><em>Delay history: 2020&rarr;2023&rarr;2026&rarr;2027&ndash;28. IEA says 2028 &mdash; conflict preserved.</em></div>
+      <div class="mt-r"><b>2028</b><b>Nissan / LiCAP</b><p>Yokohama pilot line Jan 2025; 23-layer pack demo April 2026; joined "Cheaper Than China" consortium June 2026.</p><em>2029 per one trade outlet &mdash; conflict preserved. No $/kWh disclosed.</em></div>
+      <div class="mt-r"><b>"2nd half 2020s"</b><b>Honda (in-house)</b><p>27,400m&sup2; Sakura demo line began production Jan 2025; joint research agreement with QuantumScape (June 2026).</p><em>No specific year committed.</em></div>
+      <div class="mt-r"><b>Undisclosed</b><b>VW / PowerCo / QuantumScape</b><p>Largest disclosed licensing deal: up to 40, option to 80 GWh/yr (~1M vehicles/yr). &gt;1,000-cycle endurance test, 95% retention (Jan 2024).</p><em>No confirmed launch year or $/kWh target &mdash; flagged gap.</em></div>
+      <div class="mt-r"><b>~2030</b><b>Mercedes-Benz / Factorial</b><p>Modified EQS: 1,205km / 749mi on one charge, ~25% farther than a comparable NMC pack (test start Feb 2025).</p><em>"By the end of the decade" &mdash; no specific year.</em></div>
+      <div class="mt-r"><b>Undisclosed</b><b>BMW / Solid Power / Samsung SDI</b><p>i7 prototype road trials, Munich, 13 May 2026 &mdash; focused on cell expansion, pressure, thermal management.</p><em>No committed production timeline or pilot-line capacity found.</em></div>
+      <div class="mt-r"><b>2026 (demo)</b><b>Stellantis / Factorial</b><p>Lithium-metal FEST chemistry, 77Ah cells at 375 Wh/kg; Dodge Charger Daytona demo fleet on "Large" platform.</p><em>Demo fleet only &mdash; no retail date or cost target.</em></div>
+      <div class="mt-r"><b>2030 earliest</b><b>Hyundai / Kia / Factorial</b><p>"Dream" pilot line reveal ~March 2025; vehicle trials expected 2027&ndash;28.</p><em>Most conservative target in the group; no Tier 1 source confirms either the reveal or the date.</em></div>
+    </div>
+    <p class="ex-note" style="margin-top:18px;">[needs verification] The comparison above carries specific capacities, dates, GWh/yr figures and Wh/kg validations without a per-claim inline citation on the source wiki page — sourcing is aggregate only via a bottom-of-page list. Reviewed against citation-tiers.md's format requirement, not silently reformatted.</p>
+  </div>
+</section>
+
+<section class="scene">
+  <div class="scene-in">
+    <div class="pull"><p>All-solid-state batteries are &ldquo;currently at prototype scale&rdquo; and will likely &ldquo;remain limited to premium segments until the first half of the 2030s.&rdquo;</p><footer><span class="pq-av">IEA</span><span>International Energy Agency &middot; Global EV Outlook 2026 (tier 1)</span></footer></div>
+    <p class="callout" style="margin-top:40px;"><b>Two cross-cutting caveats</b><p>Every "commercial launch" year is a roadmap commitment, not a guarantee — Toyota's repeated slippage is the proof case, and no comparable public delay history yet exists for the others. Cost-per-kWh targets remain undisclosed at the program level for VW/PowerCo, BMW, and Stellantis alike, reinforcing Act I's point: the economics of this transition are the least-answered question in the entire field.</p></p>
+  </div>
+</section>
+
+<!-- EPILOGUE -->
+<section class="epi" id="epilogue">
+  <p class="act-k">In summary</p>
+  <h2 class="act-t">What would have<br>to be true.</h2>
+  <p class="act-s">The demonstrations are real and increasingly public. The commercial proof points that would resolve the central questions are still, without exception, in the future tense.</p>
+  <div class="epi-list">
+    <div><b>01</b><u>When, not if &mdash; but which "when."</u><p>Every automaker roadmap date is a commitment, not a guarantee. Toyota's own history (2020&rarr;23&rarr;26&rarr;27&ndash;28) is the industry's cautionary tale. The Toyota 2027-vs-2028 and Nissan 2028-vs-2029 conflicts are preserved, not resolved.</p></div>
+    <div><b>02</b><u>At what cost.</u><p>Cost estimates disagree by roughly 2&times; before accounting for outliers. Only Nissan has disclosed a $/kWh target ($75/kWh by 2028, unverified). Cost parity with Li-ion is projected anywhere from the early-2030s to 2035.</p></div>
+    <div><b>03</b><u>Whether it's solved, or just contained in a lab.</u><p>Dendrite control and stack pressure show promising peer-reviewed results, but BMW's own i7 program still lists pressure/thermal management as active engineering work in mid-2026. Independently verified charging-speed data at pack scale remains thin.</p></div>
+  </div>
+  <p class="prose" style="margin-top:56px;max-width:900px;">None of this undercuts the strategic logic for automakers pursuing solid-state &mdash; the energy-density and range upside is real and independently demonstrated in at least one case (the EQS road trip). But for an exec audience weighing capital allocation or competitive timing: this is a technology with a genuine physics-and-engineering case, a still-unresolved cost structure, and a set of launch dates that history suggests should be discounted, not taken at face value.</p>
+  <div class="checkcard" style="margin-top:36px;max-width:900px;">
+    <b>Preserved verification flags &mdash; nothing smoothed away</b>
+    <ul>
+      <li>20+ distinct [needs verification] markers across all five lanes</li>
+      <li>3 explicit [conflict] calls: solid-state cost range, Toyota 2027 vs. 2028, Nissan 2028 vs. 2029</li>
+      <li>~8 explicit flagged gaps: oxide-electrolyte data, solid-state recycling regulation, Solid Power leadership, CATL Tier 1 roadmap, Factorial OEM list, VW/BMW/Stellantis cost targets, China standard finalization date, ORNL leadership sourcing</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <p><b>Deep Research Brief</b><br>Solid-State Battery Technology &middot; EV/Automotive Focus &middot; Compiled 23 July 2026</p>
+    </div>
+    <div class="foot-src">
+      <b>Sources</b>
+      <p>Tier 1: Toyota Newsroom, Mercedes-Benz Group, IEA Global EV Outlook 2026, Samsung SDI, BMW official, QuantumScape SEC filings, EU Battery Regulation (EU) 2023/1542, US Treasury/IRS, Springer &amp; Nature Communications peer-reviewed studies, Mayer Brown legal analysis. Tier 2: BloombergNEF (secondary aggregation), Carnegie Endowment, electrive.com, electrek.co, Nikkei/patsnap patent analytics, discoveryalert.com.au, investingnews.com, SCMP. Tier 3: used as leads only, never as sole support for a stated claim. Full citation trail: Google Drive wiki (7 concept pages, solid-state-battery topic), reviewed for citation-tier compliance.</p>
+    </div>
+  </div>
+</footer>
+
+<header id="bar">
+  <nav id="bar-acts" aria-label="Acts">
+    <a href="#act1" data-op="act1"><b>I</b><span>Market</span></a>
+    <a href="#act2" data-op="act2"><b>II</b><span>Players</span></a>
+    <a href="#act3" data-op="act3"><b>III</b><span>Risk</span></a>
+    <a href="#act4" data-op="act4"><b>IV</b><span>Tech</span></a>
+    <a href="#act5" data-op="act5"><b>V</b><span>Automakers</span></a>
+    <a href="#epilogue" data-op="epilogue"><b>VI</b><span>Closing</span></a>
+  </nav>
+  <button id="idxbtn">Index</button>
+  <div id="prog"></div>
+</header>
+<div id="chindex" role="dialog" aria-modal="true">
+  <div class="chin">
+    <div class="chin-head"><span></span><button id="idxclose" aria-label="Close">&times;</button></div>
+    <a class="chrow" href="#prologue"><span>&middot;</span><b>Solid-state batteries &amp; the future of the EV</b></a>
+    <a class="chrow" href="#act1"><span>I</span><b>Market &amp; value chain</b></a>
+    <a class="chrow" href="#act2"><span>II</span><b>Stakeholders &amp; players</b></a>
+    <a class="chrow" href="#act3"><span>III</span><b>Regulatory &amp; risk</b></a>
+    <a class="chrow" href="#act4"><span>IV</span><b>Trends &amp; technology</b></a>
+    <a class="chrow" href="#act5"><span>V</span><b>EV/automotive programs</b></a>
+    <a class="chrow" href="#epilogue"><span>&middot;</span><b>Closing statement</b></a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!('IntersectionObserver' in window)) return;
+  var targets = document.querySelectorAll('.scene-in > *, .epi > *, .cover-copy > *');
+  targets.forEach(function(t){ if(!reduced) t.classList.add('pre-rv'); });
+  var io = new IntersectionObserver(function(ents){
+    ents.forEach(function(en){
+      if(!en.isIntersecting) return;
+      io.unobserve(en.target);
+      en.target.classList.add('rv');
+    });
+  }, {threshold: 0.1, rootMargin:'0px 0px -6% 0px'});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+(function(){
+  var bar = document.getElementById('bar'), prog = document.getElementById('prog');
+  var links = Array.prototype.slice.call(document.querySelectorAll('#bar-acts a'));
+  var acts = Array.prototype.slice.call(document.querySelectorAll('[id^="act"], #epilogue'));
+  var cover = document.getElementById('prologue');
+  function upd(){
+    var y = window.scrollY;
+    bar.classList.toggle('on', y > (cover ? cover.offsetHeight * 0.6 : 200));
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (h > 0 ? (y / h * 100) : 0) + '%';
+    var cur = '';
+    acts.forEach(function(s){ if(s.getBoundingClientRect().top <= window.innerHeight * 0.4) cur = s.id; });
+    links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('data-op') === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function(){ if(!tick){ tick = true; requestAnimationFrame(function(){ upd(); tick = false; }); } }, {passive:true});
+  upd();
+  var ov = document.getElementById('chindex');
+  function open(){ ov.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function close(){ ov.classList.remove('open'); document.body.style.overflow = ''; }
+  document.getElementById('idxbtn').addEventListener('click', open);
+  document.getElementById('idxclose').addEventListener('click', close);
+  ov.addEventListener('click', function(e){ if(e.target === ov) close(); });
+  ov.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+})();
+</script>
