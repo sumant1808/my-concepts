@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRM Maturity Framework — Deterministic to LLM | Consulting Deliverable</title>
+<style>
+:root{
+  color-scheme: light;
+  --navy:#0b1e33; --navy2:#12294a; --navy3:#1a3660;
+  --teal:#0f9d8f; --teal-light:#e6f7f5;
+  --amber:#c8862a; --amber-light:#fbf1e2;
+  --red:#c0392b; --red-light:#fceceb;
+  --green:#2f8f4e; --green-light:#eaf7ee;
+  --grey-bg:#f4f6f9; --card:#ffffff; --border:#dde3ec;
+  --text:#1c2b3a; --text-muted:#5c6b7c;
+  --radius:10px; --shadow:0 1px 3px rgba(15,30,50,0.08), 0 1px 2px rgba(15,30,50,0.06);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--grey-bg);color:var(--text);line-height:1.5;}
+.topbar{background:linear-gradient(135deg,var(--navy) 0%, var(--navy2) 100%);color:#fff;padding:22px 32px 0 32px;}
+.topbar-inner{max-width:1400px;margin:0 auto;}
+.eyebrow{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#8fb8d8;font-weight:600;}
+.topbar h1{font-size:24px;margin:6px 0 4px 0;font-weight:650;letter-spacing:-0.2px;}
+.topbar p.sub{margin:0 0 18px 0;color:#c3d4e3;font-size:13.5px;max-width:900px;}
+.status-strip{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.status-pill{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);color:#e8f1f8;font-size:11.5px;padding:5px 11px;border-radius:999px;display:flex;align-items:center;gap:6px;}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--teal);display:inline-block;}
+.dot.amber{background:#e8b04b;}
+.tabs{display:flex;gap:2px;max-width:1400px;margin:0 auto;overflow-x:auto;}
+.tab-btn{background:transparent;border:none;color:#b7c9db;padding:12px 18px;font-size:13.5px;font-weight:560;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .15s ease;}
+.tab-btn:hover{color:#fff;}
+.tab-btn.active{color:#fff;border-bottom:3px solid var(--teal);}
+.tab-btn.locked{color:#5c7186;cursor:not-allowed;}
+main{max-width:1400px;margin:0 auto;padding:26px 32px 70px 32px;}
+.panel{display:none;}
+.panel.active{display:block;animation:fadein .18s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+h2.section-title{font-size:19px;margin:0 0 4px 0;font-weight:650;color:var(--navy);}
+p.section-desc{margin:0 0 20px 0;color:var(--text-muted);font-size:13.5px;max-width:900px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;}
+.fact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+@media(max-width:1000px){.fact-grid{grid-template-columns:repeat(2,1fr);}}
+.fact{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);}
+.fact .num{font-size:20px;font-weight:700;color:var(--navy);}
+.fact .label{font-size:12px;color:var(--text-muted);margin-top:2px;}
+.dim-card{border-radius:var(--radius);padding:16px 18px;border:1px solid var(--border);background:var(--card);box-shadow:var(--shadow);margin-bottom:14px;}
+.dim-card h4{margin:0 0 6px 0;font-size:14.5px;color:var(--navy);}
+.dim-card .why{font-size:12.5px;color:var(--text-muted);margin:0 0 10px 0;}
+.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.tag{font-size:10.5px;font-weight:650;letter-spacing:.3px;text-transform:uppercase;background:var(--teal-light);color:#0b6e63;border:1px solid #b9e6e0;border-radius:999px;padding:3px 9px;}
+.note{background:#fbf6e9;border:1px solid #edd9a3;border-radius:8px;padding:12px 14px;font-size:12.5px;color:#6b5417;margin-top:16px;}
+svg text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="eyebrow">Model Risk Management · Consulting Deliverable</div>
+    <h1>MRM Maturity Framework — Deterministic Models to LLMs</h1>
+    <p class="sub">A maturity assessment and progression framework tracking how bank Model Risk Management practices must evolve as institutions move from deterministic models, through machine learning, to LLMs and generative AI. Grounded in PRA SS1/23, SR 11-7, EU AI Act, and NIST AI RMF.</p>
+    <div class="status-strip">
+      <div class="status-pill"><span class="dot"></span> Loop 1 of 5 — Dimension Framework</div>
+      <div class="status-pill"><span class="dot amber"></span> Draft — pending your review</div>
+      <div class="status-pill"><span class="dot"></span> Firm-wide scope · Board/CRO audience</div>
+    </div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="t1">1. Dimension Framework</button>
+    <button class="tab-btn" data-tab="t2">2. Maturity Levels</button>
+    <button class="tab-btn" data-tab="t3">3. Regulatory Mapping</button>
+    <button class="tab-btn" data-tab="t4">4. Worked Examples</button>
+    <button class="tab-btn" data-tab="t5">5. Assembly &amp; Review</button>
+  </div>
+</div>
+
+<main>
+  <div class="panel active" id="t1">
+    <h2 class="section-title">Loop 1 — The Five Maturity Dimensions</h2>
+    <p class="section-desc">These five dimensions structure the entire framework. Each will be scored on a 4-5 level maturity scale (Loop 2) and mapped against the four regulatory sources (Loop 3), with worked examples showing how practice differs across deterministic, ML, and LLM-based models (Loop 4).</p>
+
+    <div class="fact-grid">
+      <div class="fact"><div class="num">5</div><div class="label">Maturity dimensions</div></div>
+      <div class="fact"><div class="num">4</div><div class="label">Grounding regulatory sources</div></div>
+      <div class="fact"><div class="num">3</div><div class="label">Technology eras (Deterministic / ML / LLM)</div></div>
+      <div class="fact"><div class="num">4-5</div><div class="label">Planned levels per dimension</div></div>
+    </div>
+
+    <div class="card" style="margin-bottom:22px;">
+      <h2 class="section-title" style="font-size:15px;">Framework overview</h2>
+      <svg viewBox="0 0 980 430" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+        <!-- column headers -->
+        <text x="330" y="28" font-size="13" font-weight="700" fill="#1c2b3a" text-anchor="middle">Deterministic Models</text>
+        <text x="590" y="28" font-size="13" font-weight="700" fill="#1c2b3a" text-anchor="middle">Machine Learning</text>
+        <text x="850" y="28" font-size="13" font-weight="700" fill="#1c2b3a" text-anchor="middle">LLMs / Generative AI</text>
+        <!-- progression arrow -->
+        <line x1="230" y1="45" x2="960" y2="45" stroke="#0f9d8f" stroke-width="2" marker-end="url(#arrow)"/>
+        <text x="595" y="60" font-size="10.5" fill="#5c6b7c" text-anchor="middle">Increasing model autonomy &amp; opacity →</text>
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#0f9d8f"/></marker>
+        </defs>
+
+        <!-- rows: 5 dimensions -->
+        <g font-size="11.5" fill="#1c2b3a">
+          <!-- row labels -->
+          <text x="10" y="105" font-weight="650">1. Governance &amp; Accountability</text>
+          <text x="10" y="175" font-weight="650">2. Inventory &amp; Risk Classification</text>
+          <text x="10" y="245" font-weight="650">3. Development, Data &amp; Testing</text>
+          <text x="10" y="315" font-weight="650">4. Independent Validation &amp; Effective Challenge</text>
+          <text x="10" y="385" font-weight="650">5. Monitoring, Mitigants &amp; Human Oversight</text>
+        </g>
+
+        <!-- grid cells -->
+        <g>
+          <rect x="230" y="80" width="720" height="1" fill="#dde3ec"/>
+          <rect x="230" y="150" width="720" height="1" fill="#dde3ec"/>
+          <rect x="230" y="220" width="720" height="1" fill="#dde3ec"/>
+          <rect x="230" y="290" width="720" height="1" fill="#dde3ec"/>
+          <rect x="230" y="360" width="720" height="1" fill="#dde3ec"/>
+          <rect x="230" y="400" width="720" height="1" fill="#dde3ec"/>
+          <line x1="230" y1="70" x2="230" y2="400" stroke="#dde3ec"/>
+          <line x1="460" y1="70" x2="460" y2="400" stroke="#dde3ec"/>
+          <line x1="720" y1="70" x2="720" y2="400" stroke="#dde3ec"/>
+          <line x1="950" y1="70" x2="950" y2="400" stroke="#dde3ec"/>
+        </g>
+
+        <!-- cell shading getting darker teal left to right (illustrative of increasing complexity) -->
+        <g opacity="0.55">
+          <rect x="230" y="80" width="230" height="70" fill="#eaf7f5"/>
+          <rect x="460" y="80" width="260" height="70" fill="#cdeee9"/>
+          <rect x="720" y="80" width="230" height="70" fill="#a9e0d8"/>
+
+          <rect x="230" y="150" width="230" height="70" fill="#eaf7f5"/>
+          <rect x="460" y="150" width="260" height="70" fill="#cdeee9"/>
+          <rect x="720" y="150" width="230" height="70" fill="#a9e0d8"/>
+
+          <rect x="230" y="220" width="230" height="70" fill="#eaf7f5"/>
+          <rect x="460" y="220" width="260" height="70" fill="#cdeee9"/>
+          <rect x="720" y="220" width="230" height="70" fill="#a9e0d8"/>
+
+          <rect x="230" y="290" width="230" height="70" fill="#eaf7f5"/>
+          <rect x="460" y="290" width="260" height="70" fill="#cdeee9"/>
+          <rect x="720" y="290" width="230" height="70" fill="#a9e0d8"/>
+
+          <rect x="230" y="360" width="230" height="40" fill="#eaf7f5"/>
+          <rect x="460" y="360" width="260" height="40" fill="#cdeee9"/>
+          <rect x="720" y="360" width="230" height="40" fill="#a9e0d8"/>
+        </g>
+        <text x="490" y="422" font-size="10" fill="#5c6b7c" text-anchor="middle">Illustrative only — full level-by-level detail on the Maturity Levels tab</text>
+
+        <!-- in-cell commentary -->
+        <g font-size="10.5" fill="#12294a" text-anchor="middle">
+          <text x="345" y="112"><tspan x="345" dy="0">Committee</tspan><tspan x="345" dy="13">sign-off</tspan></text>
+          <text x="590" y="112"><tspan x="590" dy="0">+ data science</tspan><tspan x="590" dy="13">liaison role</tspan></text>
+          <text x="835" y="112"><tspan x="835" dy="0">Board-level</tspan><tspan x="835" dy="13">AI risk appetite</tspan></text>
+
+          <text x="345" y="182"><tspan x="345" dy="0">Static</tspan><tspan x="345" dy="13">register</tspan></text>
+          <text x="590" y="182"><tspan x="590" dy="0">Feature/version</tspan><tspan x="590" dy="13">tracking</tspan></text>
+          <text x="835" y="182"><tspan x="835" dy="0">Prompt &amp; foundation-</tspan><tspan x="835" dy="13">model tracking</tspan></text>
+
+          <text x="345" y="252"><tspan x="345" dy="0">Fixed logic,</tspan><tspan x="345" dy="13">unit tests</tspan></text>
+          <text x="590" y="252"><tspan x="590" dy="0">Train/test split,</tspan><tspan x="590" dy="13">drift checks</tspan></text>
+          <text x="835" y="252"><tspan x="835" dy="0">Fine-tune &amp; eval</tspan><tspan x="835" dy="13">harnesses</tspan></text>
+
+          <text x="345" y="322"><tspan x="345" dy="0">Periodic</tspan><tspan x="345" dy="13">back-testing</tspan></text>
+          <text x="590" y="322"><tspan x="590" dy="0">Statistical +</tspan><tspan x="590" dy="13">bias testing</tspan></text>
+          <text x="835" y="322"><tspan x="835" dy="0">Red-teaming,</tspan><tspan x="835" dy="13">adversarial tests</tspan></text>
+
+          <text x="345" y="384">Periodic review</text>
+          <text x="590" y="384">Automated drift monitors</text>
+          <text x="835" y="384">Real-time guardrails, HITL</text>
+        </g>
+      </svg>
+      <p style="font-size:12.5px;color:var(--text-muted);margin:14px 2px 0 2px;max-width:900px;">
+        Read this grid as the framework's skeleton: each row is a control discipline every bank already runs for deterministic models; the labels show illustratively how the same discipline is typically operated at each technology era, getting harder left to right. The <strong>Maturity Levels</strong> tab turns each cell into a scoreable 1-5 statement; <strong>Regulatory Mapping</strong> and <strong>Worked Examples</strong> then ground each level in the four source frameworks and concrete illustrations.
+      </p>
+    </div>
+
+    <h2 class="section-title" style="font-size:16px;">Dimension rationale &amp; regulatory anchoring</h2>
+
+    <div class="dim-card">
+      <h4>1. Governance &amp; Accountability</h4>
+      <p class="why">Board-level ownership of model risk appetite, an accountable senior individual, and policies that scale across the firm. This is the cross-cutting foundation — without it, every other dimension lacks teeth.</p>
+      <div class="tag-row"><span class="tag">SS1/23 Principle 2</span><span class="tag">SR 11-7 Pillar 3</span><span class="tag">EU AI Act Art.9(9)</span><span class="tag">NIST Govern</span></div>
+    </div>
+
+    <div class="dim-card">
+      <h4>2. Inventory &amp; Risk Classification</h4>
+      <p class="why">A single source of truth for what models/AI systems exist, and a risk-based tiering approach so effort is proportionate. Becomes materially harder as ML/LLM systems multiply and interconnect (feeder models, fine-tuned variants, third-party foundation models).</p>
+      <div class="tag-row"><span class="tag">SS1/23 Principle 1</span><span class="tag">SR 11-7 Inventory</span><span class="tag">NIST Map</span></div>
+    </div>
+
+    <div class="dim-card">
+      <h4>3. Development, Data &amp; Testing</h4>
+      <p class="why">Standards for how models are built and tested — data suitability, design objectives, and challenger-model comparison. The dimension most disrupted by technology era: deterministic models have fixed logic; ML models are trained/retrained; LLMs are typically fine-tuned or prompted on top of third-party foundation models the bank did not build.</p>
+      <div class="tag-row"><span class="tag">SS1/23 Principle 3</span><span class="tag">SR 11-7 Pillar 1</span><span class="tag">EU AI Act Art.10</span><span class="tag">NIST Measure</span></div>
+    </div>
+
+    <div class="dim-card">
+      <h4>4. Independent Validation &amp; Effective Challenge</h4>
+      <p class="why">An organisationally independent function that critically tests suitability, soundness, and robustness before and during use. LLMs stress this dimension hardest — traditional back-testing assumes stable, reproducible outputs; LLM outputs are non-deterministic and validation must adapt (e.g. adversarial/red-team testing, hallucination-rate testing).</p>
+      <div class="tag-row"><span class="tag">SS1/23 Principle 4</span><span class="tag">SR 11-7 "Effective Challenge"</span><span class="tag">EU AI Act Art.15</span><span class="tag">NIST Measure/Manage</span></div>
+    </div>
+
+    <div class="dim-card">
+      <h4>5. Monitoring, Mitigants &amp; Human Oversight</h4>
+      <p class="why">Ongoing performance monitoring, post-model adjustments/overrides, restrictions on use, and — increasingly explicit in AI-specific regulation — human oversight of automated decisions. Folds in EU AI Act Article 14 (human oversight), which SS1/23 addresses only implicitly via model owner/user accountability.</p>
+      <div class="tag-row"><span class="tag">SS1/23 Principle 5</span><span class="tag">EU AI Act Art.9 &amp; Art.14</span><span class="tag">NIST Manage</span><span class="tag">NIST GenAI Profile</span></div>
+    </div>
+
+    <div class="note">
+      <strong>Note on originality:</strong> none of the four grounding sources organise themselves by model-technology era (deterministic/ML/LLM) — each is organised by lifecycle stage or governance function instead. The 5-dimension × 3-era grid above is this project's own analytical overlay, not a restatement of any single regulation. This is the framework's differentiated value for the client.
+    </div>
+  </div>
+
+  <div class="panel" id="t2">
+    <h2 class="section-title">Loop 2 — Maturity Levels Grid</h2>
+    <p class="section-desc">A single 5-level scale applied consistently across all five dimensions, so a bank can be scored dimension-by-dimension (e.g. "Level 3 on Governance, Level 2 on Validation") rather than forced into one blended score. Wording throughout reflects what changes as the underlying model technology shifts from deterministic to ML to LLM.</p>
+
+    <div class="fact-grid">
+      <div class="fact"><div class="num">L1</div><div class="label">Ad Hoc / Reactive</div></div>
+      <div class="fact"><div class="num">L2</div><div class="label">Developing / Siloed</div></div>
+      <div class="fact"><div class="num">L3</div><div class="label">Defined / Standardised</div></div>
+      <div class="fact"><div class="num">L4</div><div class="label">Managed / AI-Extended</div></div>
+      <div class="fact"><div class="num">L5</div><div class="label">Optimised / Adaptive</div></div>
+    </div>
+
+    <div class="card" style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:1100px;">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;width:16%;">Dimension</th>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;">L1 — Ad Hoc</th>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;">L2 — Developing</th>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;">L3 — Defined</th>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;">L4 — Managed</th>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;">L5 — Optimised</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;font-weight:650;color:var(--navy);">1. Governance &amp; Accountability</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">No formal MRM policy; model risk handled case-by-case; no board visibility.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">MRM policy covers traditional models only; SMF assigned but ML/AI use runs as ungoverned "shadow" activity.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Firm-wide MRM policy covers all quantitative models incl. ML; board risk appetite set; SMF accountable per SS1/23.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Policy explicitly extended to AI/GenAI; board gets aggregate model+AI risk reporting; EU AI Act Art.9(9) integration in place.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Unified risk appetite spans deterministic/ML/LLM; policy updates dynamically as GenAI capability shifts; board horizon-scans emerging risk.</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;font-weight:650;color:var(--navy);">2. Inventory &amp; Risk Classification</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">No central inventory; models tracked informally (spreadsheets, tribal knowledge).</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Inventory covers regulatory-capital models only; ML models largely untracked ("shadow AI").</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Firm-wide inventory covers all models incl. ML, with risk-based tiering (materiality × complexity).</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Inventory extended to GenAI/LLM: third-party foundation models and prompt-configurations tracked; interdependencies mapped.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Real-time, largely automated inventory with continuous re-tiering as models/prompts change; full lineage across all three eras.</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;font-weight:650;color:var(--navy);">3. Development, Data &amp; Testing</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Ad hoc coding; no documented data testing or design objectives.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Documented standards for traditional models; ML uses basic train/test splits; no LLM-specific standards exist.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">SS1/23-aligned development testing (data quality, challenger models) applied consistently to traditional + ML models.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Testing extended to GenAI: data provenance/bias checks for fine-tuning, prompt-testing, evaluation harnesses for LLM outputs (EU AI Act Art.10).</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Continuous automated evaluation pipelines across all model types; LLM-specific suites (hallucination rate, robustness, drift) run pre- and post-deployment.</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;font-weight:650;color:var(--navy);">4. Independent Validation &amp; Effective Challenge</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">No independent validation function; developers self-certify their own models.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Independent validation exists for regulatory-capital models only.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Validation extended firm-wide incl. ML, per SS1/23 Principle 4 / SR 11-7 "effective challenge".</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Methods adapted for ML/LLM: statistical back-testing supplemented with red-teaming, adversarial testing, explainability review (EU AI Act Art.15).</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Continuous validation embedded in CI/CD ("validation-as-code"); independent challenge scales with model velocity without becoming a bottleneck.</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 10px;font-weight:650;color:var(--navy);">5. Monitoring, Mitigants &amp; Human Oversight</td>
+            <td style="padding:9px 10px;">No structured performance monitoring; issues surface reactively, after incidents.</td>
+            <td style="padding:9px 10px;">Basic monitoring for traditional models; post-model adjustments applied informally, undocumented.</td>
+            <td style="padding:9px 10px;">SS1/23-aligned monitoring (benchmarking, override analysis) + formal PMA governance across model types.</td>
+            <td style="padding:9px 10px;">Human oversight formally designed into ML/LLM workflows (human-in-the-loop for high-risk decisions, per EU AI Act Art.14); drift/hallucination-rate tracked.</td>
+            <td style="padding:9px 10px;">Adaptive, real-time monitoring with automated circuit-breakers/kill-switches for LLM systems; human oversight calibrated by risk tier, not blanket-applied.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong>Reading the grid:</strong> most banks today sit around L2-L3 for deterministic/traditional models but effectively reset to L1-L2 the moment ML or LLM use cases are introduced, because governance/inventory/validation processes built for deterministic models don't automatically extend to them. The gap between a bank's "headline" maturity and its true AI-inclusive maturity is often the single most useful board-level insight this framework produces.
+    </div>
+  </div>
+
+  <div class="panel" id="t3">
+    <h2 class="section-title">Loop 3 — Regulatory Mapping</h2>
+    <p class="section-desc">Each dimension mapped against the four grounding sources. PRA SS1/23 and Fed/OCC SR 11-7 are principles-based, technology-neutral, and lifecycle-organised — neither names GenAI/LLMs. EU AI Act is binding law, organised around high-risk AI systems. NIST AI RMF is voluntary, function-organised, and the only source with an LLM-specific extension (GenAI Profile).</p>
+
+    <div class="card" style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:1100px;">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;width:15%;">Dimension</th>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;">PRA SS1/23</th>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;">SR 11-7 (Fed/OCC)</th>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;">EU AI Act</th>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;">NIST AI RMF</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;font-weight:650;color:var(--navy);">1. Governance &amp; Accountability</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Principle 2 — board sets model risk appetite; accountable SMF(s); board-approved policy.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Pillar 3 — board/senior management accountability for the MRM framework.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Art.9(9) — AI risk management must integrate into, not duplicate, existing (banking) risk management systems.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;"><strong>Govern</strong> — cross-cutting function; risk-aware culture, policy, roles/accountability.</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;font-weight:650;color:var(--navy);">2. Inventory &amp; Risk Classification</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Principle 1 — model definition, firm-wide inventory, risk-based tiering (materiality × complexity).</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Explicit inventory requirement; recommends assessing model risk in aggregate incl. data lineage.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Annex III — explicit high-risk classification list (incl. creditworthiness/credit-scoring AI).</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;"><strong>Map</strong> — context, stakeholders, system boundaries, potential impacts.</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;font-weight:650;color:var(--navy);">3. Development, Data &amp; Testing</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Principle 3 — purpose/design, data suitability, development testing, challenger-model comparison.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Pillar 1 — sound development/implementation/use; documentation of data, theory, testing.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Art.10 — training data must be representative, bias-assessed, with auditable validation logs.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;"><strong>Measure</strong> — quantitative/qualitative assessment of trustworthiness (validity, fairness, explainability).</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;font-weight:650;color:var(--navy);">4. Independent Validation &amp; Effective Challenge</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Principle 4 — independent validation function, organisationally separate from development.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Pillar 2 — "effective challenge": critical analysis by objective, informed parties.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Art.15 — accuracy, robustness &amp; cybersecurity, incl. resilience to adversarial manipulation.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;"><strong>Measure/Manage</strong> — testing against trustworthiness characteristics; response to identified gaps.</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 10px;font-weight:650;color:var(--navy);">5. Monitoring, Mitigants &amp; Human Oversight</td>
+            <td style="padding:9px 10px;">Principle 5 — post-model adjustments, restrictions on use, exceptions &amp; escalation.</td>
+            <td style="padding:9px 10px;">Ongoing performance monitoring implicit across the full model lifecycle.</td>
+            <td style="padding:9px 10px;">Art.9 — continuous post-market monitoring; <strong>Art.14 — human oversight</strong> (most explicit of the four sources).</td>
+            <td style="padding:9px 10px;"><strong>Manage</strong> — prioritise/respond to risk; <strong>GenAI Profile</strong> adds hallucination/drift-specific actions.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong>Where the four sources converge:</strong> all four organise around the same underlying logic — govern → identify → build/test → independently challenge → monitor/mitigate — regardless of whether they call it a "lifecycle" (SS1/23, SR 11-7) or a "function" (NIST). This convergence is what lets a single 5-dimension framework map cleanly to all four.<br><br>
+      <strong>Where they diverge (the client-relevant gap):</strong> SS1/23 and SR 11-7 are technology-neutral by design — neither mentions foundation models, fine-tuning, prompting, or hallucination, and both pre-date mainstream LLM adoption in banking. EU AI Act is the only <em>binding</em> source and the only one to legislate human oversight as its own requirement (Art.14). NIST's GenAI Profile is the only source purpose-built for generative AI risk. <strong>Practical implication for the client:</strong> a bank that is SS1/23-compliant for its traditional/ML models is not thereby EU AI Act or NIST GenAI-Profile compliant once it adopts LLMs — this is the regulatory gap the maturity framework is designed to surface and close.
+    </div>
+  </div>
+
+  <div class="panel" id="t4">
+    <h2 class="section-title">Loop 4 — Worked Examples</h2>
+    <p class="section-desc">One running example per technology era, carried through all five dimensions, so the progression feels concrete rather than abstract.</p>
+
+    <div class="fact-grid">
+      <div class="fact"><div class="num">Deterministic</div><div class="label">Affordability scorecard (rules-based)</div></div>
+      <div class="fact"><div class="num">ML</div><div class="label">Fraud detection model (gradient-boosted trees)</div></div>
+      <div class="fact"><div class="num">LLM</div><div class="label">Customer complaint triage &amp; response assistant</div></div>
+      <div class="fact"><div class="num">1</div><div class="label">Narrative thread across all 5 dimensions</div></div>
+    </div>
+
+    <div class="card" style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:1000px;">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;width:16%;">Dimension</th>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;">Deterministic — Affordability scorecard</th>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;">ML — Fraud detection model</th>
+            <th style="text-align:left;padding:8px 10px;background:#fafbfd;border-bottom:1px solid #dde3ec;">LLM — Complaint-triage assistant</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;font-weight:650;color:var(--navy);">1. Governance &amp; Accountability</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Owned by Credit Risk; signed off annually by the Retail Credit Committee.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Joint ownership, Fraud Ops + Data Science; CRO's model risk appetite statement explicitly extended to cover ML.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Cross-functional AI governance forum (Risk, Legal, Compliance, CX) approves the use case; GenAI risk appetite is a standing board agenda item.</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;font-weight:650;color:var(--navy);">2. Inventory &amp; Risk Classification</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Inventory entry: Tier 2 (moderate materiality, low complexity).</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Entry adds training-data version, feature-store dependencies, retraining cadence; tiered Tier 1 given fraud-loss materiality.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Entry captures the vendor foundation model, prompt-template version, fine-tuning status, RAG data sources; tiered high-risk-adjacent given customer-facing use.</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;font-weight:650;color:var(--navy);">3. Development, Data &amp; Testing</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Fixed rule weights from policy; one-page methodology note; static back-test vs historical arrears.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Trained on 3 years of transaction data; held-out test set; precision/recall tracked; SHAP feature-importance documented.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Fine-tuned/prompted atop a vendor foundation model; evaluated on held-out complaint transcripts for accuracy, tone, hallucination rate; red-teamed for jailbreak/prompt-injection pre-go-live.</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;font-weight:650;color:var(--navy);">4. Independent Validation &amp; Effective Challenge</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Independent Validation reviews rule logic and score cut-offs annually; reports to the Model Risk Committee.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Validation independently re-runs the training pipeline, checks for data leakage and bias across protected characteristics, benchmarks vs a simpler challenger model.</td>
+            <td style="padding:9px 10px;border-bottom:1px solid #eef1f5;">Adversarial/red-team testing (prompt injection, jailbreaks); sampled live-transcript review for hallucination/inaccuracy; vendor's own model/system card assessed as third-party evidence.</td>
+          </tr>
+          <tr>
+            <td style="padding:9px 10px;font-weight:650;color:var(--navy);">5. Monitoring, Mitigants &amp; Human Oversight</td>
+            <td style="padding:9px 10px;">Quarterly override analysis; a documented, time-bound PMA for a known seasonal effect.</td>
+            <td style="padding:9px 10px;">Automated drift monitor alerts on score-distribution shift; monthly dashboard to Fraud Ops; defined recalibration trigger.</td>
+            <td style="padding:9px 10px;">Real-time guardrail layer blocks disallowed outputs; responses above a risk threshold route to human review before sending; weekly hallucination-rate KPI with an automatic kill-switch on breach.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong>Pattern across the row:</strong> the control activity itself barely changes name (sign-off, inventory entry, testing, validation, monitoring) — what changes is who's involved, how automated the check is, and how quickly it has to run. LLM-era controls in particular shift from periodic/batch (quarterly, monthly) to continuous/real-time, and introduce categories with no deterministic-era equivalent at all (red-teaming, kill-switches, hallucination-rate KPIs).
+    </div>
+  </div>
+
+  <div class="panel" id="t5">
+    <h2 class="section-title">Loop 5 — Peer Review (CRO/Board-Reader Persona)</h2>
+    <p class="section-desc">Self-critique pass, reading Tabs 1-4 as a bank CRO would before presenting to the board. Findings below, then an overall verdict against the locked exit criteria.</p>
+
+    <div class="fact-grid">
+      <div class="fact"><div class="num">0</div><div class="label">Critical findings</div></div>
+      <div class="fact"><div class="num">1</div><div class="label">High</div></div>
+      <div class="fact"><div class="num">3</div><div class="label">Medium</div></div>
+      <div class="fact"><div class="num">Ready</div><div class="label">with the High item addressed</div></div>
+    </div>
+
+    <div class="dim-card" style="border-left:4px solid var(--amber);">
+      <h4>H-01 — No "how to use this" / target-state guidance</h4>
+      <p class="why">A CRO can score their bank against the grid, but the deliverable doesn't yet say how to turn a score into an action: is L3 an acceptable target for a lower-risk-appetite bank, or should every dimension aim for L4-L5 once ML/LLM is in scope? Missing: guidance on setting a target maturity per dimension and a basic gap-to-target narrative. <strong>Recommend addressing before client presentation</strong> — either a short "how to use this framework" panel, or explicitly scope it as a Phase 2 follow-on engagement.</p>
+    </div>
+
+    <div class="dim-card">
+      <h4>M-01 — Vendor/foundation-model concentration risk understated</h4>
+      <p class="why">Dimension 2 and 3 mention tracking third-party foundation models, but the framework doesn't call out concentration risk (a bank's LLM risk profile depends heavily on a small number of foundation-model vendors) as its own board-level concern. Minor — worth a callout, not a blocking issue.</p>
+    </div>
+    <div class="dim-card">
+      <h4>M-02 — Data privacy alongside bias</h4>
+      <p class="why">EU AI Act Art.10 coverage focuses on bias/representativeness; data privacy (GDPR interplay, especially for RAG sources drawing on customer data) isn't explicitly named. Worth a footnote given firm-wide/all-model-types scope.</p>
+    </div>
+    <div class="dim-card">
+      <h4>M-03 — Secondary-source citations for 3 of 4 frameworks</h4>
+      <p class="why">SR 11-7, EU AI Act, and NIST AI RMF content in this deliverable was researched via web search, not read from primary legal/regulatory text (SS1/23 is the exception — read in full from your uploaded PDF). Fine for a first client draft; flag transparently and fetch primary sources before anything goes into a formal, citable client report.</p>
+    </div>
+
+    <h2 class="section-title" style="font-size:16px;margin-top:22px;">Exit criteria — final check</h2>
+    <div class="card">
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+        <tbody>
+          <tr><td style="padding:8px 10px;border-bottom:1px solid #eef1f5;">5 dimensions defined</td><td style="padding:8px 10px;border-bottom:1px solid #eef1f5;color:var(--green);font-weight:650;">✓ Met</td></tr>
+          <tr><td style="padding:8px 10px;border-bottom:1px solid #eef1f5;">4-5 maturity levels per dimension</td><td style="padding:8px 10px;border-bottom:1px solid #eef1f5;color:var(--green);font-weight:650;">✓ Met (5 levels)</td></tr>
+          <tr><td style="padding:8px 10px;border-bottom:1px solid #eef1f5;">Regulatory mapping — SS1/23, SR 11-7, EU AI Act, NIST AI RMF</td><td style="padding:8px 10px;border-bottom:1px solid #eef1f5;color:var(--green);font-weight:650;">✓ Met (caveat M-03)</td></tr>
+          <tr><td style="padding:8px 10px;border-bottom:1px solid #eef1f5;">Worked examples, deterministic → ML → LLM, per dimension</td><td style="padding:8px 10px;border-bottom:1px solid #eef1f5;color:var(--green);font-weight:650;">✓ Met</td></tr>
+          <tr><td style="padding:8px 10px;border-bottom:1px solid #eef1f5;">Board/CRO-appropriate framing</td><td style="padding:8px 10px;border-bottom:1px solid #eef1f5;color:var(--amber);font-weight:650;">~ Mostly — see H-01</td></tr>
+          <tr><td style="padding:8px 10px;">Your final approval</td><td style="padding:8px 10px;color:var(--text-muted);">Pending</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong>Overall verdict:</strong> substantively complete against the locked exit criteria. Recommend one small addition (H-01 — a "how to use this" panel) before calling it client-ready; M-01 to M-03 are minor and can be footnoted rather than requiring another loop. Your call on whether to add H-01 now or ship as-is and note it as a Phase 2 item.
+    </div>
+  </div>
+</main>
+
+<script>
+document.querySelectorAll('.tab-btn:not(.locked)').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
