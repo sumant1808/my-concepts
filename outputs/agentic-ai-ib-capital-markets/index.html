@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI in Investment Banking &amp; Capital Markets — Top 10 Sell-Side Use Cases</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0d12;
+    --bg-2: #0f131a;
+    --panel: #131820;
+    --panel-2: #171d27;
+    --line: rgba(201,178,122,0.18);
+    --line-soft: rgba(255,255,255,0.08);
+    --gold: #c9a869;
+    --gold-bright: #e4c98a;
+    --teal: #4fd1b5;
+    --text: #eee7d8;
+    --text-dim: #9aa3ab;
+    --text-dimmer: #6b747c;
+    --front: #4fd1b5;
+    --middle: #c9a869;
+    --back: #e08a5c;
+    --radius: 14px;
+    --serif: 'Fraunces', serif;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html, body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    overscroll-behavior: none;
+  }
+
+  body{
+    height:100vh;
+    height:100dvh;
+    overflow:hidden;
+  }
+
+  /* subtle background texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(201,168,105,0.10), transparent 40%),
+      radial-gradient(circle at 85% 92%, rgba(79,209,181,0.07), transparent 45%),
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size: auto, auto, 64px 64px, 64px 64px;
+    opacity:0.5;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  #deck{
+    height:100vh; height:100dvh;
+    overflow-y:auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior:smooth;
+  }
+  #deck::-webkit-scrollbar{ display:none; }
+
+  .slide{
+    position:relative;
+    height:100vh; height:100dvh;
+    width:100%;
+    scroll-snap-align:start;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding: clamp(28px,4vw,72px) clamp(28px,6vw,96px);
+    overflow:hidden;
+  }
+
+  .slide-inner{ position:relative; z-index:1; opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  .slide.is-visible .slide-inner{ opacity:1; transform:translateY(0); }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size: clamp(10px,1vw,13px);
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color: var(--gold);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom: clamp(10px,1.6vh,18px);
+  }
+  .eyebrow::before{ content:""; width:26px; height:1px; background:var(--gold); display:inline-block; }
+
+  h1.display{
+    font-family:var(--serif);
+    font-weight:600;
+    line-height:1.03;
+    letter-spacing:-0.01em;
+    font-size: clamp(34px, 5.4vw, 74px);
+    max-width: 16ch;
+  }
+  h1.display em{ font-style:italic; font-weight:500; color:var(--gold-bright); }
+
+  h2.section-title{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size: clamp(26px, 3.4vw, 46px);
+    line-height:1.08;
+    margin-bottom: clamp(10px,1.6vh,16px);
+    max-width: 24ch;
+  }
+
+  .lede{
+    font-size: clamp(14px,1.25vw,19px);
+    color: var(--text-dim);
+    max-width: 62ch;
+    line-height:1.55;
+    margin-top: clamp(10px,1.6vh,18px);
+  }
+
+  .tag{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size: clamp(9px,0.8vw,11px);
+    letter-spacing:0.12em; text-transform:uppercase;
+    padding: 5px 11px; border-radius:100px;
+    border:1px solid var(--line);
+    color: var(--text-dim);
+  }
+  .tag .dot{ width:6px; height:6px; border-radius:50%; }
+  .tag.front .dot{ background:var(--front); }
+  .tag.middle .dot{ background:var(--middle); }
+  .tag.back .dot{ background:var(--back); }
+
+  /* ---------- TITLE SLIDE ---------- */
+  #slide-0 .slide-inner{ max-width: 1100px; }
+  .title-meta{
+    display:flex; gap:clamp(20px,3vw,48px); margin-top:clamp(28px,4.5vh,52px);
+    flex-wrap:wrap;
+  }
+  .title-meta div{ border-left:1px solid var(--line); padding-left:14px; }
+  .title-meta .num{ font-family:var(--serif); font-size:clamp(22px,2.4vw,32px); color:var(--gold-bright); }
+  .title-meta .lbl{ font-family:var(--mono); font-size:clamp(9px,0.8vw,11px); color:var(--text-dimmer); text-transform:uppercase; letter-spacing:0.1em; margin-top:2px; }
+
+  /* ---------- STAT / SUMMARY SLIDE ---------- */
+  .stat-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(14px,1.6vw,22px);
+    margin-top: clamp(24px,4vh,40px);
+  }
+  .stat-card{
+    background:linear-gradient(180deg, var(--panel), var(--panel-2));
+    border:1px solid var(--line-soft);
+    border-radius:var(--radius);
+    padding: clamp(16px,1.6vw,26px);
+    position:relative;
+    overflow:hidden;
+  }
+  .stat-card::after{ content:""; position:absolute; top:0; left:0; width:100%; height:2px; background:var(--gold); opacity:.7;}
+  .stat-num{ font-family:var(--serif); font-weight:600; font-size:clamp(26px,2.6vw,40px); color:var(--gold-bright); line-height:1; }
+  .stat-cap{ font-size:clamp(11.5px,0.95vw,13.5px); color:var(--text-dim); margin-top:10px; line-height:1.45; }
+
+  /* ---------- VALUE CHAIN DIAGRAM ---------- */
+  .chain-wrap{ margin-top: clamp(18px,3vh,30px); }
+  .chain-cols{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: clamp(10px,1.4vw,18px); position:relative; }
+  .chain-col{
+    background: var(--panel);
+    border:1px solid var(--line-soft);
+    border-radius: var(--radius);
+    padding: clamp(12px,1.3vw,18px);
+  }
+  .chain-col .col-head{
+    font-family:var(--mono); font-size:clamp(10px,0.85vw,12px);
+    letter-spacing:0.14em; text-transform:uppercase;
+    padding-bottom:10px; margin-bottom:12px;
+    border-bottom:1px solid var(--line-soft);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .chain-col.front .col-head{ color:var(--front); }
+  .chain-col.middle .col-head{ color:var(--middle); }
+  .chain-col.back .col-head{ color:var(--back); }
+  .chain-item{
+    display:flex; align-items:flex-start; gap:10px;
+    padding: clamp(7px,0.9vh,10px) 0;
+    border-bottom:1px dashed var(--line-soft);
+  }
+  .chain-item:last-child{ border-bottom:none; }
+  .chain-item .n{
+    font-family:var(--serif); font-weight:600; font-size:clamp(14px,1.1vw,17px);
+    color:var(--text-dimmer); min-width:20px;
+  }
+  .chain-col.front .chain-item .n{ color: var(--front); }
+  .chain-col.middle .chain-item .n{ color: var(--middle); }
+  .chain-col.back .chain-item .n{ color: var(--back); }
+  .chain-item .t{ font-size:clamp(11.5px,0.95vw,13.5px); color:var(--text); line-height:1.35; }
+  .chain-flow{
+    text-align:center; font-family:var(--mono); color:var(--text-dimmer);
+    font-size:clamp(9px,0.8vw,11px); letter-spacing:0.2em; margin-top:12px; text-transform:uppercase;
+  }
+
+  /* ---------- USE CASE CARD SLIDES ---------- */
+  .uc-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:clamp(16px,2.6vh,26px); }
+  .uc-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,2vw,28px); }
+  .uc-card{
+    background:linear-gradient(160deg, var(--panel), var(--panel-2));
+    border:1px solid var(--line-soft);
+    border-radius:var(--radius);
+    padding:clamp(18px,2vw,28px);
+    display:flex; flex-direction:column;
+    position:relative;
+  }
+  .uc-card .uc-num{
+    font-family:var(--serif); font-weight:600; font-size:clamp(32px,3vw,46px);
+    color:var(--gold-bright); opacity:.85; line-height:1;
+  }
+  .uc-card h3{
+    font-family:var(--serif); font-weight:600;
+    font-size:clamp(18px,1.7vw,25px);
+    margin-top:8px; margin-bottom:10px; line-height:1.15;
+  }
+  .uc-card .desc{ font-size:clamp(12.5px,1vw,14.5px); color:var(--text-dim); line-height:1.5; margin-bottom:clamp(12px,1.8vh,16px); }
+  .uc-examples{ margin-top:auto; display:flex; flex-direction:column; gap:9px; }
+  .ex{
+    border-left:2px solid var(--gold);
+    padding-left:10px;
+    font-size:clamp(11.5px,0.92vw,13.5px);
+    line-height:1.4;
+  }
+  .ex b{ color:var(--text); font-weight:600; }
+  .ex span{ color:var(--text-dim); }
+
+  /* ---------- RISKS SLIDE ---------- */
+  .risk-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(14px,1.8vw,24px); margin-top:clamp(20px,3vh,32px); }
+  .risk-card{
+    background:var(--panel); border:1px solid var(--line-soft); border-radius:var(--radius);
+    padding:clamp(16px,1.6vw,24px);
+  }
+  .risk-card .ico{ font-family:var(--mono); color:var(--back); font-size:clamp(11px,0.9vw,13px); letter-spacing:.1em; margin-bottom:8px; text-transform:uppercase;}
+  .risk-card p{ font-size:clamp(12.5px,1vw,14.5px); color:var(--text-dim); line-height:1.55; }
+  .risk-card strong{ color:var(--text); }
+
+  /* ---------- SOURCES SLIDE ---------- */
+  .src-cols{ columns:2; column-gap:clamp(24px,3vw,48px); margin-top:clamp(18px,2.8vh,28px); max-width:1100px; }
+  .src-cols div{ break-inside:avoid; font-size:clamp(10.5px,0.85vw,12.5px); color:var(--text-dimmer); line-height:1.9; }
+  .src-cols b{ color:var(--text-dim); font-weight:500; }
+
+  /* ---------- NAV ---------- */
+  #progress{
+    position:fixed; right:clamp(14px,2vw,28px); top:50%; transform:translateY(-50%);
+    display:flex; flex-direction:column; gap:9px; z-index:10;
+  }
+  #progress button{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--line-soft); border:1px solid transparent;
+    cursor:pointer; padding:0; transition:all .3s ease;
+  }
+  #progress button.active{ background:var(--gold); width:9px; height:22px; border-radius:5px; }
+
+  #slidenum{
+    position:fixed; left:clamp(20px,3vw,40px); bottom:clamp(16px,2.4vh,28px);
+    font-family:var(--mono); font-size:11px; color:var(--text-dimmer); letter-spacing:.1em; z-index:10;
+  }
+  #slidenum b{ color:var(--gold); }
+
+  .brand{
+    position:fixed; left:clamp(20px,3vw,40px); top:clamp(16px,2.4vh,28px);
+    font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--text-dimmer); z-index:10;
+  }
+
+  /* ---------- SECTION DIVIDER ---------- */
+  .divider-num{ font-family:var(--serif); font-weight:300; font-size:clamp(60px,9vw,140px); color:var(--line); line-height:1; position:absolute; top:clamp(10px,2vh,30px); right:clamp(10px,2vw,40px); z-index:0; }
+  .toc-mini{ display:grid; grid-template-columns:1fr 1fr; gap: clamp(8px,1.2vh,14px) clamp(20px,2.4vw,40px); margin-top:clamp(22px,3.4vh,36px); max-width:900px; }
+  .toc-mini div{ font-family:var(--mono); font-size:clamp(11px,0.95vw,13.5px); color:var(--text-dim); display:flex; gap:10px; align-items:baseline; border-bottom:1px dashed var(--line-soft); padding-bottom:8px; }
+  .toc-mini b{ color:var(--gold-bright); font-family:var(--serif); font-size:clamp(14px,1.2vw,18px); font-weight:600; }
+
+  /* ---------- DETAILED VALUE CHAIN (8 STAGES) ---------- */
+  .vchain2{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(8px,1vw,12px); margin-top:clamp(14px,2vh,20px); }
+  .vbox{ background:var(--panel); border:1px solid var(--line-soft); border-radius:10px; padding:clamp(8px,0.9vw,12px) clamp(9px,1vw,13px); position:relative; }
+  .vbox .vn{ font-family:var(--mono); font-size:clamp(8.5px,0.7vw,10px); color:var(--gold); letter-spacing:.08em; }
+  .vbox .vt{ font-family:var(--serif); font-weight:600; font-size:clamp(11.5px,0.95vw,14px); line-height:1.2; margin-top:3px; }
+  .vbox .vc{ font-size:clamp(9px,0.75vw,10.5px); color:var(--text-dimmer); margin-top:3px; }
+  .vrow-arrow{ text-align:center; font-family:var(--mono); color:var(--text-dimmer); font-size:clamp(12px,1vw,15px); margin:2px 0; }
+  .asset-panel{ margin-top:clamp(14px,2vh,20px); }
+  .asset-panel .ap-head{ font-family:var(--mono); font-size:clamp(9.5px,0.8vw,11px); letter-spacing:.16em; text-transform:uppercase; color:var(--text-dim); margin-bottom:8px; }
+  .asset-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(8px,1vw,14px); }
+  .asset-card{ border-left:2px solid var(--teal); padding-left:10px; }
+  .asset-card b{ display:block; font-size:clamp(11px,0.92vw,13px); color:var(--text); margin-bottom:3px; }
+  .asset-card span{ font-size:clamp(9.5px,0.82vw,11.5px); color:var(--text-dim); line-height:1.4; }
+
+  /* ---------- STAGE USE-CASE LIST SLIDES ---------- */
+  .stage-list{ display:flex; flex-direction:column; gap:clamp(6px,0.9vh,10px); margin-top:clamp(12px,1.8vh,18px); }
+  .stage-row{ display:grid; grid-template-columns:38px 1fr; gap:12px; align-items:start; padding:clamp(7px,0.8vh,10px) clamp(11px,1.1vw,16px); background:var(--panel); border:1px solid var(--line-soft); border-radius:9px; }
+  .stage-row .rn{ font-family:var(--serif); font-weight:600; font-size:clamp(15px,1.3vw,19px); color:var(--gold-bright); line-height:1.3; }
+  .stage-row .rt strong{ color:var(--text); font-size:clamp(12px,0.98vw,14px); font-weight:600; }
+  .stage-row .rt .ev{ color:var(--text-dim); font-size:clamp(10.5px,0.86vw,12.5px); display:block; margin-top:1px; line-height:1.35; }
+
+  @media (max-width: 820px){
+    .stat-grid{ grid-template-columns:1fr 1fr; }
+    .chain-cols{ grid-template-columns:1fr; }
+    .uc-grid{ grid-template-columns:1fr; }
+    .risk-grid{ grid-template-columns:1fr; }
+    .src-cols{ columns:1; }
+    #progress{ display:none; }
+    .toc-mini{ grid-template-columns:1fr; }
+    .vchain2{ grid-template-columns:1fr 1fr; }
+    .asset-grid{ grid-template-columns:1fr 1fr; }
+    .stage-row{ grid-template-columns:28px 1fr; }
+    /* On small/narrow screens, dense slides (stacked grids) may exceed viewport height.
+       Prefer a graceful internal scroll over clipped content. */
+    .slide{ justify-content:flex-start; overflow-y:auto; padding-top:clamp(64px,10vh,90px); padding-bottom:32px; }
+    .slide::-webkit-scrollbar{ display:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .slide-inner{ transition:none !important; opacity:1 !important; transform:none !important; }
+    #deck{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="brand">Agentic AI — Sell-Side Capital Markets</div>
+<div id="slidenum"><b id="cur">01</b> / <span id="total">20</span></div>
+<nav id="progress" aria-label="Slide navigation"></nav>
+
+<main id="deck">
+
+  <!-- 0. TITLE -->
+  <section class="slide" id="slide-0">
+    <div class="slide-inner">
+      <div class="eyebrow">Research Briefing · July 2026</div>
+      <h1 class="display">Agentic AI in <em>Investment Banking</em> &amp; Capital Markets</h1>
+      <p class="lede">Two-part sell-side research: (1) 10 flagship use cases across IB &amp; capital markets, and (2) a detailed front-to-back trade value chain across equities, FX, structured products, and fixed income — with named institutions, measured outcomes, and the governance questions that come with them.</p>
+      <div class="title-meta">
+        <div><div class="num">50</div><div class="lbl">Use Cases</div></div>
+        <div><div class="num">8</div><div class="lbl">Trade Value Chain Stages</div></div>
+        <div><div class="num">40+</div><div class="lbl">Named Examples</div></div>
+        <div><div class="num">$97B</div><div class="lbl">FS Agentic AI Spend, 2027E</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. MARKET CONTEXT -->
+  <section class="slide" id="slide-1">
+    <div class="slide-inner">
+      <div class="eyebrow">Why Now</div>
+      <h2 class="section-title">Spending is accelerating faster than proof of scale.</h2>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num">$97B</div>
+          <div class="stat-cap">Projected financial-services investment in agentic AI (banking, insurance, capital markets, payments) by 2027.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">40%+</div>
+          <div class="stat-cap">Compound annual growth rate forecast for the standalone agentic AI platform market into the early 2030s.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">23%</div>
+          <div class="stat-cap">Share of organizations that have actually scaled agent deployments beyond pilots, per McKinsey — the gap is the opportunity.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">~40%</div>
+          <div class="stat-cap">Share of agentic AI projects Gartner expects to be cancelled by 2027 due to cost, risk, or unclear value.</div>
+        </div>
+      </div>
+      <p class="lede" style="margin-top:clamp(18px,2.8vh,28px)">Sell-side firms are moving fastest where the ROI is measurable and the risk is contained — document-heavy, high-volume, rules-bounded workflows. This report maps 10 use cases where that's already happening, with named institutions.</p>
+    </div>
+  </section>
+
+  <!-- 2. VALUE CHAIN DIAGRAM -->
+  <section class="slide" id="slide-2">
+    <div class="slide-inner">
+      <div class="eyebrow">Part 1 · The Map</div>
+      <h2 class="section-title">Ten use cases across the sell-side value chain</h2>
+      <div class="chain-wrap">
+        <div class="chain-cols">
+          <div class="chain-col front">
+            <div class="col-head"><span>Front Office</span><span>●</span></div>
+            <div class="chain-item"><span class="n">01</span><span class="t">Deal Origination &amp; Pitch Automation</span></div>
+            <div class="chain-item"><span class="n">02</span><span class="t">M&amp;A Due Diligence</span></div>
+            <div class="chain-item"><span class="n">03</span><span class="t">Pre-Trade Research &amp; Analytics</span></div>
+            <div class="chain-item"><span class="n">04</span><span class="t">Client Distribution &amp; Servicing</span></div>
+          </div>
+          <div class="chain-col middle">
+            <div class="col-head"><span>Middle Office</span><span>●</span></div>
+            <div class="chain-item"><span class="n">05</span><span class="t">Trade Surveillance &amp; Anomaly Detection</span></div>
+            <div class="chain-item"><span class="n">06</span><span class="t">KYC &amp; Client Onboarding</span></div>
+            <div class="chain-item"><span class="n">07</span><span class="t">AML &amp; Sanctions Screening</span></div>
+            <div class="chain-item"><span class="n">08</span><span class="t">Credit Underwriting &amp; Risk Memos</span></div>
+          </div>
+          <div class="chain-col back">
+            <div class="col-head"><span>Back Office</span><span>●</span></div>
+            <div class="chain-item"><span class="n">09</span><span class="t">Trade Support &amp; Exception Management</span></div>
+            <div class="chain-item"><span class="n">10</span><span class="t">Settlement &amp; Reconciliation</span></div>
+          </div>
+        </div>
+        <div class="chain-flow">Origination → Execution → Distribution &nbsp;/&nbsp; Risk → Compliance → Credit &nbsp;/&nbsp; Support → Settlement</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. FRONT OFFICE I -->
+  <section class="slide" id="slide-3">
+    <div class="slide-inner">
+      <div class="uc-head">
+        <div><span class="tag front"><span class="dot"></span>Front Office</span></div>
+      </div>
+      <div class="uc-grid">
+        <div class="uc-card">
+          <div class="uc-num">01</div>
+          <h3>Deal Origination &amp; Pitch Automation</h3>
+          <div class="desc">Turning market data, comps, and precedent transactions into first-draft pitch and deal materials in minutes instead of days.</div>
+          <div class="uc-examples">
+            <div class="ex"><b>JPMorgan —</b> <span>agentic AI generates IB pitch presentations in ~30 seconds; the bank runs 450+ AI use cases in production.</span></div>
+            <div class="ex"><b>Citi (Arc) —</b> <span>governed, auditable agent platform scales research, synthesis, and deal-prep agents firmwide.</span></div>
+          </div>
+        </div>
+        <div class="uc-card">
+          <div class="uc-num">02</div>
+          <h3>M&amp;A Due Diligence</h3>
+          <div class="desc">Agents interview management, mine data rooms, and flag deal risk at a fraction of the traditional time and cost.</div>
+          <div class="uc-examples">
+            <div class="ex"><b>DiligenceSquared —</b> <span>AI voice agents run management interviews for PE and M&A diligence engagements.</span></div>
+            <div class="ex"><b>Morgan Stanley &amp; Evercore —</b> <span>senior technology dealmakers are building agentic workflows directly into live M&A processes.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. FRONT OFFICE II -->
+  <section class="slide" id="slide-4">
+    <div class="slide-inner">
+      <div class="uc-head">
+        <div><span class="tag front"><span class="dot"></span>Front Office</span></div>
+      </div>
+      <div class="uc-grid">
+        <div class="uc-card">
+          <div class="uc-num">03</div>
+          <h3>Pre-Trade Research &amp; Analytics</h3>
+          <div class="desc">Agents continuously read market data, positions, and correlations to surface risk and hedge ideas on live desks.</div>
+          <div class="uc-examples">
+            <div class="ex"><b>Capital-markets "Frontier Firms" —</b> <span>Microsoft-documented desks generating dynamic risk metrics and hedge recommendations in real time.</span></div>
+            <div class="ex"><b>BlackRock Aladdin Copilot —</b> <span>agentic architecture drives real-time VaR, stress testing, and trading-limit enforcement.</span></div>
+          </div>
+        </div>
+        <div class="uc-card">
+          <div class="uc-num">04</div>
+          <h3>Client Distribution &amp; Servicing</h3>
+          <div class="desc">Opening platforms directly to client-side AI agents and embedding agents into client-facing channels.</div>
+          <div class="uc-examples">
+            <div class="ex"><b>Morgan Stanley —</b> <span>first major Wall St. firm opening ShareWorks &amp; Equity Edge to external agents via MCP, rolling out to 3,400 clients.</span></div>
+            <div class="ex"><b>Citi Sky —</b> <span>Gemini-based agent platform embedded directly into Citi Wealth client channels.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. MIDDLE OFFICE I -->
+  <section class="slide" id="slide-5">
+    <div class="slide-inner">
+      <div class="uc-head">
+        <div><span class="tag middle"><span class="dot"></span>Middle Office</span></div>
+      </div>
+      <div class="uc-grid">
+        <div class="uc-card">
+          <div class="uc-num">05</div>
+          <h3>Trade Surveillance &amp; Anomaly Detection</h3>
+          <div class="desc">Agents monitor trading activity continuously, flagging anomalous patterns near real time instead of in periodic batch review.</div>
+          <div class="uc-examples">
+            <div class="ex"><b>Goldman Sachs &amp; Deutsche Bank —</b> <span>jointly piloting agentic AI for trade surveillance.</span></div>
+            <div class="ex"><b>Deutsche Bank + Google Cloud —</b> <span>agents monitor trading activity and flag anomalies in near real time.</span></div>
+          </div>
+        </div>
+        <div class="uc-card">
+          <div class="uc-num">06</div>
+          <h3>KYC &amp; Client Onboarding</h3>
+          <div class="desc">Agents classify documents, extract and validate KYC data, and shift onboarding from periodic to continuous, event-driven review.</div>
+          <div class="uc-examples">
+            <div class="ex"><b>Global correspondent bank —</b> <span>10 agent squads running continuous, event-driven KYC (Celent-documented).</span></div>
+            <div class="ex"><b>Dutch financial institution (Deloitte) —</b> <span>onboarding time down 90%, staff workload down 30%.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. MIDDLE OFFICE II -->
+  <section class="slide" id="slide-6">
+    <div class="slide-inner">
+      <div class="uc-head">
+        <div><span class="tag middle"><span class="dot"></span>Middle Office</span></div>
+      </div>
+      <div class="uc-grid">
+        <div class="uc-card">
+          <div class="uc-num">07</div>
+          <h3>AML &amp; Sanctions Screening</h3>
+          <div class="desc">Agents triage alerts, resolve entities, and build risk context automatically across financial-crime workflows.</div>
+          <div class="uc-examples">
+            <div class="ex"><b>HSBC —</b> <span>alert volumes down 60%, true-positive detection up 2–4x.</span></div>
+            <div class="ex"><b>Tier 1 banks (Celent) —</b> <span>up to $177.9M annual efficiency gain across KYC &amp; sanctions screening.</span></div>
+          </div>
+        </div>
+        <div class="uc-card">
+          <div class="uc-num">08</div>
+          <h3>Credit Underwriting &amp; Risk Memos</h3>
+          <div class="desc">Agents assemble borrower data and draft credit memos for analyst and committee review instead of manual compilation.</div>
+          <div class="uc-examples">
+            <div class="ex"><b>S&amp;P Global —</b> <span>Credit Memo Builder™, an agentic workflow for loan committees and underwriters (launched Jun 2026).</span></div>
+            <div class="ex"><b>Moody's —</b> <span>Agentic Solutions cut credit memo prep from ~40 hours to ~2 minutes.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. BACK OFFICE -->
+  <section class="slide" id="slide-7">
+    <div class="slide-inner">
+      <div class="uc-head">
+        <div><span class="tag back"><span class="dot"></span>Back Office</span></div>
+      </div>
+      <div class="uc-grid">
+        <div class="uc-card">
+          <div class="uc-num">09</div>
+          <h3>Trade Support &amp; Exception Management</h3>
+          <div class="desc">Agents move exception handling from reactive firefighting to root-cause analysis and pre-emptive remediation.</div>
+          <div class="uc-examples">
+            <div class="ex"><b>CIBC Mellon &amp; HSBC —</b> <span>featured operators in the Celent/Duco guidebook for agentic post-trade operations.</span></div>
+            <div class="ex"><b>McKinsey CIB research —</b> <span>agentic "last-mile" automation applied across trade-control workflows.</span></div>
+          </div>
+        </div>
+        <div class="uc-card">
+          <div class="uc-num">10</div>
+          <h3>Settlement &amp; Reconciliation</h3>
+          <div class="desc">Agents match, reconcile, and pre-empt settlement breaks across custody, core banking, and trading systems.</div>
+          <div class="uc-examples">
+            <div class="ex"><b>BNY Mellon —</b> <span>20,000 AI assistants deployed; "Predictive Trade Analytics" auto-remediates settlement risk.</span></div>
+            <div class="ex"><b>Major global custodian ($50B/day) —</b> <span>99.8% straight-through processing, zero settlement fails in 18 months, $12M annual savings.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. PART 2 DIVIDER -->
+  <section class="slide" id="slide-8">
+    <div class="divider-num">02</div>
+    <div class="slide-inner">
+      <div class="eyebrow">Part Two</div>
+      <h1 class="display">Deep Dive: <em>The Sell-Side Trading Value Chain</em></h1>
+      <p class="lede">Front-to-back trade flow across equities, FX, structured products, and fixed income — eight stages, forty agentic AI use cases, each anchored to a named institution or platform.</p>
+      <div class="toc-mini">
+        <div><b>01</b> Client Onboarding &amp; KYC/AML</div>
+        <div><b>05</b> Risk Management</div>
+        <div><b>02</b> Pre-Trade: Research, Pricing &amp; Sales</div>
+        <div><b>06</b> Clearing &amp; Collateral</div>
+        <div><b>03</b> Execution / Trading</div>
+        <div><b>07</b> Settlement &amp; Reconciliation</div>
+        <div><b>04</b> Trade Capture &amp; Confirmation</div>
+        <div><b>08</b> Regulatory Reporting &amp; Accounting</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. DETAILED VALUE CHAIN DIAGRAM -->
+  <section class="slide" id="slide-9">
+    <div class="slide-inner">
+      <div class="eyebrow">The Map · Part 2</div>
+      <h2 class="section-title">Eight stages, front to back</h2>
+      <div class="vchain2">
+        <div class="vbox"><div class="vn">STAGE 01 · COMPLIANCE</div><div class="vt">Client Onboarding &amp; KYC/AML</div><div class="vc">5 use cases</div></div>
+        <div class="vbox"><div class="vn">STAGE 02 · FRONT OFFICE</div><div class="vt">Pre-Trade: Research, Pricing &amp; Sales</div><div class="vc">5 use cases</div></div>
+        <div class="vbox"><div class="vn">STAGE 03 · FRONT OFFICE</div><div class="vt">Execution / Trading</div><div class="vc">5 use cases</div></div>
+        <div class="vbox"><div class="vn">STAGE 04 · MIDDLE OFFICE</div><div class="vt">Trade Capture &amp; Confirmation</div><div class="vc">5 use cases</div></div>
+        <div class="vbox"><div class="vn">STAGE 05 · MIDDLE OFFICE</div><div class="vt">Risk Management</div><div class="vc">5 use cases</div></div>
+        <div class="vbox"><div class="vn">STAGE 06 · MIDDLE OFFICE</div><div class="vt">Clearing &amp; Collateral</div><div class="vc">5 use cases</div></div>
+        <div class="vbox"><div class="vn">STAGE 07 · BACK OFFICE</div><div class="vt">Settlement &amp; Reconciliation</div><div class="vc">5 use cases</div></div>
+        <div class="vbox"><div class="vn">STAGE 08 · BACK OFFICE</div><div class="vt">Regulatory Reporting &amp; Accounting</div><div class="vc">5 use cases</div></div>
+      </div>
+      <div class="vrow-arrow">01 → 02 → 03 → 04 → 05 → 06 → 07 → 08</div>
+      <div class="asset-panel">
+        <div class="ap-head">Where Asset Classes Diverge</div>
+        <div class="asset-grid">
+          <div class="asset-card"><b>Equities</b><span>Central clearing via CCPs; T+1 settlement (US, since May 2024); heavy corporate-actions/dividend load in back office.</span></div>
+          <div class="asset-card"><b>FX</b><span>Mostly bilateral; settlement risk removed via CLS for eligible pairs; NDFs increasingly clear via LCH ForexClear.</span></div>
+          <div class="asset-card"><b>Fixed Income</b><span>RFQ-driven execution, not a central order book; settles via DTCC (US) / Euroclear-Clearstream (Europe).</span></div>
+          <div class="asset-card"><b>Structured Products</b><span>Heaviest lift is pre-trade structuring/scenario pricing; booked as OTC derivatives so ISDA/CSA and XVA dominate stages 4-6.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. STAGE 1 -->
+  <section class="slide" id="slide-10">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 01 / 08 · Compliance</div>
+      <h2 class="section-title" style="font-size:clamp(22px,2.8vw,36px)">Client Onboarding &amp; KYC/AML</h2>
+      <div class="stage-list">
+        <div class="stage-row"><div class="rn">01</div><div class="rt"><strong>Continuous, event-driven KYC</strong><span class="ev">Global correspondent bank runs 10 agent squads for always-on customer due diligence. — Celent</span></div></div>
+        <div class="stage-row"><div class="rn">02</div><div class="rt"><strong>KYC document ingestion &amp; extraction</strong><span class="ev">Dutch institution (Deloitte): onboarding time -90%, staff workload -30%.</span></div></div>
+        <div class="stage-row"><div class="rn">03</div><div class="rt"><strong>AML transaction monitoring &amp; alert triage</strong><span class="ev">HSBC: alert volumes -60%, true-positive detection up 2-4x.</span></div></div>
+        <div class="stage-row"><div class="rn">04</div><div class="rt"><strong>Financial crimes investigation agents</strong><span class="ev">FIS + Anthropic Financial Crimes AI Agent, live at BMO and Amalgamated Bank.</span></div></div>
+        <div class="stage-row"><div class="rn">05</div><div class="rt"><strong>Sanctions &amp; adverse media screening</strong><span class="ev">Tier 1 banks (Celent): up to $177.9M annual efficiency gain across KYC/sanctions.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. STAGE 2 -->
+  <section class="slide" id="slide-11">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 02 / 08 · Front Office</div>
+      <h2 class="section-title" style="font-size:clamp(22px,2.8vw,36px)">Pre-Trade: Research, Pricing, Structuring &amp; Sales</h2>
+      <div class="stage-list">
+        <div class="stage-row"><div class="rn">01</div><div class="rt"><strong>Equity/credit research agents</strong><span class="ev">Marvin Labs, AlphaSense, Daloopa; MIT Sloan: +40% research productivity, +25% forecast accuracy.</span></div></div>
+        <div class="stage-row"><div class="rn">02</div><div class="rt"><strong>Real-time risk &amp; hedge recommendation agents</strong><span class="ev">Microsoft-documented capital-markets "Frontier Firms" desks.</span></div></div>
+        <div class="stage-row"><div class="rn">03</div><div class="rt"><strong>Derivatives/options pricing &amp; vol-surface agents</strong><span class="ev">Cross-asset Greeks and IV analytics now standard desk tooling (industry-documented).</span></div></div>
+        <div class="stage-row"><div class="rn">04</div><div class="rt"><strong>Structured products structuring agents</strong><span class="ev">AI-driven scenario pricing for the $300B US structured-products market. — Grid Dynamics</span></div></div>
+        <div class="stage-row"><div class="rn">05</div><div class="rt"><strong>Portfolio analytics for sales coverage</strong><span class="ev">BlackRock Aladdin Copilot: real-time VaR and stress testing feeding client coverage.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. STAGE 3 -->
+  <section class="slide" id="slide-12">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 03 / 08 · Front Office</div>
+      <h2 class="section-title" style="font-size:clamp(22px,2.8vw,36px)">Execution / Trading</h2>
+      <div class="stage-list">
+        <div class="stage-row"><div class="rn">01</div><div class="rt"><strong>Agentic order execution</strong><span class="ev">Robinhood Agentic Trading: external AI agents given direct, sanctioned trade access (equities beta, May 2026).</span></div></div>
+        <div class="stage-row"><div class="rn">02</div><div class="rt"><strong>Fixed-income RFQ &amp; dealer selection</strong><span class="ev">LTX BondGPT: live with Goldman Sachs, JPMorgan, TD Securities, Morgan Stanley, Bank of America, 40+ liquidity providers.</span></div></div>
+        <div class="stage-row"><div class="rn">03</div><div class="rt"><strong>Modular agentic market-making</strong><span class="ev">Citadel Securities: auditable agent modules for context, signal, routing, and risk review.</span></div></div>
+        <div class="stage-row"><div class="rn">04</div><div class="rt"><strong>AI trade surveillance during execution</strong><span class="ev">Goldman Sachs &amp; Deutsche Bank piloting agentic surveillance.</span></div></div>
+        <div class="stage-row"><div class="rn">05</div><div class="rt"><strong>Real-time anomaly detection</strong><span class="ev">Deutsche Bank + Google Cloud flag trading anomalies in near real time.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. STAGE 4 -->
+  <section class="slide" id="slide-13">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 04 / 08 · Middle Office</div>
+      <h2 class="section-title" style="font-size:clamp(22px,2.8vw,36px)">Trade Capture &amp; Confirmation</h2>
+      <div class="stage-list">
+        <div class="stage-row"><div class="rn">01</div><div class="rt"><strong>Central trade matching &amp; affirmation</strong><span class="ev">DTCC CTM / Match-to-Instruct automates T+1 affirmation.</span></div></div>
+        <div class="stage-row"><div class="rn">02</div><div class="rt"><strong>Automated booking &amp; allocation</strong><span class="ev">Industry-wide agentic booking cuts manual trade-finance processing up to 45-65%. — TCS</span></div></div>
+        <div class="stage-row"><div class="rn">03</div><div class="rt"><strong>Exception &amp; break resolution</strong><span class="ev">CIBC Mellon &amp; HSBC featured in the Celent/Duco agentic post-trade guidebook.</span></div></div>
+        <div class="stage-row"><div class="rn">04</div><div class="rt"><strong>ISDA/CSA documentation automation</strong><span class="ev">LandingAI Margin Collateral Agent: Claude-powered CSA extraction &amp; normalization.</span></div></div>
+        <div class="stage-row"><div class="rn">05</div><div class="rt"><strong>Trade-control "last-mile" automation</strong><span class="ev">McKinsey CIB research: root-cause analysis and auto-remediation.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14. STAGE 5 -->
+  <section class="slide" id="slide-14">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 05 / 08 · Middle Office</div>
+      <h2 class="section-title" style="font-size:clamp(22px,2.8vw,36px)">Risk Management</h2>
+      <div class="stage-list">
+        <div class="stage-row"><div class="rn">01</div><div class="rt"><strong>Real-time market risk &amp; VaR</strong><span class="ev">BlackRock Aladdin Copilot: agentic VaR, stress testing, trading-limit enforcement.</span></div></div>
+        <div class="stage-row"><div class="rn">02</div><div class="rt"><strong>Continuous multi-risk monitoring</strong><span class="ev">Agentic systems recalibrate credit/market/liquidity exposure as conditions change (industry-documented).</span></div></div>
+        <div class="stage-row"><div class="rn">03</div><div class="rt"><strong>Counterparty credit risk / credit memos</strong><span class="ev">S&amp;P Global Credit Memo Builder (Jun 2026); Moody's: 40 hrs → 2 min.</span></div></div>
+        <div class="stage-row"><div class="rn">04</div><div class="rt"><strong>XVA &amp; valuation-adjustment agents</strong><span class="ev">Risk.net: agentic XVA still ~5 years from full production (validation/regulatory gap).</span></div></div>
+        <div class="stage-row"><div class="rn">05</div><div class="rt"><strong>Fraud &amp; anomaly detection in risk ops</strong><span class="ev">Independent Bank (Michigan): 12x faster pipelines, real-time fraud detection.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15. STAGE 6 -->
+  <section class="slide" id="slide-15">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 06 / 08 · Middle Office</div>
+      <h2 class="section-title" style="font-size:clamp(22px,2.8vw,36px)">Clearing &amp; Collateral Management</h2>
+      <div class="stage-list">
+        <div class="stage-row"><div class="rn">01</div><div class="rt"><strong>CCP collateral delivery automation</strong><span class="ev">J.P. Morgan CCPMx, live with ICE Clear Europe &amp; LCH Ltd (SwapClear, ForexClear).</span></div></div>
+        <div class="stage-row"><div class="rn">02</div><div class="rt"><strong>Cross-counterparty margin automation</strong><span class="ev">AcadiaSoft, which acquired DTCC's ProtoColl collateral service.</span></div></div>
+        <div class="stage-row"><div class="rn">03</div><div class="rt"><strong>Agentic collateral &amp; margin-dispute reconciliation</strong><span class="ev">Duco's agentic workspace, human-in-the-loop.</span></div></div>
+        <div class="stage-row"><div class="rn">04</div><div class="rt"><strong>OTC derivatives margin calculation</strong><span class="ev">LandingAI Margin Collateral Agent: deterministic margin calc + audit trail.</span></div></div>
+        <div class="stage-row"><div class="rn">05</div><div class="rt"><strong>Tri-party collateral management</strong><span class="ev">J.P. Morgan Tri-Party program layering automated recall/substitution (2026 circular).</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16. STAGE 7 -->
+  <section class="slide" id="slide-16">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 07 / 08 · Back Office</div>
+      <h2 class="section-title" style="font-size:clamp(22px,2.8vw,36px)">Settlement &amp; Reconciliation</h2>
+      <div class="stage-list">
+        <div class="stage-row"><div class="rn">01</div><div class="rt"><strong>Predictive settlement-risk remediation</strong><span class="ev">BNY Mellon: 20,000 AI assistants; Predictive Trade Analytics auto-remediates risk.</span></div></div>
+        <div class="stage-row"><div class="rn">02</div><div class="rt"><strong>Straight-through processing at scale</strong><span class="ev">Major custodian, $50B/day: 99.8% STP, zero fails in 18 months, $12M/yr saved.</span></div></div>
+        <div class="stage-row"><div class="rn">03</div><div class="rt"><strong>Automated cash &amp; securities reconciliation</strong><span class="ev">PwC-cited: agentic matching cuts cycle times up to 80%.</span></div></div>
+        <div class="stage-row"><div class="rn">04</div><div class="rt"><strong>Post-trade agentic operations adopters</strong><span class="ev">CIBC Mellon &amp; HSBC (Celent/Duco guidebook).</span></div></div>
+        <div class="stage-row"><div class="rn">05</div><div class="rt"><strong>T+1 affirmation &amp; settlement-instruction automation</strong><span class="ev">DTCC Match-to-Instruct (M2i) workflow.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17. STAGE 8 -->
+  <section class="slide" id="slide-17">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 08 / 08 · Back Office</div>
+      <h2 class="section-title" style="font-size:clamp(22px,2.8vw,36px)">Regulatory Reporting &amp; Accounting</h2>
+      <div class="stage-list">
+        <div class="stage-row"><div class="rn">01</div><div class="rt"><strong>Regulatory report generation &amp; SAR filing</strong><span class="ev">FINRA made agentic AI an "active supervisory priority" in its 2026 report.</span></div></div>
+        <div class="stage-row"><div class="rn">02</div><div class="rt"><strong>GL reconciliation &amp; month-end close</strong><span class="ev">Anthropic's bank-floor templates; close cycles cut 50-55%.</span></div></div>
+        <div class="stage-row"><div class="rn">03</div><div class="rt"><strong>Agent operating systems for bank-wide reporting</strong><span class="ev">Fiserv agentOS.</span></div></div>
+        <div class="stage-row"><div class="rn">04</div><div class="rt"><strong>AI-native financial close platforms</strong><span class="ev">Safebooks, Puzzle: governed, auditable close-to-report agents.</span></div></div>
+        <div class="stage-row"><div class="rn">05</div><div class="rt"><strong>Regulatory-change triage &amp; controls monitoring</strong><span class="ev">Compliance/financial-crime leads 2026 adoption; real-time replacing periodic review.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18. RISKS -->
+  <section class="slide" id="slide-18">
+    <div class="slide-inner">
+      <div class="eyebrow">The Other Side</div>
+      <h2 class="section-title">The governance gap is the real constraint on scale.</h2>
+      <div class="risk-grid">
+        <div class="risk-card">
+          <div class="ico">Autonomy</div>
+          <p><strong>Agents act, not just predict</strong> — they call tools and APIs and chain decisions. Static, point-in-time model review doesn't transfer to systems that act continuously.</p>
+        </div>
+        <div class="risk-card">
+          <div class="ico">Auditability</div>
+          <p><strong>Audit trails are fragmented</strong> — prompts, tool calls, and reasoning steps scatter across systems, making it hard to reconstruct why an agent acted.</p>
+        </div>
+        <div class="risk-card">
+          <div class="ico">Regulation</div>
+          <p><strong>Frameworks are still immature</strong> — no comprehensive regime yet governs agentic AI in finance; supervisors are building as the technology moves.</p>
+        </div>
+        <div class="risk-card">
+          <div class="ico">Human-in-the-loop</div>
+          <p><strong>Oversight vs. speed is a real trade-off</strong> — a human at every step can negate the efficiency case; three-lines-of-defense models are being redesigned for continuous, autonomous risk.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 19. SOURCES -->
+  <section class="slide" id="slide-19">
+    <div class="slide-inner">
+      <div class="eyebrow">Methodology &amp; Sources</div>
+      <h2 class="section-title">Web research, July 2026</h2>
+      <p class="lede" style="margin-bottom:0">Compiled from primary announcements, McKinsey, Deloitte, Celent, Gartner, Risk.net, and financial-press reporting. Anonymized case studies are attributed to the research firm that published them. Vendor-level examples (e.g. Duco, LandingAI, LTX) are named platforms with disclosed bank clients, not anonymized.</p>
+      <div class="src-cols">
+        <div><b>JPMorgan agent rollout —</b> roic.ai, 2026</div>
+        <div><b>Morgan Stanley MCP access —</b> CNBC, Jun 2026</div>
+        <div><b>Goldman &amp; Deutsche trade surveillance —</b> AI News</div>
+        <div><b>Deutsche Bank + Google Cloud —</b> industry press</div>
+        <div><b>Citi Arc &amp; Citi Sky —</b> citigroup.com; WealthManagement.com</div>
+        <div><b>KYC / onboarding case studies —</b> Quantifind (Celent); Deloitte</div>
+        <div><b>AML at HSBC —</b> McKinsey; industry press</div>
+        <div><b>Sanctions screening efficiency —</b> Celent, via Risk.net</div>
+        <div><b>Financial crimes agent (BMO, Amalgamated) —</b> FIS + Anthropic announcement</div>
+        <div><b>M&amp;A due diligence agents —</b> TechCrunch (DiligenceSquared); Bloomberg</div>
+        <div><b>Credit memo automation —</b> S&amp;P Global press release, Jun 2026; VentureBeat (Moody's)</div>
+        <div><b>Post-trade / settlement —</b> Duco &amp; Celent guidebook; Clarion.ai; financialcontent.com (BNY Mellon)</div>
+        <div><b>Trade exception management —</b> McKinsey, CIB "last-mile automation"</div>
+        <div><b>Pre-trade risk &amp; Aladdin Copilot —</b> Microsoft Cloud Blog; lowtouch.ai / ZenML</div>
+        <div><b>Equity research agents —</b> Marvin Labs; MIT Sloan Management Review</div>
+        <div><b>Structured products —</b> Grid Dynamics</div>
+        <div><b>Robinhood Agentic Trading —</b> Memeburn; company announcement, May 2026</div>
+        <div><b>LTX BondGPT agentic RFQ —</b> PR Newswire; The DESK, Jun 2026</div>
+        <div><b>Citadel Securities agentic market-making —</b> HedgeCo Insights; company materials</div>
+        <div><b>DTCC CTM / Match-to-Instruct —</b> dtcc.com; ION Group</div>
+        <div><b>J.P. Morgan CCPMx &amp; Tri-Party —</b> jpmorgan.com Tri-Party Circular, 2026</div>
+        <div><b>AcadiaSoft / ProtoColl —</b> WatersTechnology</div>
+        <div><b>Duco agentic workspace —</b> du.co</div>
+        <div><b>LandingAI Margin Collateral Agent —</b> landing.ai</div>
+        <div><b>XVA agentic timeline —</b> Risk.net</div>
+        <div><b>Fraud detection (Independent Bank, MI) —</b> industry case study roundup</div>
+        <div><b>Reg reporting / FINRA supervisory priority —</b> Lightico; FINRA 2026 Annual Regulatory Oversight Report</div>
+        <div><b>Month-end close / GL recon —</b> Beancount.io; ChatFin; Anthropic bank-floor templates</div>
+        <div><b>Fiserv agentOS —</b> industry press</div>
+        <div><b>Market sizing —</b> Gartner (May 2026); softwarestrategiesblog.com roundup</div>
+        <div><b>Governance &amp; risk —</b> Deloitte; ValidMind</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const deck = document.getElementById('deck');
+  const progressNav = document.getElementById('progress');
+  const curLabel = document.getElementById('cur');
+  const totalLabel = document.getElementById('total');
+  if (totalLabel) totalLabel.textContent = String(slides.length).padStart(2,'0');
+  let current = 0;
+
+  slides.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.setAttribute('aria-label', 'Go to slide ' + (i+1));
+    b.addEventListener('click', () => goTo(i));
+    progressNav.appendChild(b);
+  });
+  const dots = Array.from(progressNav.children);
+
+  function setActive(i){
+    current = i;
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+    curLabel.textContent = String(i+1).padStart(2,'0');
+  }
+
+  function goTo(i){
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    slides[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Reveal on enter + active tracking
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const idx = slides.indexOf(entry.target);
+      if (entry.isIntersecting && entry.intersectionRatio > 0.55){
+        entry.target.classList.add('is-visible');
+        setActive(idx);
+      }
+    });
+  }, { root: deck, threshold: [0, 0.55, 1] });
+  slides.forEach(s => io.observe(s));
+
+  // Keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    if (['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){ e.preventDefault(); goTo(current+1); }
+    else if (['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); goTo(current-1); }
+    else if (e.key === 'Home'){ e.preventDefault(); goTo(0); }
+    else if (e.key === 'End'){ e.preventDefault(); goTo(slides.length-1); }
+  });
+
+  // Wheel navigation (debounced, since deck already scroll-snaps natively this just aids trackpads)
+  let wheelLock = false;
+  deck.addEventListener('wheel', (e) => {
+    if (wheelLock) return;
+    if (Math.abs(e.deltaY) < 18) return;
+    wheelLock = true;
+    setTimeout(() => wheelLock = false, 650);
+  }, { passive: true });
+
+  // Touch / swipe navigation
+  let touchStartY = null;
+  deck.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; }, { passive:true });
+  deck.addEventListener('touchend', (e) => {
+    if (touchStartY === null) return;
+    const dy = touchStartY - e.changedTouches[0].clientY;
+    if (Math.abs(dy) > 60){ goTo(current + (dy > 0 ? 1 : -1)); }
+    touchStartY = null;
+  }, { passive:true });
+
+  setActive(0);
+  slides[0].classList.add('is-visible');
+})();
+</script>
+
+</body>
+</html>
