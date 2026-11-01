@@ -1,0 +1,332 @@
+[
+[
+"G03",
+"Sales and Coverage",
+"Sales, Coverage",
+"CRM, call reports",
+"Axes, indications",
+"(none: all four)",
+false,
+[]
+],
+[
+"G01",
+"Client Lifecycle",
+"Client Lifecycle",
+"Onboarding, KYC",
+"Categorisation",
+"(none: all four)",
+false,
+[]
+],
+[
+"G02",
+"Credit and Documentation",
+"Credit and Legal",
+"Credit approval",
+"Agreements, SSIs",
+"(none: all four)",
+false,
+[]
+],
+[
+"G04",
+"Quoting and Pricing",
+"Quoting, Pricing",
+"RFQ, streaming prices",
+"Client APIs",
+"(none: all four)",
+false,
+[]
+],
+[
+"G05",
+"Structuring and Suitability",
+"Structuring",
+"Pricing models",
+"Suitability, approval",
+"(none: all four)",
+false,
+[]
+],
+[
+"G06",
+"Order Management",
+"Order Management",
+"Order system",
+"Pre-trade risk, DMA",
+"(none: all four)",
+false,
+[]
+],
+[
+"G07",
+"Execution and Routing",
+"Execution",
+"Smart routing, algos",
+"FX aggregation",
+"(none: all four)",
+false,
+[]
+],
+[
+"G08",
+"Trading Desk",
+"Trading Desk",
+"Workstation",
+"Trader positions",
+"(none: all four)",
+false,
+[]
+],
+[
+"G09",
+"Trade Capture and Booking",
+"Trade Booking",
+"Capture, enrichment",
+"Fees, billing",
+"(none: all four)",
+false,
+[]
+],
+[
+"G10",
+"Allocation and Affirmation",
+"Allocation",
+"Affirmation, matching",
+"",
+"EQ FI DR",
+false,
+[]
+],
+[
+"G11",
+"OTC Confirmation and Lifecycle",
+"OTC Confirmation",
+"Matching, recs",
+"Lifecycle events",
+"(none: all four)",
+false,
+[]
+],
+[
+"G15",
+"CCP and Listed Clearing",
+"CCP Clearing",
+"Give-ups, novation",
+"Client accounts",
+"(none: all four)",
+false,
+[]
+],
+[
+"G16",
+"Margin and Netting",
+"Margin, Netting",
+"Calls, compression",
+"",
+"FI FX DR",
+false,
+[]
+],
+[
+"G17",
+"Settlement Processing",
+"Settlement",
+"Instructions, fails",
+"",
+"EQ FI",
+false,
+[]
+],
+[
+"G18",
+"Market Infrastructure",
+"Infrastructure",
+"CSDs, FX PvP",
+"Agent banks",
+"(none: all four)",
+true,
+[]
+],
+[
+"G20",
+"Safekeeping and Segregation",
+"Safekeeping",
+"Segregated custody",
+"",
+"EQ FI",
+false,
+[]
+],
+[
+"G21",
+"Asset Servicing",
+"Asset Servicing",
+"Corporate actions",
+"",
+"EQ FI",
+false,
+[]
+],
+[
+"G23",
+"Prime Services",
+"Prime Services",
+"Margin lending, TRS",
+"",
+"EQ FI DR",
+false,
+[]
+],
+[
+"G22",
+"Securities Finance",
+"Securities Finance",
+"Lending, repo",
+"",
+"EQ FI",
+false,
+[]
+],
+[
+"G24",
+"Financing Controls",
+"Finance Controls",
+"Locates, short sales",
+"",
+"EQ FI",
+false,
+[]
+],
+[
+"P3",
+"Collateral, Liquidity and Cash",
+"Collateral, Cash",
+"Collateral, liquidity",
+"Funding, payments",
+"(none: all four)",
+false,
+[]
+],
+[
+"G12",
+"Daily Risk and P&L",
+"Risk and P&L",
+"Risk engine, P&L",
+"Price verification",
+"(none: all four)",
+false,
+[]
+],
+[
+"P2",
+"Risk and Limits",
+"Risk and Limits",
+"Exposure, limits",
+"Capital, XVA",
+"(none: all four)",
+false,
+[]
+],
+[
+"G13",
+"Regulatory Trade Reporting",
+"Trade Reporting",
+"MiFIR, EMIR, SFTR",
+"Transparency, hub",
+"(none: all four)",
+false,
+[]
+],
+[
+"P6",
+"Surveillance and Control Room",
+"Surveillance",
+"Trade and comms",
+"Control room, STORs",
+"(none: all four)",
+false,
+[]
+],
+[
+"G27",
+"Conduct and Client Assets",
+"Conduct",
+"Best execution",
+"Client money, assets",
+"(none: all four)",
+false,
+[]
+],
+[
+"G25",
+"Feed Acquisition",
+"Market Data Feeds",
+"Feed handlers",
+"Colocation",
+"(none: all four)",
+false,
+[]
+],
+[
+"G26",
+"Distribution and Licensing",
+"Data Distribution",
+"Entitlements, licences",
+"Tick history",
+"(none: all four)",
+false,
+[]
+],
+[
+"P1",
+"Reference Data",
+"Reference Data",
+"Instruments, parties",
+"Curves, calendars",
+"(none: all four)",
+false,
+[]
+],
+[
+"P4",
+"Data and Analytics",
+"Data, Analytics",
+"Position store",
+"Finance feed, lineage",
+"(none: all four)",
+false,
+[]
+],
+[
+"P5",
+"Integration and Messaging",
+"Integration",
+"Message gateway",
+"Translation, APIs",
+"(none: all four)",
+false,
+[]
+],
+[
+"P7",
+"Controls and Resilience",
+"Controls",
+"Identity, access",
+"Resilience, records",
+"(none: all four)",
+false,
+[]
+],
+[
+"G28",
+"Reconciliation Services",
+"Reconciliation",
+"Front to back",
+"Nostro, depot",
+"(none: all four)",
+false,
+[]
+]
+]

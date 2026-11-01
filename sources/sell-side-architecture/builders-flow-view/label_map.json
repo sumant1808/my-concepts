@@ -1,0 +1,250 @@
+[
+[
+"G01",
+"Client Lifecycle",
+"Client Lifecycle",
+"KYC, onboarding, categorisation",
+"(none: all)",
+false
+],
+[
+"G02",
+"Credit and Documentation",
+"Credit and Documentation",
+"Credit, agreements, SSIs",
+"(none: all)",
+false
+],
+[
+"G03",
+"Sales and Coverage",
+"Sales and Coverage",
+"CRM, axes and indications",
+"(none: all)",
+false
+],
+[
+"G04",
+"Quoting and Pricing",
+"Quoting and Pricing",
+"RFQ, streaming, online channels",
+"(none: all)",
+false
+],
+[
+"G05",
+"Structuring and Suitability",
+"Structuring, Suitability",
+"Pricing, NPA, suitability",
+"(none: all)",
+false
+],
+[
+"G06",
+"Order Management",
+"Order Management",
+"Order system, pre-trade risk",
+"(none: all)",
+false
+],
+[
+"G07",
+"Execution and Routing",
+"Execution and Routing",
+"Routing, algos, FX aggregation",
+"(none: all)",
+false
+],
+[
+"G08",
+"Trading Desk",
+"Trading Desk",
+"Workstation, positions",
+"(none: all)",
+false
+],
+[
+"G09",
+"Trade Capture and Booking",
+"Trade Capture and Booking",
+"Capture, booking, fees",
+"(none: all)",
+false
+],
+[
+"G10",
+"Allocation and Affirmation",
+"Allocation, Affirmation",
+"Allocation, affirmation",
+"EQ FI DR",
+false
+],
+[
+"G11",
+"OTC and Structured Confirmation and Lifecycle",
+"OTC Confirmation",
+"Matching, recs, lifecycle",
+"(none: all)",
+false
+],
+[
+"G12",
+"Daily Risk and P&L",
+"Daily Risk and P&L",
+"Risk, P&L, price verification",
+"(none: all)",
+false
+],
+[
+"G13",
+"Regulatory Trade Reporting",
+"Regulatory Trade Reporting",
+"MiFIR, EMIR, CFTC, public",
+"(none: all)",
+false
+],
+[
+"G15",
+"CCP and Listed Clearing",
+"CCP and Listed Clearing",
+"Give-ups, CCP, client accounts",
+"(none: all)",
+false
+],
+[
+"G16",
+"Margin and Netting",
+"Margin and Netting",
+"Margin, calls, netting",
+"FI FX DR",
+false
+],
+[
+"G17",
+"Settlement Processing",
+"Settlement Processing",
+"Instructions, status, fails",
+"EQ FI",
+false
+],
+[
+"G18",
+"Market Infrastructure",
+"Market Infrastructure",
+"CSDs, FX PvP, agent banks",
+"(none: all)",
+true
+],
+[
+"G20",
+"Safekeeping and Segregation",
+"Safekeeping, Segregation",
+"Positions, client assets",
+"EQ FI",
+false
+],
+[
+"G21",
+"Asset Servicing",
+"Asset Servicing",
+"Events, income, tax reclaims",
+"EQ FI",
+false
+],
+[
+"G22",
+"Securities Finance",
+"Securities Finance",
+"Lending, borrowing, repo",
+"EQ FI",
+false
+],
+[
+"G23",
+"Prime Services",
+"Prime Services",
+"Margin lending, synthetics",
+"EQ FI DR",
+false
+],
+[
+"G24",
+"Financing Controls",
+"Financing Controls",
+"Locates, SFTR, rehypothecation",
+"EQ FI",
+false
+],
+[
+"G25",
+"Feed Acquisition",
+"Feed Acquisition",
+"Feeds, colocation",
+"(none: all)",
+false
+],
+[
+"G26",
+"Distribution and Licensing",
+"Distribution, Licensing",
+"Entitlements, tick store",
+"(none: all)",
+false
+],
+[
+"P1",
+"Reference Data",
+"Reference Data",
+"Instrument, party, curve and calendar data",
+"(none: all)",
+false
+],
+[
+"P2",
+"Risk and Limits",
+"Risk and Limits",
+"Exposure, limits, capital, XVA",
+"(none: all)",
+false
+],
+[
+"P3",
+"Collateral, Liquidity and Cash",
+"Collateral, Liquidity, Cash",
+"Collateral, funding, payments, nostros",
+"(none: all)",
+false
+],
+[
+"P4",
+"Data and Analytics",
+"Data and Analytics",
+"Trade store, finance feed, lineage",
+"(none: all)",
+false
+],
+[
+"P5",
+"Integration and Messaging",
+"Integration and Messaging",
+"Message gateway, translation, APIs",
+"(none: all)",
+false
+],
+[
+"P6",
+"Conduct, Surveillance and Reporting Oversight",
+"Conduct and Reporting Oversight",
+"Surveillance, control room, best ex, STORs",
+"(none: all)",
+false
+],
+[
+"P7",
+"Controls and Resilience",
+"Controls and Resilience",
+"Recs, client money, resilience, records",
+"(none: all)",
+false
+]
+]

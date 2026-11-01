@@ -1,0 +1,3292 @@
+{
+ "title": "Sell-side global markets functional architecture (trade lifecycle view)",
+ "stages": [
+  {
+   "id": "S0",
+   "no": 0,
+   "name": "Onboarding",
+   "office": "Middle",
+   "purpose": "Make a client legally, credit and operationally ready to trade.",
+   "value": "Cost sits here: onboarding time delays first trade and revenue; credit and documentation set the capital each client consumes.",
+   "groups": [
+    {
+     "id": "G01",
+     "name": "Client Lifecycle",
+     "components": [
+      {
+       "id": "C01",
+       "name": "Client Onboarding Workflow",
+       "does": "Orchestrates entity due diligence, document collection, approvals and account opening across desks",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "Party Lifecycle Management",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C02",
+       "name": "KYC and Sanctions Screening",
+       "does": "Identity, beneficial ownership, sanctions and adverse media checks with periodic refresh",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "UK MLRs",
+        "EU AMLD",
+        "US BSA/CIP"
+       ]
+      },
+      {
+       "id": "C03",
+       "name": "Client Categorisation Register",
+       "does": "Records retail, professional or eligible counterparty status and regulatory classifications per entity",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "database",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "MiFID II client categorisation",
+        "Dodd-Frank counterparty status"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "G02",
+     "name": "Credit and Documentation",
+     "components": [
+      {
+       "id": "C04",
+       "name": "Counterparty Credit Approval",
+       "does": "Rates the counterparty and sets credit appetite, limits and collateral terms before trading",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Counterparty Risk",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C05",
+       "name": "Master Agreement Repository",
+       "does": "Holds ISDA, CSA, GMRA, GMSLA and give-up terms as structured, queryable elections",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Customer Agreement",
+       "msg": "CDM legal agreements model",
+       "calm": "database",
+       "fix": "",
+       "fpml_cdm": "CDM legal agreements model",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "UMR (CSA terms)"
+       ]
+      },
+      {
+       "id": "C06",
+       "name": "Standing Settlement Instructions",
+       "does": "Stores client and market settlement instructions by asset class, currency and place",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "MT670/671 (SSI)",
+       "calm": "database",
+       "fix": "SettlementInstructions, SettlementInstructionRequest",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "MT670/671 (SSI)",
+       "regs": []
+      },
+      {
+       "id": "C07",
+       "name": "Account and Access Setup",
+       "does": "Creates trading accounts, desk mappings and client electronic platform entitlements",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "Customer Access Entitlement",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S1",
+   "no": 1,
+   "name": "Origination",
+   "office": "Front",
+   "purpose": "Win secondary-market client business: coverage, quoting, structuring and suitability (primary issuance out of scope)",
+   "value": "Margin sits here: bid-offer spread on flow and structuring margin on bespoke products.",
+   "groups": [
+    {
+     "id": "G03",
+     "name": "Sales and Coverage",
+     "components": [
+      {
+       "id": "C08",
+       "name": "Sales CRM and Coverage",
+       "does": "Tracks client coverage, interactions, revenue attribution and call reports",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "Customer Relationship Management",
+       "msg": "",
+       "calm": "system",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C09",
+       "name": "Axes and Indications",
+       "does": "Publishes dealer axes and indications of interest to clients and platforms",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "",
+       "msg": "FIX IOI",
+       "calm": "service",
+       "fix": "IOI",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    },
+    {
+     "id": "G04",
+     "name": "Quoting and Pricing",
+     "components": [
+      {
+       "id": "C10",
+       "name": "RFQ and Quote Management",
+       "does": "Receives requests for quote, prices them and manages quote acceptance across channels",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "Quote Management",
+       "msg": "FIX QuoteRequest",
+       "calm": "service",
+       "fix": "QuoteRequest, Quote, QuoteResponse",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C11",
+       "name": "Bond and Credit RFQ",
+       "does": "Auto-prices and responds to multi-dealer platform RFQs for bonds and credit",
+       "ac": [
+        "FI"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Market Making",
+       "msg": "FIX QuoteRequest",
+       "calm": "service",
+       "fix": "QuoteRequest, Quote",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C12",
+       "name": "FX Streaming Prices",
+       "does": "Streams executable FX prices to clients and platforms with client-tiered spreads",
+       "ac": [
+        "FX"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Market Making",
+       "msg": "FIX Quote",
+       "calm": "service",
+       "fix": "Quote",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C103",
+       "name": "Single-Dealer Platform and Client APIs",
+       "does": "Gives clients branded web and API access to prices, RFQ, orders, post-trade status and analytics",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "webclient",
+       "fix": "QuoteRequest, NewOrderSingle",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    },
+    {
+     "id": "G05",
+     "name": "Structuring and Suitability",
+     "components": [
+      {
+       "id": "C13",
+       "name": "Structuring and Pricing Models",
+       "does": "Designs and prices structured and exotic trades using approved models",
+       "ac": [
+        "DR",
+        "EQ",
+        "FI"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Trading Models",
+       "msg": "FpML/CDM product model",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "FpML/CDM product model",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C14",
+       "name": "Suitability and Appropriateness",
+       "does": "Checks product fit to client categorisation, knowledge and target market before dealing",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Suitability Checking",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "MiFID II suitability and appropriateness",
+        "MiFID II costs and charges"
+       ]
+      },
+      {
+       "id": "C15",
+       "name": "New Product Approval",
+       "does": "Governs new products: risk, legal, operational and booking readiness sign-off",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Product Design",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S2",
+   "no": 2,
+   "name": "Execution",
+   "office": "Front",
+   "purpose": "Execute orders and quotes with control and best execution.",
+   "value": "Margin sits here: internalisation, execution quality and electronic scale; cost sits in venue fees and errors.",
+   "groups": [
+    {
+     "id": "G06",
+     "name": "Order Management",
+     "components": [
+      {
+       "id": "C16",
+       "name": "Order Management System",
+       "does": "Captures, validates and manages client and principal orders through their lifecycle",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Market Order",
+       "msg": "FIX NewOrderSingle",
+       "calm": "system",
+       "fix": "NewOrderSingle, ExecutionReport",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C17",
+       "name": "Pre-Trade Risk Controls",
+       "does": "Applies price, size, credit and market-access checks before orders leave",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "SEC Rule 15c3-5",
+        "MiFID II RTS 6"
+       ]
+      },
+      {
+       "id": "C18",
+       "name": "Client DMA Gateway",
+       "does": "Gives clients direct market access and algo order entry over FIX",
+       "ac": [
+        "EQ",
+        "DR"
+       ],
+       "sor": "integration",
+       "external": false,
+       "bian": "",
+       "msg": "FIX NewOrderSingle",
+       "calm": "service",
+       "fix": "NewOrderSingle, ExecutionReport",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    },
+    {
+     "id": "G07",
+     "name": "Execution and Routing",
+     "components": [
+      {
+       "id": "C19",
+       "name": "Execution and Smart Routing",
+       "does": "Routes orders across venues and liquidity pools seeking best execution",
+       "ac": [
+        "EQ",
+        "FI",
+        "DR"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Market Order Execution",
+       "msg": "FIX NewOrderSingle",
+       "calm": "system",
+       "fix": "NewOrderSingle, ExecutionReport",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "MiFID II best execution"
+       ]
+      },
+      {
+       "id": "C20",
+       "name": "Algorithmic Execution Engine",
+       "does": "Runs execution algorithms and basket trades under algo governance controls",
+       "ac": [
+        "EQ",
+        "FX",
+        "DR"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Program Trading",
+       "msg": "FIX NewOrderSingle",
+       "calm": "service",
+       "fix": "NewOrderSingle",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "MiFID II RTS 6"
+       ]
+      },
+      {
+       "id": "C21",
+       "name": "FX Aggregation and Internalisation",
+       "does": "Aggregates external FX liquidity, internalises client flow and hedges residual risk",
+       "ac": [
+        "FX"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "",
+       "msg": "FIX Quote",
+       "calm": "service",
+       "fix": "Quote, ExecutionReport",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    },
+    {
+     "id": "G08",
+     "name": "Trading Desk",
+     "components": [
+      {
+       "id": "C22",
+       "name": "Trader Workstation",
+       "does": "Trader desktop for blotters, quotes, orders, voice trade capture and intraday risk",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "eTrading Workbench",
+       "msg": "",
+       "calm": "webclient",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C23",
+       "name": "Trader Position Management",
+       "does": "Maintains real-time desk positions, inventory and hedging needs",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Trader Position Operations",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C24",
+       "name": "Venue Connectivity Gateways",
+       "does": "Connects to exchanges, MTFs and OTFs using FIX or native protocols",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "integration",
+       "external": false,
+       "bian": "",
+       "msg": "FIX NewOrderSingle",
+       "calm": "network",
+       "fix": "NewOrderSingle, ExecutionReport",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S3",
+   "no": 3,
+   "name": "Confirmation",
+   "office": "Middle",
+   "purpose": "Book, allocate, confirm and agree every trade with the client.",
+   "value": "Cost sits here: breaks, late confirmations and manual affirmation drive operational risk and headcount.",
+   "groups": [
+    {
+     "id": "G09",
+     "name": "Trade Capture and Booking",
+     "components": [
+      {
+       "id": "C25",
+       "name": "Trade Capture and Booking",
+       "does": "Books executed trades to books and UK, EU or US legal entities, including back-to-back and intercompany legs",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "FIX TradeCaptureReport; CDM event model (execution)",
+       "calm": "system",
+       "fix": "TradeCaptureReport",
+       "fpml_cdm": "CDM event model (execution)",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C26",
+       "name": "Trade Enrichment",
+       "does": "Adds settlement instructions, fees, identifiers and regulatory flags to booked trades",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "integration",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C101",
+       "name": "Commissions, Fees and Client Billing",
+       "does": "Calculates commissions and clearing, custody and financing fees; invoices clients; reconciles exchange, CCP and broker fees and passes on penalties",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Commissions",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    },
+    {
+     "id": "G10",
+     "name": "Allocation and Affirmation",
+     "components": [
+      {
+       "id": "C27",
+       "name": "Allocation and Affirmation",
+       "does": "Splits block trades into client allocations and drives same-day affirmation",
+       "ac": [
+        "EQ",
+        "FI",
+        "DR"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "Order Allocation",
+       "msg": "FIX AllocationInstruction",
+       "calm": "service",
+       "fix": "AllocationInstruction, AllocationReport, Confirmation, ConfirmationAck",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "US T+1",
+        "UK/EU T+1"
+       ]
+      },
+      {
+       "id": "C28",
+       "name": "Trade Matching Utility",
+       "does": "Third-party central matching of institutional trade details and confirmations",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "integration",
+       "external": true,
+       "bian": "Trade Confirmation Matching",
+       "msg": "FIX Confirmation",
+       "calm": "ecosystem",
+       "fix": "Confirmation",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    },
+    {
+     "id": "G11",
+     "name": "OTC and Structured Confirmation and Lifecycle",
+     "components": [
+      {
+       "id": "C29",
+       "name": "OTC Confirmation Matching",
+       "does": "Generates, matches and chases OTC derivative and FX confirmations within deadlines",
+       "ac": [
+        "DR",
+        "FX"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Trade Confirmation Matching",
+       "msg": "FpML confirmation; CDM event model; MT300/MT305 (FX confirmations)",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "FpML confirmation; CDM event model",
+       "iso20022": "",
+       "swift_mt": "MT300/MT305 (FX confirmations)",
+       "regs": [
+        "EMIR timely confirmation"
+       ]
+      },
+      {
+       "id": "C30",
+       "name": "Portfolio Reconciliation and Disputes",
+       "does": "Reconciles OTC portfolios with counterparties and manages valuation disputes",
+       "ac": [
+        "DR"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "CDM product model",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "CDM product model",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "EMIR portfolio reconciliation"
+       ]
+      },
+      {
+       "id": "C31",
+       "name": "Lifecycle Event Processing",
+       "does": "Processes resets, exercises, novations, terminations and compression results",
+       "ac": [
+        "DR",
+        "FX",
+        "EQ",
+        "FI"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "",
+       "msg": "CDM event model; FpML",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "CDM event model; FpML",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C102",
+       "name": "Structured Products Lifecycle",
+       "does": "Issues notes and certificates under programmes, monitors barriers and fixings, processes coupons, autocalls and redemptions",
+       "ac": [
+        "DR",
+        "EQ",
+        "FI"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "system",
+       "fix": "",
+       "fpml_cdm": "CDM product and event model",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S4",
+   "no": 4,
+   "name": "Risk and Reporting",
+   "office": "Middle",
+   "purpose": "Measure risk and P&L and report every trade to regulators and markets.",
+   "value": "Cost sits here: reporting errors bring fines and remediation; capital follows measured risk.",
+   "groups": [
+    {
+     "id": "G12",
+     "name": "Daily Risk and P&L",
+     "components": [
+      {
+       "id": "C32",
+       "name": "Trading Risk Engine",
+       "does": "Calculates sensitivities, VaR and stress results for trading books",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Market Risk Models",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C33",
+       "name": "P&L and Product Control",
+       "does": "Produces daily P&L, attribution and book sign-off for trading desks",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Trading Book Oversight",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C34",
+       "name": "Independent Price Verification",
+       "does": "Checks marks against independent sources and sets valuation adjustments",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Financial Instrument Valuation",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    },
+    {
+     "id": "G13",
+     "name": "Regulatory Trade Reporting",
+     "components": [
+      {
+       "id": "C35",
+       "name": "Transaction Reporting",
+       "does": "Builds MiFIR and UK MiFIR transaction reports and submits via ARMs",
+       "ac": [
+        "EQ",
+        "FI",
+        "DR"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Regulatory Reporting",
+       "msg": "ISO 20022 auth",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "auth",
+       "swift_mt": "",
+       "regs": [
+        "MiFIR Art 26",
+        "UK MiFIR",
+        "SEC CAT (Rule 613)"
+       ]
+      },
+      {
+       "id": "C36",
+       "name": "Derivatives Trade Reporting",
+       "does": "Reports OTC and exchange-traded derivative trades, valuations, collateral and lifecycle events to trade repositories and SDRs",
+       "ac": [
+        "DR",
+        "FX"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Regulatory Reporting",
+       "msg": "FpML reporting; CDM event model; ISO 20022 auth",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "FpML reporting; CDM event model",
+       "iso20022": "auth",
+       "swift_mt": "",
+       "regs": [
+        "EMIR Refit",
+        "UK EMIR",
+        "CFTC Part 45",
+        "SEC Reg SBSR"
+       ]
+      },
+      {
+       "id": "C37",
+       "name": "Pre- and Post-Trade Transparency",
+       "does": "Publishes SI quotes and post-trade price and volume via APAs and consolidated tapes",
+       "ac": [
+        "EQ",
+        "FI",
+        "DR"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Trade and Price Reporting",
+       "msg": "FIX TradeCaptureReport",
+       "calm": "service",
+       "fix": "TradeCaptureReport",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "MiFIR post-trade transparency",
+        "CFTC Part 43",
+        "FINRA TRACE",
+        "MiFIR SI regime"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S5",
+   "no": 5,
+   "name": "Clearing",
+   "office": "Back",
+   "purpose": "Novate eligible trades to CCPs and manage margin and netting.",
+   "value": "Cost sits here: margin funding, CCP fees and capital; client clearing earns fees.",
+   "groups": [
+    {
+     "id": "G15",
+     "name": "CCP and Listed Clearing",
+     "components": [
+      {
+       "id": "C40",
+       "name": "Clearing Gateway and Give-ups",
+       "does": "Submits trades to CCPs, manages give-ups and tracks clearing status; includes FX prime brokerage give-ups",
+       "ac": [
+        "DR",
+        "FI",
+        "EQ",
+        "FX"
+       ],
+       "sor": "integration",
+       "external": false,
+       "bian": "Trade Clearing",
+       "msg": "FIX TradeCaptureReport; ISO 20022 secl",
+       "calm": "service",
+       "fix": "TradeCaptureReport, AllocationInstruction",
+       "fpml_cdm": "",
+       "iso20022": "secl",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C41",
+       "name": "CCP Novation Service",
+       "does": "CCP becomes counterparty, nets positions and calls initial and variation margin",
+       "ac": [
+        "DR",
+        "FI",
+        "EQ"
+       ],
+       "sor": "system of record",
+       "external": true,
+       "bian": "",
+       "msg": "FIX PositionReport; ISO 20022 secl",
+       "calm": "ecosystem",
+       "fix": "PositionReport, CollateralReport",
+       "fpml_cdm": "",
+       "iso20022": "secl (securities only)",
+       "swift_mt": "",
+       "regs": [
+        "EMIR clearing obligation"
+       ]
+      },
+      {
+       "id": "C42",
+       "name": "Client Clearing Accounts",
+       "does": "Runs client clearing as clearing member: account segregation, margin pass-through, porting, default fund contributions and CCP default management drills",
+       "ac": [
+        "DR",
+        "FI"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "system",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "EMIR client clearing",
+        "CFTC customer segregation"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "G16",
+     "name": "Margin and Netting",
+     "components": [
+      {
+       "id": "C43",
+       "name": "Margin Calculation",
+       "does": "Calculates exchange-traded and uncleared initial and variation margin",
+       "ac": [
+        "DR",
+        "FX",
+        "FI"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Credit and Margin Management",
+       "msg": "FIX MarginRequirementReport; CDM collateral (eligibility)",
+       "calm": "service",
+       "fix": "MarginRequirementReport",
+       "fpml_cdm": "CDM collateral (eligibility)",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "UMR",
+        "ISDA SIMM",
+        "CCP initial margin models"
+       ]
+      },
+      {
+       "id": "C44",
+       "name": "Margin Call Management",
+       "does": "Issues, receives, agrees and disputes margin calls with counterparties and CCPs",
+       "ac": [
+        "DR",
+        "FX",
+        "FI"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "Collateral Allocation Management",
+       "msg": "CDM margin call workflow; ISO 20022 colr; MT558 (triparty)",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "CDM margin call workflow",
+       "iso20022": "colr",
+       "swift_mt": "MT558 (triparty)",
+       "regs": [
+        "UMR"
+       ]
+      },
+      {
+       "id": "C45",
+       "name": "Netting and Compression",
+       "does": "Nets settlement obligations and applies portfolio compression results",
+       "ac": [
+        "DR",
+        "FX"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "",
+       "msg": "CDM event model",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "CDM event model",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S6",
+   "no": 6,
+   "name": "Settlement",
+   "office": "Back",
+   "purpose": "Exchange securities and cash with finality, on time.",
+   "value": "Cost sits here: fails, CSDR penalties, buy-ins and intraday funding.",
+   "groups": [
+    {
+     "id": "G17",
+     "name": "Settlement Processing",
+     "components": [
+      {
+       "id": "C46",
+       "name": "Settlement Instruction Engine",
+       "does": "Generates and sends settlement instructions to CSDs and agents",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "integration",
+       "external": false,
+       "bian": "Trade Settlement",
+       "msg": "FIX SettlementInstructions; ISO 20022 sese; MT540-543",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "sese",
+       "swift_mt": "MT540-543",
+       "regs": []
+      },
+      {
+       "id": "C47",
+       "name": "Settlement Status and Matching",
+       "does": "Tracks matching, allegements, status and confirmations from the market",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Trade Settlement",
+       "msg": "ISO 20022 sese; MT544-548",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "sese",
+       "swift_mt": "MT544-548",
+       "regs": []
+      },
+      {
+       "id": "C48",
+       "name": "Fails and Penalties Management",
+       "does": "Prioritises fails, manages partials, cash penalties, claims and contractual or regulatory buy-ins",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Securities Fails Processing",
+       "msg": "ISO 20022 sese",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "sese",
+       "swift_mt": "",
+       "regs": [
+        "EU CSDR settlement discipline",
+        "US T+1",
+        "UK/EU T+1"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "G18",
+     "name": "Market Infrastructure",
+     "components": [
+      {
+       "id": "C49",
+       "name": "CSD and ICSD Settlement",
+       "does": "Central and international depositories settle securities delivery versus payment",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "system of record",
+       "external": true,
+       "bian": "",
+       "msg": "ISO 20022 sese, semt; MT540-548",
+       "calm": "ecosystem",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "sese, semt",
+       "swift_mt": "MT540-548",
+       "regs": []
+      },
+      {
+       "id": "C50",
+       "name": "FX PvP Settlement",
+       "does": "Third-party payment-versus-payment settlement and multilateral netting of FX trades",
+       "ac": [
+        "FX"
+       ],
+       "sor": "system of record",
+       "external": true,
+       "bian": "",
+       "msg": "",
+       "calm": "ecosystem",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C51",
+       "name": "Agent Bank Management",
+       "does": "Selects, instructs and monitors agent banks and sub-custodians by market",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Sub Custodian Agreement",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S7",
+   "no": 7,
+   "name": "Custody",
+   "office": "Back",
+   "purpose": "Safekeep and service client and firm assets held by the bank.",
+   "value": "Fees sit here: safekeeping and asset servicing; cost sits in corporate action errors and missed claims.",
+   "groups": [
+    {
+     "id": "G20",
+     "name": "Safekeeping and Segregation",
+     "components": [
+      {
+       "id": "C54",
+       "name": "Securities Position Keeping",
+       "does": "Holds custody positions by client account, location and status",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Securities Position Keeping",
+       "msg": "ISO 20022 semt; MT535-537",
+       "calm": "database",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "semt",
+       "swift_mt": "MT535-537",
+       "regs": []
+      },
+      {
+       "id": "C55",
+       "name": "Custody Account Administration",
+       "does": "Opens and maintains custody accounts, segregation structures and statements",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Custody Administration",
+       "msg": "ISO 20022 acmt, semt",
+       "calm": "system",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "acmt, semt",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C56",
+       "name": "Custody Account Segregation",
+       "does": "Maintains segregated, omnibus and individual client custody accounts and their asset registers",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    },
+    {
+     "id": "G21",
+     "name": "Asset Servicing",
+     "components": [
+      {
+       "id": "C57",
+       "name": "Corporate Actions Processing",
+       "does": "Captures events, collects elections, processes mandatory and voluntary actions and proxy",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Corporate Action",
+       "msg": "ISO 20022 seev; MT564-568",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "seev",
+       "swift_mt": "MT564-568",
+       "regs": []
+      },
+      {
+       "id": "C58",
+       "name": "Income and Entitlements",
+       "does": "Calculates and credits dividends, coupons, redemptions and market claims",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "",
+       "msg": "ISO 20022 seev; MT566",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "seev",
+       "swift_mt": "MT566",
+       "regs": []
+      },
+      {
+       "id": "C59",
+       "name": "Withholding Tax and Reclaims",
+       "does": "Applies treaty relief at source and files tax reclaims for clients",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "Customer Tax Handling",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S8",
+   "no": 8,
+   "name": "Financing and Prime",
+   "office": "Front",
+   "purpose": "Finance client and firm positions through lending, repo and synthetics.",
+   "value": "Margin sits here: lending fees, repo spreads and financing on balances; cost sits in balance sheet.",
+   "groups": [
+    {
+     "id": "G22",
+     "name": "Securities Finance",
+     "components": [
+      {
+       "id": "C60",
+       "name": "Securities Lending and Borrowing",
+       "does": "Borrows and lends securities, manages recalls, returns and rebates",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Stock Lending and Repos",
+       "msg": "CDM securities lending; ISO 20022 colr",
+       "calm": "system",
+       "fix": "",
+       "fpml_cdm": "CDM securities lending",
+       "iso20022": "colr",
+       "swift_mt": "",
+       "regs": [
+        "SFTR"
+       ]
+      },
+      {
+       "id": "C61",
+       "name": "Repo and Funding Desk",
+       "does": "Trades repo and reverse repo for client financing and firm funding",
+       "ac": [
+        "FI",
+        "EQ"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Stock Lending and Repos",
+       "msg": "CDM repo representation",
+       "calm": "system",
+       "fix": "",
+       "fpml_cdm": "CDM repo representation",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "SFTR"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "G23",
+     "name": "Prime Services",
+     "components": [
+      {
+       "id": "C62",
+       "name": "Prime Margin Lending",
+       "does": "Lends against client portfolios with portfolio margin and financing rates",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Credit and Margin Management",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "Reg T",
+        "FINRA Rule 4210"
+       ]
+      },
+      {
+       "id": "C63",
+       "name": "Synthetic Financing and TRS",
+       "does": "Provides total return swaps and synthetic exposure with financing resets",
+       "ac": [
+        "DR",
+        "EQ"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "FpML/CDM product model",
+       "calm": "system",
+       "fix": "",
+       "fpml_cdm": "FpML/CDM product model",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "EMIR Refit",
+        "CFTC Part 45"
+       ]
+      },
+      {
+       "id": "C64",
+       "name": "Client Financing Reporting",
+       "does": "Gives prime clients positions, margin, financing and borrow statements",
+       "ac": [
+        "EQ",
+        "FI",
+        "DR"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "webclient",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    },
+    {
+     "id": "G24",
+     "name": "Financing Controls",
+     "components": [
+      {
+       "id": "C65",
+       "name": "Locates and Short Controls",
+       "does": "Approves locates, flags short sales and drives close-out of fails",
+       "ac": [
+        "EQ"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "Reg SHO",
+        "EU/UK short selling rules"
+       ]
+      },
+      {
+       "id": "C66",
+       "name": "SFTR Reporting",
+       "does": "Reports repo, lending and margin lending trades and collateral to trade repositories",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Regulatory Reporting",
+       "msg": "ISO 20022 auth",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "auth",
+       "swift_mt": "",
+       "regs": [
+        "SFTR",
+        "UK SFTR"
+       ]
+      },
+      {
+       "id": "C67",
+       "name": "Rehypothecation Controls",
+       "does": "Tracks client consent and limits on reuse of client collateral",
+       "ac": [
+        "EQ",
+        "FI"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": [
+        "FCA CASS",
+        "SEC Rule 15c3-3",
+        "SFTR Art 15 reuse"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S9",
+   "no": 9,
+   "name": "Market Data",
+   "office": "Cross-cutting",
+   "purpose": "Feeds every stage: acquire, distribute and license the data every price and risk number uses.",
+   "value": "Cost sits here: data licences, colocation and low-latency infrastructure.",
+   "groups": [
+    {
+     "id": "G25",
+     "name": "Feed Acquisition",
+     "components": [
+      {
+       "id": "C68",
+       "name": "Feed Handlers",
+       "does": "Normalises exchange and vendor real-time feeds into internal formats",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "integration",
+       "external": false,
+       "bian": "Information Provider Operation",
+       "msg": "FIX MarketDataSnapshotFullRefresh",
+       "calm": "service",
+       "fix": "MarketDataSnapshotFullRefresh, MarketDataIncrementalRefresh",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C70",
+       "name": "Colocation and Low-Latency",
+       "does": "Hosts trading engines near venues on low-latency networks",
+       "ac": [
+        "EQ",
+        "FX",
+        "DR"
+       ],
+       "sor": "integration",
+       "external": true,
+       "bian": "",
+       "msg": "",
+       "calm": "network",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    },
+    {
+     "id": "G26",
+     "name": "Distribution and Licensing",
+     "components": [
+      {
+       "id": "C71",
+       "name": "Market Data Distribution",
+       "does": "Distributes real-time and snapshot data to pricing, trading and risk",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "integration",
+       "external": false,
+       "bian": "Market Data Switch Operation",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C72",
+       "name": "Entitlements and Licence Reporting",
+       "does": "Controls user and application entitlements and reports usage to providers",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Information Provider Administration",
+       "msg": "",
+       "calm": "service",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      },
+      {
+       "id": "C73",
+       "name": "Tick and Historical Store",
+       "does": "Stores ticks, snapshots and end-of-day data for analytics and evidence",
+       "ac": [
+        "ALL"
+       ],
+       "sor": "data",
+       "external": false,
+       "bian": "Market Information Management",
+       "msg": "",
+       "calm": "database",
+       "fix": "",
+       "fpml_cdm": "",
+       "iso20022": "",
+       "swift_mt": "",
+       "regs": []
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "platform": {
+  "name": "Cross-cutting platform",
+  "groups": [
+   {
+    "id": "P1",
+    "name": "Reference Data",
+    "components": [
+     {
+      "id": "C74",
+      "name": "Instrument Reference Data",
+      "does": "Golden source for instruments, identifiers, terms and classifications",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "system of record",
+      "external": false,
+      "bian": "Financial Instrument Reference Data Management",
+      "msg": "FIX SecurityDefinition; CDM product model; ISO 20022 reda",
+      "calm": "database",
+      "fix": "SecurityDefinition",
+      "fpml_cdm": "CDM product model",
+      "iso20022": "reda",
+      "swift_mt": "",
+      "regs": []
+     },
+     {
+      "id": "C75",
+      "name": "Party and Entity Data",
+      "does": "Golden source for legal entities, hierarchies, LEIs and roles",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "system of record",
+      "external": false,
+      "bian": "Legal Entity Directory",
+      "msg": "ISO 20022 reda",
+      "calm": "database",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "reda",
+      "swift_mt": "",
+      "regs": []
+     },
+     {
+      "id": "C76",
+      "name": "Curves, Calendars and Holidays",
+      "does": "Official curves, close prices, calendars and holiday data used across stages",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "data",
+      "external": false,
+      "bian": "",
+      "msg": "",
+      "calm": "database",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": []
+     }
+    ]
+   },
+   {
+    "id": "P2",
+    "name": "Risk and Limits",
+    "components": [
+     {
+      "id": "C77",
+      "name": "Exposure and Limits",
+      "does": "Aggregates counterparty exposure and enforces credit and trading limits pre and post trade",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "Limit and Exposure Management",
+      "msg": "",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": []
+     },
+     {
+      "id": "C78",
+      "name": "Market Risk and Capital",
+      "does": "Firm-wide VaR, stress and regulatory capital for trading books",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "calculation",
+      "external": false,
+      "bian": "Market Risk; Economic Capital",
+      "msg": "",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": [
+       "Basel trading book (FRTB)",
+       "Volcker rule metrics"
+      ]
+     },
+     {
+      "id": "C79",
+      "name": "XVA and Counterparty Exposure",
+      "does": "Calculates credit and funding valuation adjustments and potential future exposure",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "calculation",
+      "external": false,
+      "bian": "",
+      "msg": "",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": [
+       "Basel SA-CCR",
+       "Basel CVA risk framework"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "P3",
+    "name": "Collateral, Liquidity and Cash",
+    "components": [
+     {
+      "id": "C80",
+      "name": "Collateral Inventory and Optimisation",
+      "does": "Firm-wide view of collateral, eligibility and cheapest-to-deliver allocation",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "calculation",
+      "external": false,
+      "bian": "Collateral Asset Administration",
+      "msg": "CDM eligible collateral; ISO 20022 colr",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "CDM eligible collateral",
+      "iso20022": "colr",
+      "swift_mt": "",
+      "regs": []
+     },
+     {
+      "id": "C81",
+      "name": "Treasury Funding and Liquidity",
+      "does": "Forecasts and manages intraday and term funding by currency and entity",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "calculation",
+      "external": false,
+      "bian": "Corporate Treasury",
+      "msg": "ISO 20022 camt",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "camt",
+      "swift_mt": "",
+      "regs": []
+     },
+     {
+      "id": "C52",
+      "name": "Payments and Nostro Funding",
+      "does": "Funds nostros and makes cash payments for settlement and margin",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "integration",
+      "external": false,
+      "bian": "Payment Execution",
+      "msg": "ISO 20022 pacs.008/pacs.009 (CBPR+); camt",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "pacs, camt",
+      "swift_mt": "",
+      "regs": []
+     },
+     {
+      "id": "C53",
+      "name": "Nostro and Depot Reconciliation",
+      "does": "Reconciles cash and securities positions against agent and depository statements",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "Account Reconciliation",
+      "msg": "ISO 20022 camt, semt; MT950; MT535/536",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "camt, semt",
+      "swift_mt": "MT950; MT535/536",
+      "regs": []
+     }
+    ]
+   },
+   {
+    "id": "P4",
+    "name": "Data and Analytics",
+    "components": [
+     {
+      "id": "C83",
+      "name": "Trade and Position Store",
+      "does": "Firm-wide golden store of trades, positions and lifecycle events",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "data",
+      "external": false,
+      "bian": "Position Keeping",
+      "msg": "CDM event model",
+      "calm": "database",
+      "fix": "",
+      "fpml_cdm": "CDM event model",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": []
+     },
+     {
+      "id": "C84",
+      "name": "Finance Subledger Feed",
+      "does": "Posts trading activity to the firm ledger and reconciles to books",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "integration",
+      "external": false,
+      "bian": "Financial Accounting",
+      "msg": "",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": []
+     },
+     {
+      "id": "C85",
+      "name": "Data Governance and Lineage",
+      "does": "Owns data definitions, quality rules and lineage for regulated data",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "",
+      "msg": "",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": [
+       "BCBS 239"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "P5",
+    "name": "Integration and Messaging",
+    "components": [
+     {
+      "id": "C86",
+      "name": "Financial Message Gateway",
+      "does": "Sends, receives and validates FIX, ISO 20022 and MT messages",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "integration",
+      "external": false,
+      "bian": "Financial Gateway",
+      "msg": "FIX Logon; ISO 20022 all business areas; all MT categories",
+      "calm": "service",
+      "fix": "Logon, Heartbeat (session)",
+      "fpml_cdm": "",
+      "iso20022": "all business areas",
+      "swift_mt": "all MT categories",
+      "regs": []
+     },
+     {
+      "id": "C87",
+      "name": "Message Translation Service",
+      "does": "Translates between ISO 15022 MT and ISO 20022 MX for securities, where coexistence continues",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "integration",
+      "external": false,
+      "bian": "",
+      "msg": "ISO 20022 sese, semt, seev, pacs, camt; MT54x, MT56x, MT103/202",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "sese, semt, seev",
+      "swift_mt": "MT54x, MT56x",
+      "regs": []
+     },
+     {
+      "id": "C89",
+      "name": "Event Streaming and APIs",
+      "does": "Publishes trade and status events and APIs for internal consumers",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "integration",
+      "external": false,
+      "bian": "",
+      "msg": "",
+      "calm": "network",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": []
+     }
+    ]
+   },
+   {
+    "id": "P6",
+    "name": "Conduct, Surveillance and Reporting Oversight",
+    "components": [
+     {
+      "id": "C90",
+      "name": "Best Execution Oversight",
+      "does": "Monitors execution quality and transaction costs against policy and reports",
+      "ac": [
+       "EQ",
+       "FI",
+       "FX",
+       "DR"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "",
+      "msg": "",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": [
+       "MiFID II best execution",
+       "UK best execution (COBS 11.2A)",
+       "SEC Rules 605/606"
+      ]
+     },
+     {
+      "id": "C91",
+      "name": "Regulatory Reporting Control Hub",
+      "does": "Checks completeness, accuracy and timeliness of all regulatory reports and rejections",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "Compliance Reporting",
+      "msg": "ISO 20022 auth",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "auth",
+      "swift_mt": "",
+      "regs": [
+       "MiFIR Art 26",
+       "EMIR Refit",
+       "CFTC Part 45",
+       "SFTR"
+      ]
+     },
+     {
+      "id": "C92",
+      "name": "Compliance Monitoring and STORs",
+      "does": "Runs compliance monitoring and manages surveillance cases to STOR filing",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "Regulatory Compliance",
+      "msg": "",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": [
+       "UK MAR Art 16",
+       "EU MAR"
+      ]
+     },
+     {
+      "id": "C100",
+      "name": "Control Room and Restricted Lists",
+      "does": "Runs watch and restricted lists, insider lists, wall-crossings, market soundings and information barrier controls",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "Regulatory Compliance",
+      "msg": "",
+      "calm": "database",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": [
+       "UK MAR Art 11 and 18",
+       "EU MAR"
+      ]
+     },
+     {
+      "id": "C38",
+      "name": "Trade and Order Surveillance",
+      "does": "Detects potential manipulation and insider dealing patterns across orders and trades",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "",
+      "msg": "",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": [
+       "UK MAR Art 16",
+       "EU MAR"
+      ]
+     },
+     {
+      "id": "C39",
+      "name": "Communications Surveillance",
+      "does": "Monitors e-communications and voice for misconduct linked to trading activity",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "",
+      "msg": "",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": [
+       "UK MAR Art 16",
+       "MiFID II recording of communications (Art 16(7))"
+      ]
+     }
+    ]
+   },
+   {
+    "id": "P7",
+    "name": "Controls and Resilience",
+    "components": [
+     {
+      "id": "C93",
+      "name": "Identity and Access",
+      "does": "Staff identity, roles, entitlements and privileged access across systems",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "Employee Access",
+      "msg": "",
+      "calm": "ldap",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": []
+     },
+     {
+      "id": "C94",
+      "name": "Client Money and Assets",
+      "does": "Firm-wide client money and asset records, daily reconciliations and resolution pack; external and internal reconciliations, CASS resolution pack and reserve computation",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "",
+      "msg": "",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": [
+       "FCA CASS",
+       "SEC Rule 15c3-3"
+      ]
+     },
+     {
+      "id": "C95",
+      "name": "Operational Resilience Mapping",
+      "does": "Maps important business services, impact tolerances and scenario tests",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "Continuity Planning",
+      "msg": "",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": [
+       "FCA PS21/3",
+       "EU DORA"
+      ]
+     },
+     {
+      "id": "C96",
+      "name": "Third-Party and FMI Oversight",
+      "does": "Oversees CCPs, CSDs, agent banks, utilities and vendors: performance, risk and exit",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "Contractor and Supplier Agreement",
+      "msg": "",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": [
+       "FCA PS21/3",
+       "EU DORA"
+      ]
+     },
+     {
+      "id": "C97",
+      "name": "Records and Audit Archive",
+      "does": "Retains orders, trades, communications and reports, and supports trade reconstruction",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "data",
+      "external": false,
+      "bian": "Archive Services",
+      "msg": "",
+      "calm": "database",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": [
+       "MiFID II record keeping",
+       "SEC Rule 17a-4",
+       "MiFID II recording of communications (Art 16(7))"
+      ]
+     },
+     {
+      "id": "C98",
+      "name": "Operational Risk and Incidents",
+      "does": "Logs incidents, losses, controls and remediation across the trade lifecycle",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "",
+      "msg": "",
+      "calm": "service",
+      "fix": "",
+      "fpml_cdm": "",
+      "iso20022": "",
+      "swift_mt": "",
+      "regs": []
+     },
+     {
+      "id": "C99",
+      "name": "Trade, Position and Market Reconciliations",
+      "does": "Reconciles trades and positions front to back and against exchanges, CCPs, clearing brokers, triparty agents and counterparties; ages and escalates breaks",
+      "ac": [
+       "ALL"
+      ],
+      "sor": "control",
+      "external": false,
+      "bian": "",
+      "msg": "FIX PositionReport (CCP statements)",
+      "calm": "service",
+      "fix": "PositionReport",
+      "fpml_cdm": "",
+      "iso20022": "semt",
+      "swift_mt": "",
+      "regs": []
+     }
+    ]
+   }
+  ]
+ },
+ "links": [
+  {
+   "from": "C10",
+   "to": "C16",
+   "label": "accepted quote to order",
+   "std": "FIX QuoteResponse",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C18",
+   "to": "C17",
+   "label": "client orders checked",
+   "std": "FIX NewOrderSingle",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C16",
+   "to": "C19",
+   "label": "orders routed",
+   "std": "FIX NewOrderSingle",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C19",
+   "to": "C24",
+   "label": "child orders to venues",
+   "std": "FIX NewOrderSingle",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C24",
+   "to": "C19",
+   "label": "fills returned",
+   "std": "FIX ExecutionReport",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C19",
+   "to": "C25",
+   "label": "executions booked",
+   "std": "FIX ExecutionReport",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C25",
+   "to": "C27",
+   "label": "block allocated",
+   "std": "FIX AllocationInstruction",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C27",
+   "to": "C28",
+   "label": "confirm and affirm",
+   "std": "FIX Confirmation",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C25",
+   "to": "C29",
+   "label": "OTC trade confirmed",
+   "std": "FpML",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C25",
+   "to": "C40",
+   "label": "clearing submission",
+   "std": "FIX TradeCaptureReport",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C40",
+   "to": "C41",
+   "label": "novation to CCP",
+   "std": "FIXML or FpML (CCP-specific); ISO 20022 secl for securities",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C26",
+   "to": "C46",
+   "label": "enriched trade to instruct",
+   "std": "",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C46",
+   "to": "C49",
+   "label": "settlement instruction",
+   "std": "ISO 20022 sese; MT540-543",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C49",
+   "to": "C47",
+   "label": "status and confirmation",
+   "std": "ISO 20022 sese; MT544-548",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C47",
+   "to": "C48",
+   "label": "fails flagged",
+   "std": "",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C25",
+   "to": "C50",
+   "label": "FX trades to PvP",
+   "std": "",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C47",
+   "to": "C54",
+   "label": "settled positions",
+   "std": "",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C57",
+   "to": "C08",
+   "label": "event notices to clients",
+   "std": "ISO 20022 seev; MT564",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C83",
+   "to": "C99",
+   "label": "trades and positions of record",
+   "std": "",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C17",
+   "to": "C24",
+   "label": "checked DMA orders to venues",
+   "std": "FIX NewOrderSingle",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C10",
+   "to": "C25",
+   "label": "RFQ and streamed trades booked",
+   "std": "FIX ExecutionReport",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "X02",
+   "to": "C41",
+   "label": "exchange trades to CCP",
+   "std": "",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C27",
+   "to": "C46",
+   "label": "allocations to settle",
+   "std": "",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C06",
+   "to": "C26",
+   "label": "SSIs for enrichment",
+   "std": "",
+   "thread": "Flow trade"
+  },
+  {
+   "from": "C41",
+   "to": "C44",
+   "label": "CCP margin calls",
+   "std": "FIX CollateralReport",
+   "thread": "Flow margin and collateral"
+  },
+  {
+   "from": "C43",
+   "to": "C44",
+   "label": "calculated margin due",
+   "std": "ISDA SIMM",
+   "thread": "Flow margin and collateral"
+  },
+  {
+   "from": "C05",
+   "to": "C43",
+   "label": "CSA terms",
+   "std": "CDM legal agreements",
+   "thread": "Flow margin and collateral"
+  },
+  {
+   "from": "C44",
+   "to": "C80",
+   "label": "collateral to allocate",
+   "std": "",
+   "thread": "Flow margin and collateral"
+  },
+  {
+   "from": "C80",
+   "to": "X14",
+   "label": "triparty allocation",
+   "std": "ISO 20022 colr",
+   "thread": "Flow margin and collateral"
+  },
+  {
+   "from": "C60",
+   "to": "C80",
+   "label": "lending collateral",
+   "std": "",
+   "thread": "Flow margin and collateral"
+  },
+  {
+   "from": "C25",
+   "to": "C77",
+   "label": "trade exposures",
+   "std": "",
+   "thread": "Flow margin and collateral"
+  },
+  {
+   "from": "C77",
+   "to": "C17",
+   "label": "limit headroom",
+   "std": "",
+   "thread": "Flow margin and collateral"
+  },
+  {
+   "from": "C44",
+   "to": "C52",
+   "label": "cash margin payments",
+   "std": "ISO 20022 pacs",
+   "thread": "Flow margin and collateral"
+  },
+  {
+   "from": "C41",
+   "to": "C99",
+   "label": "CCP position and margin statements",
+   "std": "FIX PositionReport",
+   "thread": "Flow margin and collateral"
+  },
+  {
+   "from": "C25",
+   "to": "C35",
+   "label": "reportable transactions",
+   "std": "",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C25",
+   "to": "C36",
+   "label": "derivative trades at execution",
+   "std": "ISO 20022 auth; CDM event model",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C19",
+   "to": "C37",
+   "label": "trades to publish",
+   "std": "FIX TradeCaptureReport",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C16",
+   "to": "C38",
+   "label": "orders and trades",
+   "std": "",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C38",
+   "to": "C92",
+   "label": "alerts to cases",
+   "std": "",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C60",
+   "to": "C66",
+   "label": "SFTs to report",
+   "std": "",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C35",
+   "to": "C91",
+   "label": "report status and rejections",
+   "std": "ISO 20022 auth",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C36",
+   "to": "C91",
+   "label": "TR feedback",
+   "std": "ISO 20022 auth",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C19",
+   "to": "C90",
+   "label": "execution data for review",
+   "std": "",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C100",
+   "to": "C17",
+   "label": "restricted list checks",
+   "std": "",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C100",
+   "to": "C38",
+   "label": "watch list for surveillance",
+   "std": "",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C31",
+   "to": "C36",
+   "label": "lifecycle events",
+   "std": "CDM event model",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C37",
+   "to": "X19",
+   "label": "post-trade data to tape",
+   "std": "",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C83",
+   "to": "C84",
+   "label": "trading activity to ledger",
+   "std": "",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C35",
+   "to": "X10",
+   "label": "transaction reports via ARM",
+   "std": "ISO 20022 auth",
+   "thread": "Flow reporting"
+  },
+  {
+   "from": "C36",
+   "to": "X09",
+   "label": "derivative reports",
+   "std": "ISO 20022 auth",
+   "thread": "Flow reporting"
+  }
+ ],
+ "externals": [
+  {
+   "id": "X01",
+   "name": "Institutional clients",
+   "role": "Asset managers, hedge funds, corporates, banks and official institutions that trade and finance",
+   "side": "client"
+  },
+  {
+   "id": "X02",
+   "name": "Exchanges and trading venues",
+   "role": "Regulated markets, MTFs, OTFs and SEFs that match orders",
+   "side": "market"
+  },
+  {
+   "id": "X03",
+   "name": "Multi-dealer platforms",
+   "role": "Electronic RFQ and streaming platforms for bonds, swaps and FX",
+   "side": "market"
+  },
+  {
+   "id": "X04",
+   "name": "Central counterparties",
+   "role": "Novate and net cleared trades; call initial and variation margin",
+   "side": "infrastructure"
+  },
+  {
+   "id": "X05",
+   "name": "CSDs and ICSDs",
+   "role": "Settle securities and hold the issuance record",
+   "side": "infrastructure"
+  },
+  {
+   "id": "X06",
+   "name": "Agent banks and sub-custodians",
+   "role": "Settle and safekeep in local markets the bank does not access directly",
+   "side": "provider"
+  },
+  {
+   "id": "X07",
+   "name": "FX PvP settlement system",
+   "role": "Settles both legs of FX trades payment-versus-payment",
+   "side": "infrastructure"
+  },
+  {
+   "id": "X08",
+   "name": "Financial messaging network",
+   "role": "Secure message transport to agents, CSDs, CCPs and payment systems",
+   "side": "infrastructure"
+  },
+  {
+   "id": "X09",
+   "name": "Trade repositories and SDRs",
+   "role": "Receive EMIR, SFTR and CFTC derivative and SFT reports",
+   "side": "infrastructure"
+  },
+  {
+   "id": "X10",
+   "name": "ARMs and APAs",
+   "role": "Submit transaction reports to regulators; publish post-trade data",
+   "side": "infrastructure"
+  },
+  {
+   "id": "X11",
+   "name": "Regulators",
+   "role": "FCA, PRA, ESMA and EU NCAs, SEC, CFTC",
+   "side": "regulator"
+  },
+  {
+   "id": "X12",
+   "name": "Market data vendors",
+   "role": "Supply consolidated prices, reference data, curves and news",
+   "side": "provider"
+  },
+  {
+   "id": "X13",
+   "name": "Matching and confirmation utilities",
+   "role": "Central institutional matching and OTC confirmation services",
+   "side": "provider"
+  },
+  {
+   "id": "X14",
+   "name": "Triparty agents",
+   "role": "Allocate and substitute collateral for repo and margin",
+   "side": "provider"
+  },
+  {
+   "id": "X15",
+   "name": "Agent lenders and beneficial owners",
+   "role": "Supply lendable securities to the borrow desk",
+   "side": "client"
+  },
+  {
+   "id": "X16",
+   "name": "Payment systems and central banks",
+   "role": "RTGS settlement of cash legs and liquidity",
+   "side": "infrastructure"
+  },
+  {
+   "id": "X17",
+   "name": "Clearing brokers and FCMs",
+   "role": "Give clearing access where the bank is not a direct member; clear and margin on its behalf",
+   "side": "provider"
+  },
+  {
+   "id": "X18",
+   "name": "Interdealer brokers",
+   "role": "Voice and electronic dealer-to-dealer liquidity in rates, credit and FX",
+   "side": "market"
+  },
+  {
+   "id": "X19",
+   "name": "Consolidated tape providers",
+   "role": "Publish consolidated post-trade data; UK bond tape live since June 2026",
+   "side": "infrastructure"
+  },
+  {
+   "id": "X20",
+   "name": "Issuers, agents and paying agents",
+   "role": "Announce corporate actions and pay income and redemptions",
+   "side": "provider"
+  },
+  {
+   "id": "X21",
+   "name": "Tax authorities",
+   "role": "Receive withholding tax reclaims and relief claims",
+   "side": "regulator"
+  }
+ ],
+ "standards": [
+  {
+   "name": "BIAN Service Landscape v10 (value chain view)",
+   "used_for": "Service domain labels per component; names copied verbatim from the v10 view",
+   "source_url": "https://bian.org/servicelandscape-10-0-0/views/view_51974.html",
+   "verified": true
+  },
+  {
+   "name": "FINOS CALM 1.1 meta-schema (node-type enum)",
+   "used_for": "Node type per component (actor, ecosystem, system, service, database, network, ldap, webclient, data-asset); legend only, not a CALM document",
+   "source_url": "https://calm.finos.org/release/1.1/meta/core.json",
+   "verified": true
+  },
+  {
+   "name": "FIX Latest message types (MsgType, tag 35)",
+   "used_for": "Order, execution, quote, IOI, allocation, confirmation, trade capture, settlement instruction, collateral, margin, position and market data messages; seen via a third-party FIX dictionary",
+   "source_url": "https://www.onixs.biz/fix-dictionary/latest/tagNum_35.html",
+   "verified": true
+  },
+  {
+   "name": "FpML (ISDA)",
+   "used_for": "Open XML standard for electronic dealing and processing of derivatives: OTC confirmation and reporting",
+   "source_url": "https://www.fpml.org/",
+   "verified": true
+  },
+  {
+   "name": "FINOS Common Domain Model (product, event, legal agreement, process models)",
+   "used_for": "Lifecycle events, legal agreement elections, eligible collateral and repo representation",
+   "source_url": "https://cdm.finos.org/docs/cdm-overview",
+   "verified": true
+  },
+  {
+   "name": "ISO 20022 business areas (setr, secl, sese, semt, seev, fxtr, colr, reda, auth, acmt, pacs, camt)",
+   "used_for": "Message families for clearing, settlement, statements, events, collateral, reference data, authority reporting and cash",
+   "source_url": "https://www.iso20022.org/sites/default/files/media/file/ISO20022_BusinessAreas.pdf",
+   "verified": true
+  },
+  {
+   "name": "Swift securities: ISO 15022 and ISO 20022 coexistence",
+   "used_for": "Swift set no securities migration date and keeps both syntaxes in sync; MT54x does not have a forced cut-over",
+   "source_url": "https://www.swift.com/standards/iso-20022/iso-20022-faqs/securities-markets",
+   "verified": true
+  },
+  {
+   "name": "Swift MT message numbers (MT54x, MT535-537, MT56x, MT300/305, MT950, MT527/558, MT670/671)",
+   "used_for": "Legacy message labels on components; numbers from analyst knowledge, not checked. MT103/202 are not listed: Swift retired them for cross-border payments on 22 November 2025.",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "US T+1 (SEC, compliance date 28 May 2024)",
+   "used_for": "Settlement and affirmation timelines for US securities",
+   "source_url": "https://www.davispolk.com/insights/client-update/sec-adopts-t-1-settlement-effective-may-2024",
+   "verified": true
+  },
+  {
+   "name": "UK T+1 on 11 October 2027 (HMT accepts AST recommendation; FCA and BoE support)",
+   "used_for": "UK settlement and affirmation timelines",
+   "source_url": "https://www.gov.uk/government/news/chancellor-goes-further-and-faster-to-drive-growth-by-speeding-up-securities-trades",
+   "verified": true
+  },
+  {
+   "name": "EU T+1 on 11 October 2027 and CSDR settlement discipline RTS changes (ESMA)",
+   "used_for": "EU settlement cycle, fails monitoring, penalties and phased implementation from December 2026",
+   "source_url": "https://www.esma.europa.eu/node/222046",
+   "verified": true
+  },
+  {
+   "name": "EU T+1: Regulation (EU) 2025/2075 amending CSDR, applies 11 October 2027",
+   "used_for": "Legal basis for EU T+1",
+   "source_url": "https://finreg.aoshearman.com/Regulation-to-shorten-settlement-cycle-to-T1-publ",
+   "verified": true
+  },
+  {
+   "name": "MiFIR Article 26 transaction reporting (ESMA)",
+   "used_for": "Transaction reporting; ESMA also uses ISO 20022 auth schemas for MiFIR data",
+   "source_url": "https://www.esma.europa.eu/data-reporting/mifir-reporting",
+   "verified": true
+  },
+  {
+   "name": "UK MiFIR transaction reporting (FCA)",
+   "used_for": "UK transaction reports via ARMs",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "MiFID II / UK best execution",
+   "used_for": "Best execution policy and monitoring",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "MiFIR / UK pre- and post-trade transparency, SI regime, via APAs",
+   "used_for": "Public trade publication",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "EMIR Refit (EU in effect; UK EMIR Refit from 30 September 2024; ISO 20022 XML; UTI, UPI, ISIN)",
+   "used_for": "Derivative trade reporting to trade repositories",
+   "source_url": "https://www.dtcc.com/dtcc-connection/articles/2024/july/16/emir-refit-preparing-for-uk-implementation",
+   "verified": true
+  },
+  {
+   "name": "EMIR timely confirmation, portfolio reconciliation, clearing obligation and client clearing",
+   "used_for": "Risk mitigation and clearing duties on OTC derivatives",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "CFTC Part 45 swap data recordkeeping and reporting (Dodd-Frank)",
+   "used_for": "US swap reporting to SDRs",
+   "source_url": "https://www.cftc.gov/node/230336",
+   "verified": true
+  },
+  {
+   "name": "CFTC Part 43 real-time public reporting; SEC Regulation SBSR; CFTC customer segregation",
+   "used_for": "US public swap dissemination, security-based swap reporting and segregation",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "SFTR (ESMA) and UK SFTR",
+   "used_for": "Securities financing transaction reporting to trade repositories; reuse rules",
+   "source_url": "https://www.esma.europa.eu/data-reporting/sftr-reporting",
+   "verified": true
+  },
+  {
+   "name": "UK MAR Article 16 STORs (FCA)",
+   "used_for": "Market abuse surveillance and suspicious transaction and order reporting",
+   "source_url": "https://www.fca.org.uk/markets/market-abuse/suspicious-transaction-order-reports",
+   "verified": true
+  },
+  {
+   "name": "ISDA SIMM",
+   "used_for": "Standard model for initial margin on non-cleared derivatives under margin rules",
+   "source_url": "https://www.isda.org/2025/11/11/isda-simm-the-trusted-standard-for-initial-margin-calculations/",
+   "verified": true
+  },
+  {
+   "name": "Uncleared margin rules phase-in and thresholds; CCP margin models",
+   "used_for": "Scope of IM exchange and CCP initial margin methodology",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "CLS payment-versus-payment FX settlement",
+   "used_for": "FX settlement risk mitigation and multilateral netting",
+   "source_url": "https://www.cls-group.com/media/qxalffzp/clssettlement_overview_feb2022.pdf",
+   "verified": true
+  },
+  {
+   "name": "FCA operational resilience (PS21/3, transition ended 31 March 2025)",
+   "used_for": "Important business services, impact tolerances, mapping and testing",
+   "source_url": "https://www.fca.org.uk/firms/operational-resilience/insights-observations",
+   "verified": true
+  },
+  {
+   "name": "EU DORA (Regulation (EU) 2022/2554, applicable 17 January 2025)",
+   "used_for": "ICT risk and third-party risk for EU entities",
+   "source_url": "https://natlawreview.com/article/dora-becomes-applicable-eu",
+   "verified": true
+  },
+  {
+   "name": "Client asset rules (FCA CASS; SEC Rule 15c3-3)",
+   "used_for": "Client money and custody asset protection, rehypothecation limits",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "SEC Regulation SHO (locate; Rule 204 close-out); EU/UK short selling rules",
+   "used_for": "Short sale controls. Only the expired temporary Rule 204T page was seen",
+   "source_url": "https://www.sec.gov/files/regsho204t-secg.htm",
+   "verified": false
+  },
+  {
+   "name": "SEC Rule 15c3-5 market access; MiFID II RTS 6 algorithmic trading",
+   "used_for": "Pre-trade controls and algo governance",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "KYC and AML (UK MLRs, EU AMLD, US BSA/CIP)",
+   "used_for": "Client due diligence and screening",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "MiFID II client categorisation, suitability and appropriateness; costs and charges",
+   "used_for": "Client classification and product fit",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "ISDA Master Agreement and CSA; GMRA; GMSLA",
+   "used_for": "Legal terms for OTC derivatives, repo and lending",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "LEI (ISO 17442), ISIN (ISO 6166), CFI, FIGI",
+   "used_for": "Party and instrument identifiers in reference data",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "Basel trading book (FRTB), SA-CCR and CVA risk framework, and BCBS 239",
+   "used_for": "Market risk and counterparty credit capital, and risk data aggregation",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "ISDA Digital Regulatory Reporting",
+   "used_for": "CDM-based reporting logic; only a mention on fpml.org was seen",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "US broker-dealer regimes: SEC CAT, FINRA TRACE, Rules 605/606, Reg T and FINRA 4210, Rule 17a-4, Volcker",
+   "used_for": "Audit trail, bond trade reporting, order routing disclosure, margin lending, books and records and proprietary trading restrictions",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "Swift CBPR+ end of MT/MX coexistence for payments (22 November 2025)",
+   "used_for": "Cash legs and margin payments use pacs/camt",
+   "source_url": "https://paymentexpert.com/2025/11/21/swifts-iso-20022-cutover-the-end-of-mt-and-a-20-year-promise/",
+   "verified": true
+  },
+  {
+   "name": "UK bond consolidated tape (FCA; live since 22 June 2026)",
+   "used_for": "Consolidated post-trade bond data published by the tape provider",
+   "source_url": "https://www.fca.org.uk/markets/data-reporting-services-providers/bond-consolidated-tape",
+   "verified": true
+  },
+  {
+   "name": "MiFID II recording of communications (Art 16(7))",
+   "used_for": "Recording and retention of trader communications",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "UK MAR Articles 11 and 18 (market soundings, insider lists); EU MAR",
+   "used_for": "Control room, wall-crossing and insider list duties",
+   "source_url": "",
+   "verified": false
+  }
+ ],
+ "assumptions": [
+  "Archetype: a global bank's markets division (sales and trading only) with UK, EU and US legal entities, dealing as principal and agent across EQ, FI, FX and DR.",
+  "Out of scope: primary issuance (ECM/DCM), research production, corporate and retail banking, treasury ALM beyond trading funding, and agentic AI.",
+  "The bank runs its own custody business (S7), so custody components are internal; CSDs, ICSDs, CCPs, CLS, agent banks, trade repositories, triparty agents, data vendors and the messaging network are third-party run and appear as external parties. Four FMI touchpoints (C28, C41, C49, C50) are drawn in-stage to show the flow; they are the same parties as X13, X04, X05 and X07.",
+  "Stages follow the owner's 10-stage Trade Flow Value Chain. A trade does not pass every stage: FX skips custody, OTC uncleared skips CCP clearing, listed derivatives skip CSD settlement.",
+  "Asset-class tags: EQ equities, FI fixed income (rates and credit), FX, DR derivatives (OTC and listed); ALL when common to all four.",
+  "external=true means usually run by a third party. The bank keeps oversight through C96 Third-Party and FMI Oversight, C51 Agent Bank Management and C95 Operational Resilience.",
+  "Regulatory reporting is produced in S4 (transaction, derivative, transparency) and S8 (SFTR), and controlled centrally in P6 (C91). Surveillance and the control room sit in P6 as second-line functions.",
+  "Cross-reference fields are left blank where no honest match exists. BIAN names are labels from v10, not structure; several are closest fit.",
+  "FIX names are FIX Latest MsgType names; iso20022 lists business areas only, not message versions; swift_mt numbers are unverified analyst knowledge.",
+  "Links are illustrative key flows in three threads; the real integration estate is far denser and most components read from the platform.",
+  "No vendor product names and no statistics. Regimes marked not verified were not checked against the source for this draft and should be validated before external use.",
+  "Office assignment is a convention; banks differ (for example some run prime services or clearing under Middle Office)."
+ ],
+ "xref_matrix": {
+  "stages": [
+   {
+    "stage": "S0",
+    "name": "Onboarding",
+    "counts": {
+     "BIAN": 4,
+     "FIX": 1,
+     "FpML_CDM": 1,
+     "ISO20022": 0,
+     "SWIFT_MT": 1,
+     "regs": 3
+    },
+    "families": {
+     "BIAN": "Strong: Party Lifecycle Management, Counterparty Risk, Customer Agreement, Customer Access Entitlement.",
+     "CALM": "Services and databases; client is an actor.",
+     "FIX": "SettlementInstructions and SettlementInstructionRequest for standing instructions only; onboarding itself is not a FIX process.",
+     "FpML_CDM": "CDM legal agreements model for CSA elections.",
+     "ISO20022": "Not used here in this map (acmt applies to custody accounts in S7).",
+     "SWIFT_MT": "MT670/671 for SSIs (unverified).",
+     "other": "KYC/AML and MiFID categorisation (unverified); no data standard for KYC files."
+    }
+   },
+   {
+    "stage": "S1",
+    "name": "Origination",
+    "counts": {
+     "BIAN": 7,
+     "FIX": 5,
+     "FpML_CDM": 1,
+     "ISO20022": 0,
+     "SWIFT_MT": 0,
+     "regs": 1
+    },
+    "families": {
+     "BIAN": "Good: Customer Relationship Management, Quote Management, Market Making, Suitability Checking, Product Design; Trading Models is closest fit.",
+     "CALM": "Engagement services; platforms are ecosystem externals.",
+     "FIX": "IOI, QuoteRequest, Quote, QuoteResponse; NewOrderSingle through the client channel.",
+     "FpML_CDM": "Product model for structured and OTC trades.",
+     "ISO20022": "None.",
+     "SWIFT_MT": "None.",
+     "other": "MiFID suitability (unverified)."
+    }
+   },
+   {
+    "stage": "S2",
+    "name": "Execution",
+    "counts": {
+     "BIAN": 5,
+     "FIX": 6,
+     "FpML_CDM": 0,
+     "ISO20022": 0,
+     "SWIFT_MT": 0,
+     "regs": 3
+    },
+    "families": {
+     "BIAN": "Strong: Market Order, Market Order Execution, Program Trading, eTrading Workbench, Trader Position Operations.",
+     "CALM": "Systems, services and network gateways.",
+     "FIX": "Core: NewOrderSingle, ExecutionReport, Quote.",
+     "FpML_CDM": "None at execution.",
+     "ISO20022": "None (setr is fund and securities trade initiation, used little on sell-side execution).",
+     "SWIFT_MT": "None.",
+     "other": "Best execution, RTS 6, 15c3-5 (unverified)."
+    }
+   },
+   {
+    "stage": "S3",
+    "name": "Confirmation",
+    "counts": {
+     "BIAN": 4,
+     "FIX": 3,
+     "FpML_CDM": 5,
+     "ISO20022": 0,
+     "SWIFT_MT": 1,
+     "regs": 3
+    },
+    "families": {
+     "BIAN": "Good: Order Allocation, Trade Confirmation Matching, Commissions. No domain for booking, enrichment or structured products lifecycle.",
+     "CALM": "Services; matching utility is an ecosystem.",
+     "FIX": "AllocationInstruction, AllocationReport, Confirmation, ConfirmationAck, TradeCaptureReport.",
+     "FpML_CDM": "Core: FpML confirmation; CDM product and event models for lifecycle and structured products.",
+     "ISO20022": "Not mapped (setr/fxtr confirmations exist but were not checked at message level).",
+     "SWIFT_MT": "MT300/305 FX confirmations (unverified).",
+     "other": "T+1 affirmation (verified dates); EMIR confirmation timelines (unverified)."
+    }
+   },
+   {
+    "stage": "S4",
+    "name": "Risk and Reporting",
+    "counts": {
+     "BIAN": 6,
+     "FIX": 1,
+     "FpML_CDM": 1,
+     "ISO20022": 2,
+     "SWIFT_MT": 0,
+     "regs": 3
+    },
+    "families": {
+     "BIAN": "Partial: Regulatory Reporting, Trade and Price Reporting (fits public trade publication here), Trading Book Oversight, Financial Instrument Valuation, Market Risk Models.",
+     "CALM": "Control services.",
+     "FIX": "TradeCaptureReport for trade publication.",
+     "FpML_CDM": "FpML reporting views; CDM event model feeds derivative reporting.",
+     "ISO20022": "auth for authority reporting (MiFIR, EMIR).",
+     "SWIFT_MT": "None.",
+     "other": "MiFIR Art 26, EMIR Refit, CFTC Part 45 verified; Part 43, SBSR, UK MiFIR, SEC CAT and FINRA TRACE unverified."
+    }
+   },
+   {
+    "stage": "S5",
+    "name": "Clearing",
+    "counts": {
+     "BIAN": 3,
+     "FIX": 3,
+     "FpML_CDM": 3,
+     "ISO20022": 3,
+     "SWIFT_MT": 1,
+     "regs": 4
+    },
+    "families": {
+     "BIAN": "Partial: Trade Clearing, Credit and Margin Management, Collateral Allocation Management. No domain for client clearing or compression.",
+     "CALM": "CCP is an ecosystem; bank side services.",
+     "FIX": "TradeCaptureReport, PositionReport, CollateralReport, MarginRequirementReport.",
+     "FpML_CDM": "CDM collateral and compression events.",
+     "ISO20022": "secl for securities clearing only (derivative and futures clearing use FIXML, FpML or CCP-specific interfaces); colr margin calls.",
+     "SWIFT_MT": "MT558 triparty (unverified).",
+     "other": "ISDA SIMM verified; UMR scope and CCP margin models unverified."
+    }
+   },
+   {
+    "stage": "S6",
+    "name": "Settlement",
+    "counts": {
+     "BIAN": 4,
+     "FIX": 0,
+     "FpML_CDM": 0,
+     "ISO20022": 4,
+     "SWIFT_MT": 3,
+     "regs": 1
+    },
+    "families": {
+     "BIAN": "Good: Trade Settlement, Securities Fails Processing, Sub Custodian Agreement.",
+     "CALM": "CSDs and PvP system are ecosystems; Swift is a network.",
+     "FIX": "None mapped; SettlementInstructions is a standing instruction message and sits with SSIs in S0.",
+     "FpML_CDM": "None.",
+     "ISO20022": "Core: sese, semt.",
+     "SWIFT_MT": "MT540-548 (unverified numbers); Swift set no securities MT end date (verified).",
+     "other": "EU CSDR settlement discipline, US/UK/EU T+1 verified; CLS verified."
+    }
+   },
+   {
+    "stage": "S7",
+    "name": "Custody",
+    "counts": {
+     "BIAN": 4,
+     "FIX": 0,
+     "FpML_CDM": 0,
+     "ISO20022": 4,
+     "SWIFT_MT": 3,
+     "regs": 0
+    },
+    "families": {
+     "BIAN": "Good: Securities Position Keeping, Custody Administration, Corporate Action, Customer Tax Handling. No client-asset or income domain.",
+     "CALM": "Databases and services.",
+     "FIX": "None.",
+     "FpML_CDM": "None.",
+     "ISO20022": "Core: seev, semt, acmt.",
+     "SWIFT_MT": "MT535-537, MT564-568 (unverified).",
+     "other": "CASS and 15c3-3 unverified (segregation controls sit in P7); no global standard for tax reclaim files."
+    }
+   },
+   {
+    "stage": "S8",
+    "name": "Financing and Prime",
+    "counts": {
+     "BIAN": 4,
+     "FIX": 0,
+     "FpML_CDM": 3,
+     "ISO20022": 2,
+     "SWIFT_MT": 0,
+     "regs": 7
+    },
+    "families": {
+     "BIAN": "Partial: Stock Lending and Repos, Credit and Margin Management, Regulatory Reporting. No domain for locates, TRS or rehypothecation.",
+     "CALM": "Systems and control services.",
+     "FIX": "None mapped.",
+     "FpML_CDM": "CDM securities lending and repo representation; FpML/CDM equity swaps.",
+     "ISO20022": "colr; auth for SFTR.",
+     "SWIFT_MT": "None.",
+     "other": "SFTR verified; Reg SHO, CASS reuse unverified."
+    }
+   },
+   {
+    "stage": "S9",
+    "name": "Market Data",
+    "counts": {
+     "BIAN": 4,
+     "FIX": 1,
+     "FpML_CDM": 0,
+     "ISO20022": 0,
+     "SWIFT_MT": 0,
+     "regs": 0
+    },
+    "families": {
+     "BIAN": "Good: Information Provider Operation and Administration, Market Data Switch Operation, Market Information Management.",
+     "CALM": "Data-assets, networks and databases.",
+     "FIX": "MarketDataSnapshotFullRefresh, MarketDataIncrementalRefresh.",
+     "FpML_CDM": "None.",
+     "ISO20022": "None.",
+     "SWIFT_MT": "None.",
+     "other": "No open standard for licence and usage reporting."
+    }
+   },
+   {
+    "stage": "PLATFORM",
+    "name": "Cross-cutting platform",
+    "counts": {
+     "BIAN": 18,
+     "FIX": 3,
+     "FpML_CDM": 3,
+     "ISO20022": 10,
+     "SWIFT_MT": 3,
+     "regs": 13
+    },
+    "families": {
+     "BIAN": "Good for reference data, limits, collateral, treasury, accounting, gateway, archive, compliance; none for lineage, best execution, reconciliation, surveillance or client money.",
+     "CALM": "ldap for identity; networks for event streaming; databases and services for controls.",
+     "FIX": "SecurityDefinition for instruments; PositionReport for CCP statements; session layer at the gateway.",
+     "FpML_CDM": "CDM product, event and eligible-collateral models.",
+     "ISO20022": "reda, colr, camt, pacs, auth, semt, sese, seev.",
+     "SWIFT_MT": "MT54x/MT56x translation, MT950, MT535/536, MT527/558 (unverified numbers); payments moved to pacs/camt in November 2025 (verified).",
+     "other": "PS21/3 and DORA verified; CASS, BCBS 239, FRTB, SA-CCR, Volcker, LEI, MAR control room unverified."
+    }
+   }
+  ],
+  "coverage": {
+   "total_components": 100,
+   "BIAN": {
+    "matched": 63,
+    "verified": true,
+    "note": "All names copied from BIAN v10 value chain view; several are closest fit."
+   },
+   "CALM": {
+    "matched": 100,
+    "verified": true,
+    "note": "Every component has a CALM 1.1 node type."
+   },
+   "FIX": {
+    "matched": 23,
+    "verified": true,
+    "note": "MsgType names checked against a FIX Latest dictionary."
+   },
+   "FpML_CDM": {
+    "matched": 17,
+    "verified": true,
+    "note": "Family level (FpML; CDM product, event, legal, collateral, repo); not message level."
+   },
+   "ISO20022": {
+    "matched": 25,
+    "verified": true,
+    "note": "Business areas only; message identifiers not checked."
+   },
+   "SWIFT_MT": {
+    "matched": 12,
+    "verified": false,
+    "note": "MT numbers are analyst knowledge."
+   },
+   "regs": {
+    "matched": 38,
+    "note": "See standards list for verified flag per regime."
+   },
+   "gaps": [
+    "No open standard for KYC due-diligence data or onboarding workflow",
+    "No BIAN domain for KYC screening, trade booking/enrichment, front-to-back reconciliation, control room, structured products lifecycle, single-dealer platform, surveillance, best execution, client clearing, compression, locates, TRS, rehypothecation, client assets, data lineage or valuation adjustments",
+    "No messaging standard for pre-trade risk controls, internal P&L, product control or IPV",
+    "No open standard for market data licence and usage reporting",
+    "No common standard for tax reclaim submissions",
+    "Operational resilience, third-party oversight and conduct have regulation but no data or messaging standard",
+    "ISO 20022 for sell-side execution (setr) is little used; FIX dominates",
+    "FpML/CDM cover OTC derivatives, repo, lending and collateral, not cash equity or bond settlement"
+   ]
+  }
+ }
+}
