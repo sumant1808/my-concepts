@@ -37,7 +37,7 @@ def card_html(c,x,y,w,h,tint):
 
 # ---------------- header
 HDR=168
-chip_txt='Illustrative archetype · components AI-reviewed · layering not yet reviewed · Nov 2026'
+chip_txt='Illustrative archetype · components and layering AI-reviewed · not practitioner-validated · Nov 2026'
 chip_w=int(len(chip_txt)*8.2)+44
 header=(f'<header style="position:absolute;left:0;top:0;width:{W}px;height:{HDR}px;background:{NAVY}"></header>'
  f'<div style="position:absolute;left:0;top:{HDR}px;width:{W}px;height:6px;background:{TEAL}"></div>'
@@ -66,6 +66,9 @@ for L in LAYERS:
     # measure groups
     gs=[]
     spans={g['id']:span_of(g) for g in L['groups']}
+    while sum(spans.values())>NS:
+        cand=[g for g in L['groups'] if spans[g['id']]>1]
+        gm=min(cand,key=lambda g:len(g['components'])); spans[gm['id']]-=1
     while sum(spans.values())<NS:
         cand=[g for g in L['groups'] if spans[g["id"]]<min(4,len(g['components']))]
         if not cand: break
@@ -272,7 +275,7 @@ legend_html=(f'<section{dk("p:legend")} style="{PSTYLE}left:{M}px;top:{{Y}}px;wi
  +sec('CALM 1.1 node types (glosses are the analyst\'s)',[lrow(f'<b>{esc(a)}</b>',112,b) for a,b in calm])+'</section>')
 # honesty
 lims=[
- 'Layering not yet reviewed. The component content was AI-reviewed. The grouping of components into eight layers and five bands is an analyst judgement on an archetype and has not been practitioner-validated.',
+ 'Components and layering were reviewed by an independent AI review (fixes applied), not by practitioners. The grouping of components into eight layers and five bands is an analyst judgement on an archetype and has not been practitioner-validated.',
  'CALM is vocabulary only. Every component carries a CALM 1.1 node type as a label, but this is not a CALM document: no relationships, flows or controls are modelled.',
  'BIAN names are closest-fit labels, checked against the version 10 service landscape only. BIAN is oriented to banks and has no lifecycle view of capital markets, so the structure is the analyst\'s own. A card with no BIAN line had no matching domain. Later releases may rename domains.',
  'ISO 20022 is shown at business area level only (for example secl, sese, colr, auth). Message identifiers were not checked, and sell-side use of setr and fxtr was not checked.',

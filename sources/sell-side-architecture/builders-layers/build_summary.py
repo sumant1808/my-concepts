@@ -6,41 +6,59 @@ d=spec
 # slide label map: id -> (title, example line 1, example line 2)
 SL={
  'G03':('Sales, Coverage','CRM, call reports','Axes, indications'),
- 'G01':('Client Lifecycle','Onboarding, KYC','Categorisation'),
- 'G02':('Credit and Legal','Credit approval','Agreements, SSIs'),
- 'G04':('Quoting, Pricing','RFQ, streaming prices','Client APIs'),
- 'G05':('Structuring','Pricing models','Suitability, approval'),
- 'G06':('Order Management','Order system','Pre-trade risk, DMA'),
- 'G07':('Execution','Smart routing, algos','FX aggregation'),
+ 'G01':('Client Lifecycle','Onboarding flow','Categorisation'),
+ 'G29':('KYC, Screening','Sanctions checks','Due diligence'),
+ 'G02':('Credit and Legal','Credit approval','Master agreements'),
+ 'G30':('Accounts, SSIs','SSI records','Account setup'),
+ 'G31':('Client Service','Service desk','Statements, reports'),
+ 'G04':('Quoting, Pricing','RFQ, quotes','Streaming FX prices'),
+ 'G32':('Client Channels','Single-dealer site','Client APIs'),
+ 'G33':('Voice Trading','Voice orders','Sales-trading'),
+ 'G05':('Structuring','Models, term sheets','Term sheets'),
+ 'G34':('Suitability','Suitability checks','Product approval'),
+ 'G35':('Models, XVA','Model library','XVA pricing'),
+ 'G06':('Order Management','Order system','Client DMA'),
+ 'G36':('Pre-Trade Risk','Pre-trade checks','Limit controls'),
+ 'G07':('Execution','Smart routing','Algo execution'),
+ 'G37':('Venue Access','FX aggregation','Venue gateways'),
  'G08':('Trading Desk','Workstation','Trader positions'),
- 'G09':('Trade Booking','Capture, enrichment','Fees, billing'),
- 'G10':('Allocation','Affirmation, matching',''),
+ 'G09':('Trade Booking','Capture','Enrichment'),
+ 'G38':('Fees','Commissions','Client billing'),
+ 'G10':('Allocation','Allocate, affirm','Matching utility'),
  'G11':('OTC Confirmation','Matching, recs','Lifecycle events'),
- 'G15':('CCP Clearing','Give-ups, novation','Client accounts'),
- 'G16':('Margin, Netting','Calls, compression',''),
- 'G17':('Settlement','Instructions, fails',''),
+ 'G39':('Structured Prods','Notes, autocalls','Barriers, fixings'),
+ 'G15':('CCP Clearing','Give-ups, brokers','Novation'),
+ 'G40':('Client Clearing','Client accounts','Porting, segregation'),
+ 'G16':('Margin, Netting','Calls, compression','Margin calculation'),
+ 'G17':('Settlement','Instructions','Status, matching'),
+ 'G41':('Fails','Fails, penalties','Buy-ins'),
  'G18':('Infrastructure','CSDs, FX PvP','Agent banks'),
- 'G20':('Safekeeping','Segregated custody',''),
- 'G21':('Asset Servicing','Corporate actions',''),
- 'G23':('Prime Services','Margin lending, TRS',''),
- 'G22':('Securities Finance','Lending, repo',''),
- 'G24':('Finance Controls','Locates, short sales',''),
- 'P3':('Collateral, Cash','Collateral, liquidity','Funding, payments'),
- 'G12':('Risk and P&L','Risk engine, P&L','Price verification'),
- 'P2':('Risk and Limits','Exposure, limits','Capital, XVA'),
+ 'G20':('Safekeeping','Segregated custody','Position keeping'),
+ 'G21':('Asset Servicing','Corporate actions','Income'),
+ 'G42':('Tax','Withholding, FTT','Transaction taxes'),
+ 'G23':('Prime Services','Margin lending','Financing reports'),
+ 'G43':('Synthetics','Total return swaps','Financing resets'),
+ 'G22':('Lending and Repo','Lending, repo','Funding desk'),
+ 'G24':('Short Controls','Locates, shorts','Rehypothecation'),
+ 'P3':('Collateral','Inventory, optimise','Eligibility, haircuts'),
+ 'G44':('Funding, Cash','Treasury, liquidity','Transfer pricing'),
+ 'G12':('Risk and P&L','Risk engine, P&L','Desk profitability'),
+ 'G46':('Valuation','Price verification','Model validation'),
+ 'P2':('Risk and Limits','Exposure, limits','VaR, capital'),
+ 'G45':('Credit and XVA','XVA, exposure','Credit capital'),
  'G13':('Trade Reporting','MiFIR, EMIR, SFTR','Transparency, hub'),
  'P6':('Surveillance','Trade and comms','Control room, STORs'),
- 'G27':('Conduct','Best execution','Client money, assets'),
- 'G25':('Market Data Feeds','Feed handlers','Colocation'),
- 'G26':('Data Distribution','Entitlements, licences','Tick history'),
- 'P1':('Reference Data','Instruments, parties','Curves, calendars'),
- 'P4':('Data, Analytics','Position store','Finance feed, lineage'),
+ 'G27':('Conduct','Best execution','Client assets'),
+ 'G25':('Market Data','Feed handlers','Colocation'),
+ 'G26':('Data Delivery','Entitlements','Tick history'),
+ 'P1':('Reference Data','Instruments','Parties, curves'),
+ 'P4':('Trade Data','Position store','Lineage, ledger'),
  'P5':('Integration','Message gateway','Translation, APIs'),
  'P7':('Controls','Identity, access','Resilience, records'),
- 'G28':('Reconciliation','Front to back','Nostro, depot'),
+ 'G28':('Reconciliation','Front to back','Exceptions workflow'),
 }
 assert set(SL)==set(GRP)
-SPLIT={'L1':1,'L2':1,'L3':3,'L4':2,'L5':2,'L6':3,'L7':3,'L8':2}   # cluster divider after n groups
+SPLIT={'L1':2,'L2':3,'L3':4,'L4':3,'L5':3,'L6':4,'L7':4,'L8':2}   # cluster divider after n groups
 W,H=1920,1080; M=24
 GAP=12; BARX=M; BARW=56; LBLX=BARX+BARW+8; LBLW=186; BX0=LBLX+LBLW+8; BX1=W-M
 SLOTS=7; BW=(BX1-BX0-(SLOTS-1)*GAP)//SLOTS
@@ -111,7 +129,7 @@ assert sorted(sum([i for _,i in XG],[]))==sorted(EXT)==sorted(SHX)
 allnames=[SHX[k] for _,i in XG for k in i]
 EXT_Y=H-60-8-48
 els.append(f'<p style="position:absolute;left:{M}px;top:{EXT_Y}px;width:{W-2*M}px;height:48px;margin:0;font-size:18px;line-height:24px;color:{INK}"><b>External parties ({len(EXT)}):</b> '+esc(', '.join(allnames))+'.</p>')
-FOOT='Illustrative archetype, components AI-reviewed, layering not yet reviewed. Inputs: BIAN service domains (closest-fit labels), FINOS CALM vocabulary, FIX, ISO 20022, FpML and ISDA CDM. Detailed cross-referenced view available.'
+FOOT='Illustrative archetype: components and layering AI-reviewed, not practitioner-validated. Inputs: BIAN service domains (closest-fit labels), FINOS CALM vocabulary, FIX, ISO 20022, FpML and ISDA CDM. Detailed cross-referenced view available.'
 els.append(f'<p style="position:absolute;left:{M}px;top:{H-60}px;width:{W-2*M}px;height:48px;margin:0;font-size:18px;line-height:24px;color:{MUTED}">{esc(FOOT)}</p>')
 print('layout: rows end',y,'area bot',AREA_BOT,'legend',LEG_Y,'ext',EXT_Y,'foot',H-60,'bw',BW,'rh',RH,'dashed',dashed)
 doc=f'''<!doctype html>
