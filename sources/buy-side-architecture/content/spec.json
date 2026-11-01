@@ -1,0 +1,1912 @@
+{
+ "title": "UK Asset Manager Functional Architecture: Active, Passive/ETF and Alternatives",
+ "layers": [
+  {
+   "id": "L1",
+   "name": "Clients and Distribution",
+   "purpose": "How clients, distributors and LPs are won, onboarded, served and reported to.",
+   "groups": [
+    {
+     "name": "Client and Distributor Management",
+     "components": [
+      {
+       "id": "C01",
+       "name": "Client CRM",
+       "does": "Records clients, intermediaries, consultants, contacts and interactions",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "Customer Relationship Management",
+       "msg": "",
+       "calm": "system"
+      },
+      {
+       "id": "C02",
+       "name": "Sales Pipeline and RFP",
+       "does": "Tracks opportunities, RFPs, due diligence questionnaires and consultant ratings",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "Lead and Opportunity Management",
+       "msg": "",
+       "calm": "system"
+      },
+      {
+       "id": "C03",
+       "name": "Fundraising and LP Pipeline",
+       "does": "Manages target LPs, commitments, closings and side-letter negotiation",
+       "seg": [
+        "L"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "system"
+      }
+     ]
+    },
+    {
+     "name": "Onboarding and Agreements",
+     "components": [
+      {
+       "id": "C04",
+       "name": "Client Onboarding Workflow",
+       "does": "Orchestrates client categorisation (retail, professional, eligible counterparty), due diligence, FATCA/CRS self-certification, account opening and documentation",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "Party Lifecycle Management",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C05",
+       "name": "Mandate and Agreement Repository",
+       "does": "Holds IMAs, LPAs, side letters, fee terms and investment guidelines",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Customer Agreement",
+       "msg": "",
+       "calm": "database"
+      }
+     ]
+    },
+    {
+     "name": "Distribution Data and Platforms",
+     "components": [
+      {
+       "id": "C09",
+       "name": "Distributor Data Hub",
+       "does": "Exchanges target market, costs, share-class and listing data with distributors",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "integration",
+       "external": false,
+       "bian": "Product Directory",
+       "msg": "FinDatEx EMT/EPT/EET; ISO 20022 reda",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Digital Channels",
+     "components": [
+      {
+       "id": "C06",
+       "name": "Client and Adviser Portal",
+       "does": "Self-service holdings, reports, documents and dealing for clients and advisers",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "webclient"
+      },
+      {
+       "id": "C07",
+       "name": "LP Investor Portal",
+       "does": "Delivers capital notices, LP reports, tax documents and data-room access",
+       "seg": [
+        "L"
+       ],
+       "sor": "engagement",
+       "external": true,
+       "bian": "",
+       "msg": "",
+       "calm": "webclient"
+      },
+      {
+       "id": "C08",
+       "name": "Public Fund Website",
+       "does": "Publishes prices, factsheets, holdings disclosures and legal documents",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "webclient"
+      }
+     ]
+    },
+    {
+     "name": "Client Reporting and Servicing",
+     "components": [
+      {
+       "id": "C10",
+       "name": "Client Reporting Engine",
+       "does": "Produces factsheets, mandate reports, statements and commentary packs",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C11",
+       "name": "LP Reporting Engine",
+       "does": "Produces quarterly LP reports and ILPA fee and performance templates",
+       "seg": [
+        "L"
+       ],
+       "sor": "calculation",
+       "external": true,
+       "bian": "",
+       "msg": "ILPA Reporting and Performance Templates",
+       "calm": "service"
+      },
+      {
+       "id": "C12",
+       "name": "Client Case Management",
+       "does": "Logs queries, complaints and outcomes (Consumer Duty evidence for retail products)",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "Customer Case Management",
+       "msg": "",
+       "calm": "system"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "L2",
+   "name": "Investment Management",
+   "purpose": "Where investment decisions are researched, made and monitored across the three segments.",
+   "groups": [
+    {
+     "name": "Research and Insight",
+     "components": [
+      {
+       "id": "C13",
+       "name": "Research Management",
+       "does": "Captures notes, models, ratings, house views, company engagement, research budget and payment account",
+       "seg": [
+        "A"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Financial Market Research",
+       "msg": "",
+       "calm": "system"
+      },
+      {
+       "id": "C14",
+       "name": "ESG and Sustainability Data",
+       "does": "Holds ESG scores, controversies, climate metrics and exclusion lists",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "data",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "data-asset"
+      }
+     ]
+    },
+    {
+     "name": "Portfolio Management",
+     "components": [
+      {
+       "id": "C15",
+       "name": "Portfolio Management System",
+       "does": "Models portfolios, cash, target weights and what-if scenarios",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Investment Portfolio Management",
+       "msg": "",
+       "calm": "system"
+      },
+      {
+       "id": "C16",
+       "name": "Portfolio Optimiser",
+       "does": "Constructs portfolios against risk model, constraints and transaction costs",
+       "seg": [
+        "A"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C17",
+       "name": "Investment Book of Record",
+       "does": "Real-time start-of-day and intraday positions and cash for decisions",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Securities Position Keeping",
+       "msg": "",
+       "calm": "database"
+      }
+     ]
+    },
+    {
+     "name": "Index and Replication (Passive)",
+     "components": [
+      {
+       "id": "C18",
+       "name": "Index Data Management",
+       "does": "Ingests constituents, weights, index events and licence entitlements",
+       "seg": [
+        "P"
+       ],
+       "sor": "data",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "data-asset"
+      },
+      {
+       "id": "C19",
+       "name": "Replication and Rebalance Engine",
+       "does": "Generates model baskets, sampling and rebalance trade lists",
+       "seg": [
+        "P"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C20",
+       "name": "Tracking Error Analytics",
+       "does": "Measures and attributes tracking difference and tracking error",
+       "seg": [
+        "P"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Private Markets Deal Management (Alternatives)",
+     "components": [
+      {
+       "id": "C21",
+       "name": "Deal Pipeline Management",
+       "does": "Logs, screens and tracks deals from origination to committee",
+       "seg": [
+        "L"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "system"
+      },
+      {
+       "id": "C22",
+       "name": "Due Diligence Workspace",
+       "does": "Coordinates data-room review, adviser workstreams, findings and red flags",
+       "seg": [
+        "L"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "system"
+      },
+      {
+       "id": "C23",
+       "name": "Deal Modelling and IC",
+       "does": "Hosts returns models, investment papers, IC decisions and cross-fund allocations",
+       "seg": [
+        "L"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Portfolio Monitoring and Value Creation (Alternatives)",
+     "components": [
+      {
+       "id": "C24",
+       "name": "Portfolio Company Monitoring",
+       "does": "Collects portfolio company KPIs, financials and value-creation plan progress",
+       "seg": [
+        "L"
+       ],
+       "sor": "data",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "system"
+      },
+      {
+       "id": "C25",
+       "name": "Loan and Covenant Monitoring",
+       "does": "Tracks private credit loans, covenants, interest, amortisation and watchlists",
+       "seg": [
+        "L"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Corporate Loan",
+       "msg": "",
+       "calm": "system"
+      },
+      {
+       "id": "C26",
+       "name": "Real Asset Management",
+       "does": "Holds property and infrastructure data, leases, capex and operations",
+       "seg": [
+        "L"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "system"
+      }
+     ]
+    },
+    {
+     "name": "Stewardship",
+     "components": [
+      {
+       "id": "C27",
+       "name": "Proxy Voting Platform",
+       "does": "Receives ballots, applies voting policy, lodges and records votes",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "system of record",
+       "external": true,
+       "bian": "",
+       "msg": "ISO 20022 seev (securities events)",
+       "calm": "system"
+      },
+      {
+       "id": "C28",
+       "name": "Engagement Tracker",
+       "does": "Records engagement objectives, escalations and outcomes for stewardship reporting",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "system"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "L3",
+   "name": "Trading and Execution",
+   "purpose": "Turning decisions into executed trades, primary-market ETF activity, deal completion and treasury.",
+   "groups": [
+    {
+     "name": "Order Management",
+     "components": [
+      {
+       "id": "C29",
+       "name": "Order Management System",
+       "does": "Captures orders, aggregates blocks and allocates fills fairly to accounts",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Market Order",
+       "msg": "FIX",
+       "calm": "system"
+      },
+      {
+       "id": "C30",
+       "name": "Pre-Trade Compliance",
+       "does": "Checks orders against mandate, regulatory and house restrictions",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Guideline Compliance",
+       "msg": "",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Execution and Best Execution",
+     "components": [
+      {
+       "id": "C31",
+       "name": "Execution Management System",
+       "does": "Routes orders to brokers, venues and algorithms; captures fills",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "Market Order Execution",
+       "msg": "FIX",
+       "calm": "system"
+      },
+      {
+       "id": "C32",
+       "name": "TCA and Best Execution",
+       "does": "Measures execution quality; evidences best-execution policy, venue and broker reviews",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "ETF Primary Market (Passive)",
+     "components": [
+      {
+       "id": "C33",
+       "name": "Creation and Redemption Platform",
+       "does": "Takes authorised participant orders; manages in-kind and cash settlement",
+       "seg": [
+        "P"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "system"
+      },
+      {
+       "id": "C34",
+       "name": "Basket (PCF) and iNAV Publication",
+       "does": "Publishes daily baskets, indicative NAV and premium/discount monitoring",
+       "seg": [
+        "P"
+       ],
+       "sor": "calculation",
+       "external": true,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C90",
+       "name": "ETF Listing and AP Management",
+       "does": "Maintains AP and market-maker agreements, onboarding reviews, listings and venue obligations",
+       "seg": [
+        "P"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "system"
+      }
+     ]
+    },
+    {
+     "name": "Private Markets Transaction Execution (Alternatives)",
+     "components": [
+      {
+       "id": "C35",
+       "name": "Deal Closing Management",
+       "does": "Manages signing, consents, completion funds flows and deal financing",
+       "seg": [
+        "L"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "system"
+      },
+      {
+       "id": "C36",
+       "name": "Fund Financing Management",
+       "does": "Manages subscription lines, asset-level debt, drawdowns and deal hedging",
+       "seg": [
+        "L"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "system"
+      },
+      {
+       "id": "C86",
+       "name": "Exit and Realisation Management",
+       "does": "Runs sale processes, vendor diligence, completion proceeds, escrows, earn-outs and warranty claims",
+       "seg": [
+        "L"
+       ],
+       "sor": "engagement",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "system"
+      }
+     ]
+    },
+    {
+     "name": "Treasury, FX and Collateral",
+     "components": [
+      {
+       "id": "C37",
+       "name": "FX and Cash Management",
+       "does": "Executes share-class hedging, FX, cash sweeps and liquidity forecasts",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "FIX",
+       "calm": "system"
+      },
+      {
+       "id": "C38",
+       "name": "Collateral and Margin Management",
+       "does": "Calculates margin, eligible collateral and haircuts for OTC and exchange-traded derivatives",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Collateral Allocation Management",
+       "msg": "ISO 20022 colr; ISDA CDM",
+       "calm": "system"
+      },
+      {
+       "id": "C39",
+       "name": "Securities Lending Programme Oversight",
+       "does": "Oversees agent lending, loans, recalls, collateral and revenue split",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Stock Lending and Repos",
+       "msg": "ISDA CDM (securities lending scope)",
+       "calm": "service"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "L4",
+   "name": "Investment Operations and Accounting",
+   "purpose": "Post-trade, books of record, valuation, NAV, investor servicing and private fund administration.",
+   "groups": [
+    {
+     "name": "Trade Support and Settlement",
+     "components": [
+      {
+       "id": "C40",
+       "name": "Trade Capture and Enrichment",
+       "does": "Books executions, enriches settlement instructions and validates trade data",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "FIX",
+       "calm": "service"
+      },
+      {
+       "id": "C41",
+       "name": "Confirmation and Matching",
+       "does": "Matches allocations and confirmations with brokers and custodians",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "integration",
+       "external": false,
+       "bian": "Trade Confirmation Matching",
+       "msg": "FIX; ISO 20022 setr",
+       "calm": "service"
+      },
+      {
+       "id": "C42",
+       "name": "Settlement and Fails Management",
+       "does": "Instructs settlement, tracks status and manages fails and penalties",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Trade Settlement",
+       "msg": "ISO 20022 sese; ISO 15022 MT 540-543",
+       "calm": "service"
+      },
+      {
+       "id": "C88",
+       "name": "Fund Investment Dealing and Look-Through",
+       "does": "Places subscriptions and redemptions into in-house and third-party funds; captures look-through holdings for risk and compliance",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "ISO 20022 setr",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Positions, Cash and Events",
+     "components": [
+      {
+       "id": "C43",
+       "name": "Accounting Book of Record",
+       "does": "Official positions, transactions, accruals and income of record for listed funds and mandates; feeds C49",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "system of record",
+       "external": true,
+       "bian": "",
+       "msg": "",
+       "calm": "database"
+      },
+      {
+       "id": "C44",
+       "name": "Reconciliation Engine",
+       "does": "Reconciles positions, cash and trades with custodians and administrators",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Account Reconciliation",
+       "msg": "ISO 20022 semt; camt",
+       "calm": "service"
+      },
+      {
+       "id": "C45",
+       "name": "Corporate Actions and Income",
+       "does": "Captures events, takes elections, reconciles entitlements, reclaims withholding tax (fund and treaty reclaims) and tracks UK reporting fund status for offshore feeders",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Corporate Action",
+       "msg": "ISO 20022 seev",
+       "calm": "system"
+      },
+      {
+       "id": "C84",
+       "name": "Client Money and Assets (CASS)",
+       "does": "Client money and custody asset records, daily internal and external reconciliations, DvP exemption tracking, resolution pack and regulatory return",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Valuation and Performance",
+     "components": [
+      {
+       "id": "C46",
+       "name": "Pricing and Valuation Control",
+       "does": "Sources prices, runs tolerance, stale-price and fair-value challenges",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Financial Instrument Valuation",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C47",
+       "name": "Illiquid Asset Valuation",
+       "does": "Runs periodic private asset valuations and valuation committee evidence",
+       "seg": [
+        "L"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Financial Instrument Valuation",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C48",
+       "name": "Performance and Attribution",
+       "does": "Calculates returns, attribution, composites, IRR and multiples",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Investment Portfolio Analysis",
+       "msg": "GIPS (CFA Institute)",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Fund Accounting and NAV",
+     "components": [
+      {
+       "id": "C49",
+       "name": "Fund Accounting and NAV",
+       "does": "Calculates daily NAV, fee accruals, swing pricing or dilution adjustments, and fund financial statements",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "system of record",
+       "external": true,
+       "bian": "Mutual Fund Administration; Unit Trust Administration",
+       "msg": "",
+       "calm": "system"
+      }
+     ]
+    },
+    {
+     "name": "Fund Dealing and Register",
+     "components": [
+      {
+       "id": "C50",
+       "name": "Transfer Agency and Register",
+       "does": "Processes dealing, unitholder register, distributions and investor tax reporting",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "system of record",
+       "external": true,
+       "bian": "",
+       "msg": "ISO 20022 setr (fund orders); acmt (fund accounts)",
+       "calm": "system"
+      },
+      {
+       "id": "C83",
+       "name": "Box Management and Dealing Control",
+       "does": "Manages the manager's box, dealing as principal, daily unit creation and cancellation instructions, and dealing errors",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "system"
+      }
+     ]
+    },
+    {
+     "name": "Private Fund Administration (Alternatives)",
+     "components": [
+      {
+       "id": "C51",
+       "name": "Partnership Accounting",
+       "does": "Maintains fund, feeder and SPV accounts and investor allocations",
+       "seg": [
+        "L"
+       ],
+       "sor": "system of record",
+       "external": true,
+       "bian": "",
+       "msg": "",
+       "calm": "system"
+      },
+      {
+       "id": "C52",
+       "name": "LP Register and Commitments",
+       "does": "Holds commitments, unfunded amounts, transfers and side-letter terms",
+       "seg": [
+        "L"
+       ],
+       "sor": "system of record",
+       "external": true,
+       "bian": "",
+       "msg": "",
+       "calm": "database"
+      },
+      {
+       "id": "C53",
+       "name": "Capital Call and Distribution",
+       "does": "Calculates and issues capital calls, distributions and equalisation",
+       "seg": [
+        "L"
+       ],
+       "sor": "calculation",
+       "external": true,
+       "bian": "",
+       "msg": "ILPA Capital Call and Distribution Template",
+       "calm": "service"
+      },
+      {
+       "id": "C54",
+       "name": "Fee and Carry Engine",
+       "does": "Calculates management fees, offsets, waterfalls and carried interest",
+       "seg": [
+        "L"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "",
+       "msg": "ILPA Reporting Template",
+       "calm": "service"
+      },
+      {
+       "id": "C87",
+       "name": "Legal Entity and SPV Management",
+       "does": "Holds fund, GP, feeder and SPV structures, directors, filings and entity governance calendar",
+       "seg": [
+        "L"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Legal Entity Directory",
+       "msg": "LEI (ISO 17442)",
+       "calm": "database"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "L5",
+   "name": "Product, Risk, Compliance and Regulatory",
+   "purpose": "Second-line oversight, product governance and regulatory output across all segments.",
+   "groups": [
+    {
+     "name": "Product Governance",
+     "components": [
+      {
+       "id": "C56",
+       "name": "Product Lifecycle and Approval",
+       "does": "Runs product approval, target market, periodic reviews and closures",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Product Design",
+       "msg": "",
+       "calm": "system"
+      },
+      {
+       "id": "C57",
+       "name": "Assessment of Value and Fair Value",
+       "does": "Assesses fair value and consumer outcomes for board reporting",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C58",
+       "name": "Product Disclosure Documents",
+       "does": "Produces prospectus, CCI product summary, costs and sustainability disclosures",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Investment Risk",
+     "components": [
+      {
+       "id": "C59",
+       "name": "Market and Liquidity Risk",
+       "does": "Computes VaR, stress tests, exposures, leverage, liquidity risk and liquidity-tool triggers",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Market Risk",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C60",
+       "name": "Counterparty and Credit Exposure",
+       "does": "Monitors counterparty, issuer and collateral exposure against limits",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Counterparty Risk",
+       "msg": "",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Compliance Monitoring",
+     "components": [
+      {
+       "id": "C61",
+       "name": "Post-Trade Compliance Monitor",
+       "does": "Monitors portfolios for guideline and LPA restriction breaches and runs breach workflow",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Guideline Compliance",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C62",
+       "name": "Market Abuse Surveillance",
+       "does": "Detects abuse patterns across orders, trades, voice and chat",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C89",
+       "name": "Restricted and Insider Lists",
+       "does": "Manages wall-crossings, insider lists, restricted and watch lists across public and private sides",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "database"
+      }
+     ]
+    },
+    {
+     "name": "Conduct and Promotions",
+     "components": [
+      {
+       "id": "C63",
+       "name": "Financial Promotions Approval",
+       "does": "Reviews marketing communications, including anti-greenwashing checks",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C64",
+       "name": "Conduct and SM&CR Register",
+       "does": "Holds responsibilities map, certifications, conflicts, gifts and breaches registers",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "database"
+      }
+     ]
+    },
+    {
+     "name": "Financial Crime",
+     "components": [
+      {
+       "id": "C65",
+       "name": "KYC and Screening",
+       "does": "Performs investor, counterparty and deal-party due diligence, sanctions and PEP screening",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Delegate Oversight",
+     "components": [
+      {
+       "id": "C80",
+       "name": "Third-Party Oversight",
+       "does": "Oversees administrator, custodian, TA and vendor performance and exits",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Contractor and Supplier Agreement",
+       "msg": "",
+       "calm": "system"
+      },
+      {
+       "id": "C81",
+       "name": "NAV and Administrator Oversight",
+       "does": "Exception-based or shadow NAV checks, NAV and pricing error handling, TA and administrator KPI review, sign-off evidence",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C82",
+       "name": "Depositary and Trustee Liaison",
+       "does": "Manages depositary oversight queries, cash-monitoring breaks, unit issue/cancellation confirmations and breach reporting",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Regulatory and Sustainability Reporting",
+     "components": [
+      {
+       "id": "C66",
+       "name": "Transaction Reporting",
+       "does": "Generates and reconciles regulatory transaction reports for listed trades",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Regulatory Reporting",
+       "msg": "ISO 20022 auth (authorities)",
+       "calm": "service"
+      },
+      {
+       "id": "C67",
+       "name": "Regulatory Returns Engine",
+       "does": "Produces AIFM, fund, prudential and conduct returns to regulators",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "Regulatory Reporting",
+       "msg": "FCA RegData / AIFMD Annex IV XML (confirm)",
+       "calm": "service"
+      },
+      {
+       "id": "C68",
+       "name": "Sustainability and Stewardship Reporting",
+       "does": "Produces SDR, climate and Stewardship Code reports",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "calculation",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C85",
+       "name": "Derivatives and SFT Reporting",
+       "does": "Generates and reconciles UK EMIR derivative and SFTR securities-financing reports to trade repositories",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "L6",
+   "name": "Platform: Data, Integration and Controls",
+   "purpose": "Cross-cutting shared services every layer depends on.",
+   "groups": [
+    {
+     "name": "Reference and Market Data",
+     "components": [
+      {
+       "id": "C69",
+       "name": "Security Master",
+       "does": "Golden source for instruments, identifiers, classifications and terms",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "data",
+       "external": false,
+       "bian": "Financial Instrument Reference Data Management",
+       "msg": "ISIN (ISO 6166); FIGI",
+       "calm": "database"
+      },
+      {
+       "id": "C70",
+       "name": "Entity and Party Master",
+       "does": "Golden source for issuers, counterparties and clients, keyed by LEI",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "data",
+       "external": false,
+       "bian": "Legal Entity Directory",
+       "msg": "LEI (ISO 17442)",
+       "calm": "database"
+      },
+      {
+       "id": "C71",
+       "name": "Market Data Distribution",
+       "does": "Acquires, entitles and distributes prices, curves and benchmark data",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "data",
+       "external": false,
+       "bian": "Market Information Management",
+       "msg": "",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Data and Analytics",
+     "components": [
+      {
+       "id": "C72",
+       "name": "Enterprise Data Platform",
+       "does": "Integrated, governed store for positions, transactions, risk and client data",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "data",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "database"
+      },
+      {
+       "id": "C73",
+       "name": "Data Governance and Lineage",
+       "does": "Catalogue, quality rules, ownership and lineage for critical data",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Integration and Interoperability",
+     "components": [
+      {
+       "id": "C74",
+       "name": "Integration and API Gateway",
+       "does": "Mediates APIs, events and files between internal and external systems",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "integration",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      },
+      {
+       "id": "C75",
+       "name": "Financial Messaging Gateway",
+       "does": "Connects custodians, brokers and administrators over Swift and FIX",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "integration",
+       "external": false,
+       "bian": "",
+       "msg": "Swift ISO 20022 / ISO 15022; FIX",
+       "calm": "network"
+      },
+      {
+       "id": "C76",
+       "name": "Desktop Interoperability",
+       "does": "Links front-office desktop apps through shared context and intents",
+       "seg": [
+        "A",
+        "P"
+       ],
+       "sor": "integration",
+       "external": false,
+       "bian": "",
+       "msg": "FDC3",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Identity and Access",
+     "components": [
+      {
+       "id": "C77",
+       "name": "Identity and Access Management",
+       "does": "Authentication, entitlements, privileged access and public/private-side information barriers",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "Party Authentication",
+       "msg": "",
+       "calm": "ldap"
+      }
+     ]
+    },
+    {
+     "name": "Controls, Records and Resilience",
+     "components": [
+      {
+       "id": "C78",
+       "name": "Document and Records Archive",
+       "does": "Retains documents, communications and books and records",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "data",
+       "external": false,
+       "bian": "Archive Services",
+       "msg": "",
+       "calm": "database"
+      },
+      {
+       "id": "C79",
+       "name": "Operational Resilience Hub",
+       "does": "Maps important business services, impact tolerances, scenarios and testing",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "control",
+       "external": false,
+       "bian": "",
+       "msg": "",
+       "calm": "service"
+      }
+     ]
+    },
+    {
+     "name": "Enterprise Finance",
+     "components": [
+      {
+       "id": "C55",
+       "name": "Corporate Finance and Billing",
+       "does": "Manager's ledger, mandate fee billing, revenue, expenses, regulatory capital and ICARA",
+       "seg": [
+        "ALL"
+       ],
+       "sor": "system of record",
+       "external": false,
+       "bian": "Financial Accounting",
+       "msg": "",
+       "calm": "system"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "links": [
+  {
+   "from": "X08",
+   "to": "C18",
+   "label": "constituents and index events",
+   "std": "",
+   "flow": "T"
+  },
+  {
+   "from": "C69",
+   "to": "C17",
+   "label": "instrument and identifier data",
+   "std": "ISIN; FIGI; LEI",
+   "flow": "T"
+  },
+  {
+   "from": "C05",
+   "to": "C30",
+   "label": "coded investment guidelines",
+   "std": "",
+   "flow": "T"
+  },
+  {
+   "from": "C89",
+   "to": "C30",
+   "label": "restricted list",
+   "std": "",
+   "flow": "T"
+  },
+  {
+   "from": "C15",
+   "to": "C29",
+   "label": "orders",
+   "std": "",
+   "flow": "T"
+  },
+  {
+   "from": "C19",
+   "to": "C29",
+   "label": "rebalance trade lists",
+   "std": "",
+   "flow": "T"
+  },
+  {
+   "from": "C29",
+   "to": "C31",
+   "label": "routed orders",
+   "std": "FIX",
+   "flow": "T"
+  },
+  {
+   "from": "C31",
+   "to": "X04",
+   "label": "orders and fills",
+   "std": "FIX",
+   "flow": "T"
+  },
+  {
+   "from": "C31",
+   "to": "C40",
+   "label": "executions",
+   "std": "FIX",
+   "flow": "T"
+  },
+  {
+   "from": "C66",
+   "to": "X19",
+   "label": "transaction reports",
+   "std": "",
+   "flow": "T"
+  },
+  {
+   "from": "C85",
+   "to": "X19",
+   "label": "derivative and SFT reports",
+   "std": "",
+   "flow": "T"
+  },
+  {
+   "from": "C42",
+   "to": "X06",
+   "label": "settlement instructions",
+   "std": "ISO 20022 sese",
+   "flow": "T"
+  },
+  {
+   "from": "X06",
+   "to": "C44",
+   "label": "holdings and cash statements",
+   "std": "ISO 20022 semt; camt",
+   "flow": "T"
+  },
+  {
+   "from": "X06",
+   "to": "C45",
+   "label": "event notifications",
+   "std": "ISO 20022 seev",
+   "flow": "T"
+  },
+  {
+   "from": "C17",
+   "to": "C44",
+   "label": "IBOR vs ABOR reconciliation",
+   "std": "",
+   "flow": "T"
+  },
+  {
+   "from": "C01",
+   "to": "C04",
+   "label": "client won",
+   "std": "",
+   "flow": "F"
+  },
+  {
+   "from": "C04",
+   "to": "C65",
+   "label": "due diligence request",
+   "std": "",
+   "flow": "F"
+  },
+  {
+   "from": "X01",
+   "to": "C50",
+   "label": "subscriptions and redemptions",
+   "std": "ISO 20022 setr",
+   "flow": "F"
+  },
+  {
+   "from": "X05",
+   "to": "C33",
+   "label": "create/redeem orders",
+   "std": "",
+   "flow": "F"
+  },
+  {
+   "from": "C46",
+   "to": "C49",
+   "label": "validated prices",
+   "std": "",
+   "flow": "F"
+  },
+  {
+   "from": "C43",
+   "to": "C49",
+   "label": "positions and accruals of record",
+   "std": "",
+   "flow": "F"
+  },
+  {
+   "from": "C49",
+   "to": "C81",
+   "label": "NAV and exception pack",
+   "std": "",
+   "flow": "F"
+  },
+  {
+   "from": "X07",
+   "to": "C81",
+   "label": "NAV, dealing and register reports",
+   "std": "",
+   "flow": "F"
+  },
+  {
+   "from": "X16",
+   "to": "C82",
+   "label": "oversight queries and breaches",
+   "std": "",
+   "flow": "F"
+  },
+  {
+   "from": "C67",
+   "to": "X14",
+   "label": "regulatory returns",
+   "std": "",
+   "flow": "F"
+  },
+  {
+   "from": "C21",
+   "to": "C23",
+   "label": "screened deal",
+   "std": "",
+   "flow": "C"
+  },
+  {
+   "from": "X17",
+   "to": "C47",
+   "label": "valuation reports",
+   "std": "",
+   "flow": "C"
+  },
+  {
+   "from": "C47",
+   "to": "C51",
+   "label": "period-end fair values",
+   "std": "",
+   "flow": "C"
+  },
+  {
+   "from": "X03",
+   "to": "C52",
+   "label": "commitments and transfers",
+   "std": "",
+   "flow": "C"
+  },
+  {
+   "from": "C53",
+   "to": "X03",
+   "label": "capital calls and distributions",
+   "std": "ILPA CC&D Template",
+   "flow": "C"
+  },
+  {
+   "from": "C53",
+   "to": "C07",
+   "label": "call and distribution notices",
+   "std": "ILPA CC&D Template",
+   "flow": "C"
+  },
+  {
+   "from": "C54",
+   "to": "C11",
+   "label": "fees, expenses, carry",
+   "std": "ILPA Reporting Template",
+   "flow": "C"
+  }
+ ],
+ "externals": [
+  {
+   "id": "X01",
+   "name": "Retail investors, advisers and platforms",
+   "role": "Buy and hold funds via intermediated channels"
+  },
+  {
+   "id": "X02",
+   "name": "Institutional clients and consultants",
+   "role": "Award and oversee segregated mandates and pooled holdings"
+  },
+  {
+   "id": "X03",
+   "name": "Limited partners",
+   "role": "Commit capital to private funds; receive calls, distributions, reports"
+  },
+  {
+   "id": "X04",
+   "name": "Brokers and trading venues",
+   "role": "Execute listed trades; provide research and liquidity"
+  },
+  {
+   "id": "X05",
+   "name": "Authorised participants and market makers",
+   "role": "Create and redeem ETF units; quote on exchange"
+  },
+  {
+   "id": "X06",
+   "name": "Custodian",
+   "role": "Safekeeps assets, settles trades, reports holdings and events"
+  },
+  {
+   "id": "X07",
+   "name": "Fund administrator and transfer agent",
+   "role": "Outsourced fund accounting, NAV, register and private fund administration"
+  },
+  {
+   "id": "X08",
+   "name": "Index providers",
+   "role": "License benchmarks; supply constituents, weights and index events"
+  },
+  {
+   "id": "X09",
+   "name": "Market, ESG and reference data vendors",
+   "role": "Supply prices, reference data, ESG and research data"
+  },
+  {
+   "id": "X10",
+   "name": "Proxy advisers",
+   "role": "Supply voting research and vote execution services"
+  },
+  {
+   "id": "X11",
+   "name": "Securities lending agent",
+   "role": "Lends securities, manages collateral, returns revenue"
+  },
+  {
+   "id": "X12",
+   "name": "Banks, prime brokers and lenders",
+   "role": "Derivative counterparties, FX, fund financing and deal debt"
+  },
+  {
+   "id": "X13",
+   "name": "Deal advisers and portfolio companies",
+   "role": "Source and diligence deals; report portfolio performance"
+  },
+  {
+   "id": "X14",
+   "name": "Regulators and code bodies",
+   "role": "FCA supervision and returns; FRC Stewardship Code; tax authority"
+  },
+  {
+   "id": "X15",
+   "name": "Auditors",
+   "role": "Audit fund and manager financial statements and controls"
+  },
+  {
+   "id": "X16",
+   "name": "Depositary or trustee",
+   "role": "Independent oversight of the fund, cash monitoring and safekeeping duties"
+  },
+  {
+   "id": "X17",
+   "name": "Independent valuers",
+   "role": "Provide or review private asset valuations"
+  },
+  {
+   "id": "X18",
+   "name": "Clearing brokers and CCPs",
+   "role": "Clear futures and cleared OTC derivatives; call initial and variation margin"
+  },
+  {
+   "id": "X19",
+   "name": "Trade repositories and ARMs",
+   "role": "Receive EMIR, SFTR and MiFIR transaction reports"
+  }
+ ],
+ "standards": [
+  {
+   "name": "BIAN Service Landscape (v10 value chain view)",
+   "used_for": "Cross-check of component names; service domain names used only where visible",
+   "source_url": "https://bian.org/servicelandscape-10-0-0/views/view_51974.html",
+   "verified": true
+  },
+  {
+   "name": "FINOS CALM 1.1 meta-schema (node-type enum, relationship types)",
+   "used_for": "Legend vocabulary only: node-type per component. This is not a CALM document; flows and controls are not modelled",
+   "source_url": "https://calm.finos.org/release/1.1/meta/core.json",
+   "verified": true
+  },
+  {
+   "name": "FINOS CALM concepts: relationships, flows, controls",
+   "used_for": "Background reading for CALM relationship, flow and control vocabulary; not modelled in this diagram",
+   "source_url": "https://calm.finos.org/core-concepts/relationships",
+   "verified": true
+  },
+  {
+   "name": "ISO 20022 business areas (setr, sese, semt, seev, colr, reda, auth)",
+   "used_for": "Fund orders, settlement, holdings statements, corporate actions, collateral, reference data, authority reporting",
+   "source_url": "https://www.iso20022.org/sites/default/files/media/file/ISO20022_BusinessAreas.pdf",
+   "verified": true
+  },
+  {
+   "name": "ISO 15022 / ISO 20022 securities mapping over Swift",
+   "used_for": "Settlement and statement messages (e.g. MT 540-543 and sese/semt/seev equivalents)",
+   "source_url": "https://swift.com/node/10286",
+   "verified": true
+  },
+  {
+   "name": "FIX protocol (FIX Trading Community)",
+   "used_for": "Order routing, executions and allocations between manager, brokers and venues",
+   "source_url": "https://fixtrading.org/fix-protocol-enables-pre-trade-allocation-global-trading-article/",
+   "verified": true
+  },
+  {
+   "name": "Common Domain Model (FINOS with ISDA, ICMA, ISLA)",
+   "used_for": "Optional model for OTC derivatives, repo/bonds and securities lending events",
+   "source_url": "https://www.finos.org/press/finos-launches-common-domain-model-project-in-partnership-with-isda-isla-and-icma",
+   "verified": true
+  },
+  {
+   "name": "ILPA Reporting Template v2.0, Performance Templates, Capital Call and Distribution Template (updated Sept 2025, effective Q1 2027)",
+   "used_for": "Alternatives LP reporting, fee/carry transparency, call and distribution notices; update dates from a secondary source",
+   "source_url": "https://ilpa.org/ilpa-reporting-template/",
+   "verified": true
+  },
+  {
+   "name": "LEI (ISO 17442) and ISIN (ISO 6166), GLEIF-ANNA ISIN-to-LEI mapping",
+   "used_for": "Entity and instrument identifiers in party and security masters",
+   "source_url": "https://www.gleif.org/lei-data/lei-mapping/download-isin-to-lei-relationship-files/2021-06-08_isin-to-lei_factsheet_v1.pdf",
+   "verified": true
+  },
+  {
+   "name": "FIGI (Object Management Group)",
+   "used_for": "Open instrument identifier, including asset classes lacking ISINs",
+   "source_url": "https://www.openfigi.com/about/figi",
+   "verified": true
+  },
+  {
+   "name": "FDC3 (FINOS)",
+   "used_for": "Front-office desktop interoperability via intents and context data",
+   "source_url": "https://fdc3-new.finos.org/docs/fdc3-standard",
+   "verified": true
+  },
+  {
+   "name": "ArchiMate (The Open Group)",
+   "used_for": "Optional notation: application components/services/data objects in business, application, technology layers",
+   "source_url": "https://pubs.opengroup.org/architecture/archimate30-doc/chap03.html",
+   "verified": true
+  },
+  {
+   "name": "FCA SDR, investment labels and anti-greenwashing rule",
+   "used_for": "Product disclosure, financial promotions and sustainability reporting components",
+   "source_url": "https://www.fca.org.uk/news/press-releases/sustainability-disclosure-and-labelling-regime-confirmed-fca",
+   "verified": true
+  },
+  {
+   "name": "FCA Consumer Composite Investments regime (PS25/20)",
+   "used_for": "CCI product summary replacing PRIIPs and UCITS disclosure; rules effective 8 June 2027, optional transition from 6 April 2026",
+   "source_url": "https://www.regulationtomorrow.com/2025/12/fca-publishes-final-rules-in-relation-to-consumer-composite-investments/",
+   "verified": true
+  },
+  {
+   "name": "UK Stewardship Code 2026 (FRC)",
+   "used_for": "Stewardship reporting: policy and context disclosure plus annual activities and outcomes report",
+   "source_url": "https://www.dechert.com/knowledge/onpoint/2025/8/new-uk-stewardship-code-2026-published-by-the-financial-reportin.html",
+   "verified": true
+  },
+  {
+   "name": "FCA Consumer Duty",
+   "used_for": "Value and outcomes assessment, case management, client reporting",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "SM&CR",
+   "used_for": "Conduct and responsibilities register",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "UK UCITS and COLL",
+   "used_for": "Fund rules behind pre/post-trade compliance, liquidity risk, fund accounting",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "UK AIFM regime",
+   "used_for": "Alternatives risk, valuation, depositary and regulatory returns",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "UK MiFIR transaction reporting",
+   "used_for": "Transaction reporting component",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "FATCA and CRS",
+   "used_for": "Investor tax classification in transfer agency and LP onboarding",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "FCA operational resilience rules",
+   "used_for": "Operational resilience hub and third-party oversight",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "CASS (client assets)",
+   "used_for": "Client money and custody asset protection in dealing flows and segregated mandates",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "UK EMIR and SFTR reporting",
+   "used_for": "Derivative and securities-financing transaction reports to trade repositories",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "FinDatEx templates (EMT, EPT, EET)",
+   "used_for": "Target market, cost and ESG data exchange with distributors",
+   "source_url": "",
+   "verified": false
+  },
+  {
+   "name": "GIPS (CFA Institute)",
+   "used_for": "Performance composites and presentation",
+   "source_url": "",
+   "verified": false
+  }
+ ],
+ "assumptions": [
+  "Archetype: UK-authorised manager acting as authorised fund manager for UK UCITS/OEICs and ETFs, and as UK AIFM for closed-ended private funds; segregated institutional mandates also in scope.",
+  "Fund accounting, NAV, transfer agency and private fund administration are often outsourced; components flagged external=true are commonly run by an administrator, TA, custodian or specialist agent, but the manager keeps oversight and data ownership through Delegate Oversight (C80-C82).",
+  "Hedge funds, synthetic replication, wealth/advice and the manager's own HR/procurement are out of scope; derivatives appear only as overlay, hedging and collateral.",
+  "Segment tags: A = Active long-only listed, P = Passive/ETF, L = Alternatives (PE, private credit, real assets); ALL = shared across all three. Components tagged A,P serve both listed businesses.",
+  "BIAN names come from the publicly visible v10 value chain view; later releases may rename or add domains. BIAN is bank-centric, so mapped names are closest-fit, not exact equivalence; empty means no matching domain was seen.",
+  "CALM 1.1 node-type and relationship vocabulary is used for legend labels only (actor, ecosystem, system, service, database, network, ldap, webclient, data-asset). This is not a CALM document: flows and controls are not modelled, and FIX and Swift are message standards, not CALM protocols.",
+  "ISO 20022 entries cite verified business areas (setr, sese, semt, seev, colr, reda, auth, acmt via Swift doc); specific message-level mapping (e.g. setr for fund orders, seev for proxy voting, camt for cash statements) is analyst knowledge and should be confirmed.",
+  "UK rules named but not verified in this run: Consumer Duty, SM&CR, UK UCITS/COLL, UK AIFM regime, UK MiFIR transaction reporting, FATCA/CRS, operational resilience, CASS and UK EMIR/SFTR. SDR, CCI (PS25/20) and Stewardship Code 2026 were verified.",
+  "Functional system view only: no agentic AI layer, no vendor or product names, no market statistics.",
+  "Links show representative flows only, not the full integration estate; most components also read from the Platform layer.",
+  "IBOR sits in Investment Management (decision support); ABOR sits in Operations (official record). Many firms merge them or outsource ABOR to the administrator. Alternatives positions are held in C24-C26 and C51; a total-portfolio view comes from the data platform (C72)."
+ ]
+}
