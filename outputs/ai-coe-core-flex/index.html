@@ -1,0 +1,1491 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Centre of Excellence: Core and Flex (interim v2)</title><style>/* ============================================================
+   NTT DATA DESIGN SYSTEM — GLOBAL STYLESHEET
+   This is the single entry point consumers link.
+   It contains ONLY @import lines. Tokens & base live in tokens/.
+   ============================================================ */
+
+/* ============================================================
+   NTT DATA — COLOR TOKENS
+   Source of truth: "NTT Data Template.pptx" → Color Picker slide
+   Palette name (theme): "NTT DATA Colors 1"
+   ============================================================ */
+
+:root {
+  /* ---------------------------------------------------------
+     BRAND CORE
+     Future Blue is THE primary brand color. Smart Navy is the
+     primary dark surface. White is the primary light surface.
+     --------------------------------------------------------- */
+  --ntt-future-blue:        #0072BC;  /* PRIMARY — RGB 0/114/188   */
+  --ntt-future-blue-150:    #005B96;  /* darker — RGB 0/91/150     */
+  --ntt-future-blue-50:     #19A3FC;  /* lighter — RGB 25/163/252  */
+
+  --ntt-smart-navy:         #070F26;  /* dark surface / fg accent — RGB 7/15/38 */
+  --ntt-white:              #FFFFFF;  /* light surface — RGB 255/255/255 */
+
+  /* ---------------------------------------------------------
+     "ATTENTION-GRABBING" ACCENTS
+     Energetic secondary hues. Use sparingly for highlights,
+     data viz, status, and the brand's vivid moments.
+     --------------------------------------------------------- */
+  --ntt-turquoise:          #00DFED;  /* RGB 0/223/237   */
+  --ntt-turquoise-100:      #009AA4;  /* RGB 0/154/164   */
+  --ntt-turquoise-50:       #7BF7FF;  /* RGB 123/247/255 */
+
+  --ntt-green:              #00CB5D;  /* RGB 0/203/93    */
+  --ntt-green-150:          #068941;  /* RGB 6/137/65    */
+  --ntt-green-50:           #38F990;  /* RGB 56/249/144  */
+
+  /* ---------------------------------------------------------
+     "MORE ACCENTS" — warm range
+     --------------------------------------------------------- */
+  --ntt-yellow:             #FFC400;  /* RGB 255/196/0   */
+  --ntt-yellow-100:         #FFDB66;  /* RGB 255/219/102 */
+  --ntt-yellow-50:          #FFEDB2;  /* RGB 255/237/178 */
+
+  --ntt-orange:             #FF7A00;  /* RGB 255/122/0   */
+  --ntt-orange-100:         #E42600;  /* RGB 228/38/0    */
+  --ntt-orange-150:         #B22000;  /* RGB 178/32/0    */
+
+  /* ---------------------------------------------------------
+     NEUTRALS & TEXT
+     --------------------------------------------------------- */
+  --ntt-text-grey:          #2E404D;  /* body text on light — RGB 46/64/77 */
+  --ntt-grey-100:           #949494;  /* muted / disabled — RGB 148/148/148 */
+  --ntt-grey-50:            #E8E8E8;  /* hairlines / fills — RGB 232/232/232 */
+  --ntt-black:              #000000;  /* select use cases ONLY */
+  --ntt-off-white:          #F8F8F8;  /* near-white text on dark (template uses F8F8F8) */
+
+  /* Tints derived for surfaces (not in PPTX, harmonized in oklch) */
+  --ntt-grey-25:            #F4F5F6;  /* faint panel fill   */
+  --ntt-navy-700:           oklch(0.26 0.04 256);  /* raised dark surface */
+  --ntt-navy-600:           oklch(0.34 0.045 256); /* dark border        */
+
+  /* ============================================================
+     SEMANTIC ALIASES — LIGHT THEME (default)
+     Reference these in components, not the raw --ntt-* values.
+     ============================================================ */
+
+  /* Surfaces */
+  --surface-page:      var(--ntt-white);
+  --surface-card:      var(--ntt-white);
+  --surface-sunken:    var(--ntt-grey-25);
+  --surface-raised:    var(--ntt-white);
+  --surface-inverse:   var(--ntt-smart-navy);
+
+  /* Text */
+  --text-heading:      var(--ntt-smart-navy);
+  --text-body:         var(--ntt-text-grey);
+  --text-muted:        var(--ntt-grey-100);
+  --text-inverse:      var(--ntt-white);
+  --text-link:         var(--ntt-future-blue);
+  --text-on-accent:    var(--ntt-white);
+
+  /* Lines & borders */
+  --border-subtle:     var(--ntt-grey-50);
+  --border-strong:     var(--ntt-text-grey);
+  --border-focus:      var(--ntt-future-blue);
+
+  /* Primary action */
+  --action-primary:        var(--ntt-future-blue);
+  --action-primary-hover:  var(--ntt-future-blue-150);
+  --action-primary-text:   var(--ntt-white);
+
+  /* Secondary action (outline on light) */
+  --action-secondary-text:        var(--ntt-future-blue);
+  --action-secondary-border:      var(--ntt-future-blue);
+  --action-secondary-hover-bg:    color-mix(in srgb, var(--ntt-future-blue) 8%, transparent);
+
+  /* Focus ring */
+  --focus-ring: color-mix(in srgb, var(--ntt-future-blue) 40%, transparent);
+
+  /* ============================================================
+     STATUS / FEEDBACK
+     Mapped onto the brand accent palette.
+     ============================================================ */
+  --status-success:       var(--ntt-green-150);
+  --status-success-bg:    color-mix(in srgb, var(--ntt-green) 14%, var(--ntt-white));
+  --status-info:          var(--ntt-future-blue);
+  --status-info-bg:       color-mix(in srgb, var(--ntt-future-blue) 10%, var(--ntt-white));
+  --status-warning:       var(--ntt-orange);
+  --status-warning-bg:    color-mix(in srgb, var(--ntt-yellow) 22%, var(--ntt-white));
+  --status-danger:        var(--ntt-orange-150);
+  --status-danger-bg:     color-mix(in srgb, var(--ntt-orange-100) 12%, var(--ntt-white));
+
+  /* Data-viz ordered sequence (brand accents) */
+  --chart-1: var(--ntt-future-blue);
+  --chart-2: var(--ntt-turquoise-100);
+  --chart-3: var(--ntt-green);
+  --chart-4: var(--ntt-yellow);
+  --chart-5: var(--ntt-orange);
+  --chart-6: var(--ntt-future-blue-50);
+}
+
+/* ============================================================
+   DARK THEME — Smart Navy surface
+   Apply with <body data-theme="dark"> or class .theme-dark.
+   Mirrors the PPTX "Dark" template family.
+   ============================================================ */
+[data-theme="dark"],
+.theme-dark {
+  --surface-page:      var(--ntt-smart-navy);
+  --surface-card:      var(--ntt-navy-700);
+  --surface-sunken:    color-mix(in srgb, var(--ntt-smart-navy) 70%, #000);
+  --surface-raised:    var(--ntt-navy-700);
+  --surface-inverse:   var(--ntt-white);
+
+  --text-heading:      var(--ntt-white);
+  --text-body:         var(--ntt-off-white);
+  --text-muted:        var(--ntt-grey-100);
+  --text-inverse:      var(--ntt-smart-navy);
+  --text-link:         var(--ntt-future-blue-50);
+  --text-on-accent:    var(--ntt-white);
+
+  --border-subtle:     var(--ntt-navy-600);
+  --border-strong:     var(--ntt-grey-100);
+  --border-focus:      var(--ntt-future-blue-50);
+
+  --action-primary:        var(--ntt-future-blue);
+  --action-primary-hover:  var(--ntt-future-blue-50);
+  --action-primary-text:   var(--ntt-white);
+
+  --action-secondary-text:     var(--ntt-future-blue-50);
+  --action-secondary-border:   var(--ntt-future-blue-50);
+  --action-secondary-hover-bg: color-mix(in srgb, var(--ntt-future-blue-50) 14%, transparent);
+
+  --focus-ring: color-mix(in srgb, var(--ntt-future-blue-50) 50%, transparent);
+
+  --status-success-bg: color-mix(in srgb, var(--ntt-green) 20%, var(--ntt-smart-navy));
+  --status-info-bg:    color-mix(in srgb, var(--ntt-future-blue) 24%, var(--ntt-smart-navy));
+  --status-warning-bg: color-mix(in srgb, var(--ntt-orange) 22%, var(--ntt-smart-navy));
+  --status-danger-bg:  color-mix(in srgb, var(--ntt-orange-100) 24%, var(--ntt-smart-navy));
+}
+
+/* ============================================================
+   NTT DATA — TYPOGRAPHY TOKENS
+   Brand rule (PPTX "Brand basics"):
+     • Page titles  → GEORGIA  (serif, "major" font)
+     • General text → ARIAL    (sans,  "minor" font)
+   Both are system fonts per NTT DATA's Visual Identity System,
+   so no webfont files ship with this system.
+   ============================================================ */
+
+:root {
+  /* Families ------------------------------------------------ */
+  --font-display: Georgia, "Times New Roman", serif;          /* titles, headlines */
+  --font-body:    Arial, "Helvetica Neue", Helvetica, sans-serif; /* everything else */
+  --font-mono:    ui-monospace, Menlo, Consolas, monospace;
+
+  /* Weights ------------------------------------------------- */
+  --weight-regular: 400;
+  --weight-bold:    700;   /* Georgia & Arial bold — the only two weights the brand uses */
+
+  /* Type scale (px) ----------------------------------------
+     Anchored to the PPTX: title 48pt, body 20pt.
+     Display sizes are for covers / heroes.
+     NAMING RULE: size tokens must never share a name with a color
+     alias in colors.css (--text-heading/--text-body/--text-muted/
+     --text-inverse/--text-link are colors). The body size therefore
+     lives at --text-size-body. */
+  --text-display:  3.75rem;  /* 60px — hero / cover title          */
+  --text-h1:       3rem;     /* 48px — slide & page title (Georgia)*/
+  --text-h2:       2.25rem;  /* 36px                                */
+  --text-h3:       1.75rem;  /* 28px                                */
+  --text-h4:       1.375rem; /* 22px                                */
+  --text-body-lg:  1.25rem;  /* 20px — PPTX body level 1            */
+  --text-size-body: 1rem;    /* 16px — default web body             */
+  --text-sm:       0.875rem; /* 14px                                */
+  --text-xs:       0.75rem;  /* 12px — captions, footers, legal     */
+
+  /* Line heights ------------------------------------------- */
+  --leading-tight:   1.1;   /* display / large headlines */
+  --leading-snug:    1.25;  /* headings                  */
+  --leading-normal:  1.5;   /* body copy                 */
+  --leading-relaxed: 1.65;  /* long-form prose           */
+
+  /* Letter spacing ----------------------------------------- */
+  --tracking-tight:  -0.01em;  /* large Georgia titles      */
+  --tracking-normal: 0;
+  --tracking-wide:   0.04em;   /* eyebrows / small caps     */
+  --tracking-caps:   0.08em;   /* ALL CAPS labels           */
+
+  /* ---------------------------------------------------------
+     ROLE SHORTCUTS (family + size + leading bundled)
+     --------------------------------------------------------- */
+  --type-title-family:  var(--font-display);
+  --type-body-family:   var(--font-body);
+}
+
+/* ============================================================
+   BASE TYPE RESET — opt-in via .ntt-type on a wrapper, or use
+   the role utility classes below. Headings default to Georgia,
+   body to Arial, per brand.
+   ============================================================ */
+.ntt-type,
+.ntt-type :where(h1, h2, h3, h4, h5, h6, p, li, a, span, button, input, td, th) {
+  font-family: var(--font-body);
+}
+.ntt-type :where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-display);
+  color: var(--text-heading);
+  line-height: var(--leading-snug);
+  font-weight: var(--weight-bold);
+  margin: 0;
+}
+.ntt-type :where(p, li) {
+  color: var(--text-body);
+  line-height: var(--leading-normal);
+}
+
+/* Role utilities (use anywhere) ---------------------------- */
+.type-display { font-family: var(--font-display); font-size: var(--text-display); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); font-weight: var(--weight-bold); color: var(--text-heading); }
+.type-h1      { font-family: var(--font-display); font-size: var(--text-h1);   line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); font-weight: var(--weight-bold); color: var(--text-heading); }
+.type-h2      { font-family: var(--font-display); font-size: var(--text-h2);   line-height: var(--leading-snug);  font-weight: var(--weight-bold); color: var(--text-heading); }
+.type-h3      { font-family: var(--font-display); font-size: var(--text-h3);   line-height: var(--leading-snug);  font-weight: var(--weight-bold); color: var(--text-heading); }
+.type-h4      { font-family: var(--font-display); font-size: var(--text-h4);   line-height: var(--leading-snug);  font-weight: var(--weight-bold); color: var(--text-heading); }
+.type-body-lg { font-family: var(--font-body); font-size: var(--text-body-lg); line-height: var(--leading-normal); color: var(--text-body); }
+.type-body    { font-family: var(--font-body); font-size: var(--text-size-body); line-height: var(--leading-normal); color: var(--text-body); }
+.type-sm      { font-family: var(--font-body); font-size: var(--text-sm);      line-height: var(--leading-normal); color: var(--text-body); }
+.type-caption { font-family: var(--font-body); font-size: var(--text-xs);      line-height: var(--leading-normal); color: var(--text-muted); }
+
+/* Eyebrow / kicker — ALL CAPS Arial, tracked, often Future Blue */
+.type-eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--action-primary);
+}
+
+/* ============================================================
+   NTT DATA — SPACING, RADII & LAYOUT TOKENS
+   4px base grid. Corporate/geometric feel → small radii.
+   ============================================================ */
+
+:root {
+  /* Spacing scale (4px base) -------------------------------- */
+  --space-0:   0;
+  --space-1:   0.25rem;  /*  4px */
+  --space-2:   0.5rem;   /*  8px */
+  --space-3:   0.75rem;  /* 12px */
+  --space-4:   1rem;     /* 16px */
+  --space-5:   1.5rem;   /* 24px */
+  --space-6:   2rem;     /* 32px */
+  --space-7:   3rem;     /* 48px */
+  --space-8:   4rem;     /* 64px */
+  --space-9:   6rem;     /* 96px */
+  --space-10:  8rem;     /* 128px */
+
+  /* Radii --------------------------------------------------
+     The brand reads geometric & precise. Corners are crisp:
+     small radii on controls, none on large surfaces. */
+  --radius-none: 0;
+  --radius-sm:   2px;
+  --radius-md:   4px;    /* default — buttons, inputs, chips */
+  --radius-lg:   8px;    /* cards, dialogs                   */
+  --radius-xl:   16px;   /* feature panels                   */
+  --radius-full: 999px;  /* pills, avatars, the Dynamic Loop */
+
+  /* Borders ------------------------------------------------- */
+  --border-width:        1px;
+  --border-width-strong: 2px;   /* focus, selected, primary outlines */
+
+  /* Layout -------------------------------------------------- */
+  --container-sm:  640px;
+  --container-md:  960px;
+  --container-lg:  1200px;
+  --container-xl:  1440px;
+  --gutter:        var(--space-5);
+
+  /* Control heights (consistent hit targets, ≥44px touch) -- */
+  --control-h-sm: 32px;
+  --control-h-md: 40px;
+  --control-h-lg: 48px;
+
+  /* Z-index scale ------------------------------------------ */
+  --z-base:     0;     /* @kind other */
+  --z-dropdown: 1000;  /* @kind other */
+  --z-sticky:   1100;  /* @kind other */
+  --z-overlay:  1200;  /* @kind other */
+  --z-modal:    1300;  /* @kind other */
+  --z-toast:    1400;  /* @kind other */
+}
+
+/* ============================================================
+   NTT DATA — EFFECTS: ELEVATION, MOTION, GRADIENTS
+   Restrained, corporate. Shadows are soft & cool (navy-tinted),
+   never heavy. Motion is quick and confident — no bounce.
+   ============================================================ */
+
+:root {
+  /* Elevation — cool navy-tinted shadows -------------------- */
+  --shadow-xs:  0 1px 2px color-mix(in srgb, var(--ntt-smart-navy) 8%, transparent);
+  --shadow-sm:  0 1px 3px color-mix(in srgb, var(--ntt-smart-navy) 10%, transparent),
+                0 1px 2px color-mix(in srgb, var(--ntt-smart-navy) 6%, transparent);
+  --shadow-md:  0 4px 12px color-mix(in srgb, var(--ntt-smart-navy) 12%, transparent),
+                0 2px 4px color-mix(in srgb, var(--ntt-smart-navy) 8%, transparent);
+  --shadow-lg:  0 12px 28px color-mix(in srgb, var(--ntt-smart-navy) 16%, transparent),
+                0 4px 8px color-mix(in srgb, var(--ntt-smart-navy) 8%, transparent);
+  --shadow-xl:  0 24px 56px color-mix(in srgb, var(--ntt-smart-navy) 22%, transparent);
+
+  /* Focus ring (paired with --focus-ring color) ------------ */
+  --ring: 0 0 0 3px var(--focus-ring);
+
+  /* Motion -------------------------------------------------- */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1); /* @kind other */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --ease-in:       cubic-bezier(0.4, 0, 1, 1); /* @kind other */
+  --duration-fast:   120ms; /* @kind other */
+  --duration-base:   200ms; /* @kind other */
+  --duration-slow:   320ms; /* @kind other */
+  --transition-base: all var(--duration-base) var(--ease-standard); /* @kind other */
+
+  /* ---------------------------------------------------------
+     BRAND GRADIENTS
+     The vivid accents read as energy. Used sparingly on
+     hero/feature moments and data accents — never behind body
+     text. The signature is Future Blue → Turquoise.
+     --------------------------------------------------------- */
+  --gradient-future:   linear-gradient(120deg, var(--ntt-future-blue) 0%, var(--ntt-turquoise) 100%);
+  --gradient-energy:   linear-gradient(120deg, var(--ntt-future-blue) 0%, var(--ntt-green) 100%);
+  --gradient-warm:     linear-gradient(120deg, var(--ntt-orange) 0%, var(--ntt-yellow) 100%);
+  --gradient-navy:     linear-gradient(160deg, var(--ntt-smart-navy) 0%, #0e1c3f 100%);
+  /* Protection scrim for text over photography */
+  --scrim-navy:        linear-gradient(180deg, color-mix(in srgb, var(--ntt-smart-navy) 0%, transparent) 0%, color-mix(in srgb, var(--ntt-smart-navy) 78%, transparent) 100%);
+
+  /* Overlay for cover photos (matches PPTX "Smart Navy SemiTrans Overlay") */
+  --overlay-cover: color-mix(in srgb, var(--ntt-smart-navy) 62%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms; /* @kind other */
+    --duration-base: 0ms; /* @kind other */
+    --duration-slow: 0ms; /* @kind other */
+  }
+}
+
+/* ============================================================
+   NTT DATA — BASE RESET & DOCUMENT DEFAULTS
+   Minimal, opinionated reset that applies the brand fonts and
+   colors at the document level. Imported last so it can rely on
+   all token variables.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-size-body);
+  line-height: var(--leading-normal);
+  color: var(--text-body);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings → Georgia, Smart Navy, by brand rule */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  color: var(--text-heading);
+  line-height: var(--leading-snug);
+  margin: 0 0 var(--space-3);
+  text-wrap: balance;
+}
+h1 { font-size: var(--text-h1); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); }
+h2 { font-size: var(--text-h2); }
+h3 { font-size: var(--text-h3); }
+h4 { font-size: var(--text-h4); }
+
+p { margin: 0 0 var(--space-4); text-wrap: pretty; }
+
+a { color: var(--text-link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img, svg, video { max-width: 100%; display: block; }
+
+hr { border: 0; border-top: var(--border-width) solid var(--border-subtle); margin: var(--space-6) 0; }
+
+code, pre, kbd, samp { font-family: var(--font-mono); font-size: 0.9em; }
+
+:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+
+::selection { background: color-mix(in srgb, var(--ntt-future-blue) 22%, transparent); }
+
+small { font-size: var(--text-sm); }
+strong, b { font-weight: var(--weight-bold); }
+
+
+</style><style>
+/* ============ THE METHOD IS THE EDGE — site shell ============ */
+html { scroll-behavior:smooth; }
+body { margin:0; background:var(--ntt-smart-navy); color:rgba(255,255,255,.82); font-family:var(--font-body); overflow-x:hidden; }
+::selection { background:rgba(0,223,237,.35); }
+b, strong { color:#fff; }
+.exhibit .ex-body b, .exhibit .ex-body strong, .lightband b, .lightband strong { color:inherit; }
+.eyebrow, .sect-k, .act-k { font:700 12px/1.5 var(--font-body); text-transform:uppercase; letter-spacing:.18em; color:var(--ntt-turquoise); }
+.sect-k { margin:0 0 26px; }
+
+/* ---- cover ---- */
+.cover { min-height:var(--sch, 100svh); display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; }
+.cover-in { display:flex; align-items:center; gap:60px; max-width:1280px; margin:0 auto; padding:26px 40px 0; flex:1; min-height:0; width:100%; box-sizing:border-box; }
+.cover-copy { flex:1 1 58%; min-width:320px; }
+.cover-logo { width:136px; margin-bottom:36px; display:block; }
+.mast { margin:16px 0 0; font-family:var(--font-display); font-weight:700; font-size:clamp(42px,calc(var(--scw,100vw) * .06),86px); line-height:1.02; letter-spacing:-.02em; color:#fff; }
+.stand { margin:24px 0 0; font-size:clamp(16px,1.5vw,20px); line-height:1.6; max-width:560px; color:rgba(255,255,255,.85); }
+.byline { margin:22px 0 0; font:700 13px/1.4 var(--font-body); text-transform:uppercase; letter-spacing:.16em; color:var(--ntt-turquoise); }
+.cover-art { flex:0 1 40%; height:min(70vh, 640px); min-height:400px; }
+.cover-art svg { width:100%; height:100%; }
+.actline { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:16px clamp(22px,4vw,58px); border-top:1px solid rgba(255,255,255,.14); margin-top:26px; padding:21px 40px 25px; }
+.actline a { display:flex; align-items:center; gap:11px; color:rgba(255,255,255,.62); text-decoration:none; font:700 12px/1 var(--font-body); letter-spacing:.14em; text-transform:uppercase; white-space:nowrap; transition:color .15s; }
+.actline a b { font-family:var(--font-display); font-weight:700; font-size:19px; line-height:1; letter-spacing:0; color:var(--ntt-turquoise); position:relative; top:-1px; }
+.actline a:hover { color:#fff; text-decoration:none; }
+.scrollcue { position:absolute; right:42px; bottom:104px; color:rgba(255,255,255,.55); font:700 12px/1 var(--font-body); letter-spacing:.22em; text-transform:uppercase; text-decoration:none; display:flex; align-items:center; gap:10px; }
+.scrollcue span { font-size:16px; animation:cuebob 1.8s ease-in-out infinite; }
+@keyframes cuebob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+.scrollcue:hover { color:#fff; }
+
+/* ---- act openers ---- */
+.act-open, .epi { display:flex; flex-direction:column; justify-content:center; padding:150px 40px 70px; position:relative; overflow:hidden; max-width:1280px; margin:0 auto; box-sizing:border-box; }
+.act-open::before { content:attr(data-n); position:absolute; right:48px; top:90px; font-family:var(--font-display); font-weight:700; font-size:clamp(140px,24vw,300px); line-height:.8; color:transparent; -webkit-text-stroke:1.5px rgba(255,255,255,.10); pointer-events:none; }
+.act-t { margin:16px 0 0; font-family:var(--font-display); font-weight:700; font-size:clamp(44px,6.6vw,92px); line-height:1.02; letter-spacing:-.02em; color:#fff; max-width:1000px; }
+.act-s { margin:24px 0 0; font-size:clamp(16px,1.4vw,19px); line-height:1.6; max-width:620px; color:rgba(255,255,255,.75); }
+.act-flex { display:flex; gap:60px; align-items:center; }
+.act-art { flex:0 1 38%; height:56vh; min-height:360px; }
+.act-art svg { width:100%; height:100%; }
+
+/* ---- flow sections ---- */
+.flow { max-width:1280px; margin:0 auto; padding:24px 40px 96px; box-sizing:border-box; }
+.prose { max-width:700px; font-size:16.5px; line-height:1.75; }
+.prose p { margin:0 0 22px; }
+.bigline { margin:96px 0 34px; font-family:var(--font-display); font-weight:700; font-size:clamp(30px,4vw,54px); line-height:1.12; letter-spacing:-.015em; color:#fff; max-width:900px; }
+.bigline em { font-style:normal; color:var(--ntt-turquoise); }
+.flow > .bigline:first-child { margin-top:0; }
+
+/* ---- exhibits ---- */
+.exhibit { margin:44px 0; background:#fff; border-radius:18px; padding:40px 44px 34px; color:var(--text-body); box-shadow:0 30px 80px rgba(0,0,0,.45); }
+.exhibit-wide { margin-left:0; margin-right:0; }
+.exhibit-raw { background:transparent; padding:0; box-shadow:none; color:inherit; }
+.ex-label { display:flex; align-items:baseline; gap:18px; margin:0 0 26px; }
+.exhibit-raw .ex-label { margin-bottom:18px; }
+.ex-num { font:700 12px/1 var(--font-mono); letter-spacing:.16em; color:var(--ntt-future-blue); background:color-mix(in srgb, var(--ntt-future-blue) 10%, #fff); border:1px solid color-mix(in srgb, var(--ntt-future-blue) 30%, #fff); padding:6px 10px; border-radius:5px; white-space:nowrap; }
+.exhibit-raw .ex-num { background:rgba(0,114,188,.18); border-color:rgba(0,114,188,.5); color:var(--ntt-turquoise); }
+.ex-title { font:700 17px/1.3 var(--font-display); color:var(--text-heading); letter-spacing:-.01em; }
+.exhibit-raw .ex-title { color:#fff; }
+.ex-body { min-height:0; }
+.ex-note { margin-top:22px; font-size:12px; line-height:1.6; color:var(--text-muted); }
+.exhibit-raw .ex-note { color:rgba(255,255,255,.45); }
+.mx { min-height:430px; display:flex; flex-direction:column; }
+.ex-body [data-s19panel] { min-height:430px !important; }
+.mx > div[style*="flex:1"] { flex:1; }
+
+/* ---- split definitions ---- */
+.split { display:grid; grid-template-columns:1fr 1fr; }
+.split > div { padding:86px 8vw 96px; display:flex; flex-direction:column; justify-content:flex-start; }
+.split-l { background:#0b1631; }
+.split-r { background:linear-gradient(135deg, var(--ntt-future-blue) 0%, #005B96 100%); }
+.split-k { font:700 13px/1 var(--font-body); text-transform:uppercase; letter-spacing:.2em; color:var(--ntt-turquoise); margin:0 0 26px; }
+.split-r .split-k { color:#fff; }
+.split-big { margin:0; font-family:var(--font-display); font-weight:700; font-size:clamp(44px,5.6vw,84px); line-height:1; letter-spacing:-.02em; color:#fff; }
+.split-d { margin:30px 0 0; font-size:16px; line-height:1.65; color:rgba(255,255,255,.82); max-width:420px; }
+
+/* ---- pull quotes ---- */
+.quotes { max-width:1280px; margin:0 auto; padding:96px 40px; box-sizing:border-box; }
+.pull { margin:64px 0 0; max-width:900px; }
+.pull:first-of-type { margin-top:44px; }
+.pull-r { margin-left:auto; text-align:right; }
+.pull p { margin:0; font-family:var(--font-display); font-weight:700; font-size:clamp(30px,4.8vw,60px); line-height:1.12; letter-spacing:-.015em; color:#fff; }
+.pull footer { margin-top:24px; font-size:14px; color:rgba(255,255,255,.6); display:flex; align-items:center; gap:14px; }
+.pull-r footer { justify-content:flex-end; }
+.pq-av { width:44px; height:44px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font:700 16px/1 var(--font-display); color:#fff; flex:none; }
+img.pq-av { width:94px; height:94px; object-fit:cover; border:2px solid rgba(255,255,255,.25); }
+
+/* ---- stat wall ---- */
+.statwall { display:grid; grid-template-columns:repeat(4,1fr); gap:44px; margin:48px 0 32px; }
+.statwall-3 { grid-template-columns:repeat(3,1fr); }
+.stat b { display:block; font-family:var(--font-display); font-weight:700; font-size:clamp(48px,5vw,76px); line-height:.95; color:var(--ntt-turquoise); }
+.stat i { display:block; width:40px; height:4px; background:var(--ntt-future-blue); margin:20px 0 14px; }
+.stat u { display:block; text-decoration:none; font:700 12px/1.4 var(--font-body); text-transform:uppercase; letter-spacing:.08em; color:#fff; margin-bottom:10px; }
+.stat p { margin:0; font-size:15px; line-height:1.6; color:rgba(255,255,255,.68); }
+
+/* ---- mega number moments ---- */
+.mega { display:flex; gap:6vw; align-items:center; max-width:1280px; margin:0 auto; padding:96px 40px; box-sizing:border-box; flex-wrap:wrap; }
+.mega-num { font-family:var(--font-display); font-weight:700; font-size:clamp(110px,15vw,230px); line-height:.9; letter-spacing:-.04em; color:var(--ntt-orange); flex:0 0 auto; min-width:2.35em; }
+.mega-blue .mega-num { color:var(--ntt-turquoise); }
+.mega-side { flex:1 1 420px; max-width:680px; font-size:16.5px; line-height:1.7; }
+.mega-lead { font-family:var(--font-display); font-weight:700; font-size:clamp(24px,2.6vw,34px); line-height:1.15; color:#fff; margin:0 0 20px; letter-spacing:-.01em; }
+.mega-punch { font-weight:700; color:var(--ntt-turquoise); font-size:17px; }
+.gapbars { margin-top:34px; display:flex; flex-direction:column; gap:20px; }
+.gb-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+.gb-head span { font-size:12.5px; color:rgba(255,255,255,.6); }
+.gb-head b { font-family:var(--font-display); font-size:22px; color:#fff; }
+.gb-track { background:rgba(255,255,255,.1); border-radius:6px; height:14px; overflow:hidden; }
+.gb-fill { height:100%; width:var(--w); border-radius:6px; }
+
+/* ---- fluency ladder ---- */
+.ladder { margin:96px 0 0; }
+.lad-row { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; border-radius:14px; overflow:hidden; }
+.lad { padding:28px 26px 30px; background:rgba(255,255,255,.05); position:relative; }
+.lad b { font-family:var(--font-display); font-size:26px; color:rgba(255,255,255,.35); }
+.lad u { display:block; text-decoration:none; font:700 13px/1.3 var(--font-body); text-transform:uppercase; letter-spacing:.08em; color:#fff; margin:10px 0 8px; }
+.lad p { margin:0; font-size:14.5px; line-height:1.55; color:rgba(255,255,255,.66); }
+.lad.l1 { box-shadow:inset 0 3px 0 var(--ntt-orange-100); }
+.lad.l2 { box-shadow:inset 0 3px 0 var(--ntt-grey-100); }
+.lad.l3 { box-shadow:inset 0 3px 0 var(--ntt-future-blue); }
+.lad.l4 { box-shadow:inset 0 3px 0 var(--ntt-turquoise); background:rgba(0,223,237,.07); }
+.lad-tag { position:absolute; top:24px; right:20px; font:700 12px/1 var(--font-body); letter-spacing:.1em; color:var(--ntt-yellow); }
+.ladder .ex-note { color:rgba(255,255,255,.4); }
+
+/* ---- catch / take lines ---- */
+.catchline { margin:96px auto; max-width:900px; text-align:center; font-family:var(--font-display); font-weight:700; font-size:clamp(26px,3.4vw,44px); line-height:1.2; color:#fff; letter-spacing:-.01em; }
+
+/* ---- 2 cols / callouts / checkcard ---- */
+.cols2 { display:grid; grid-template-columns:1.2fr 1fr; gap:56px; align-items:start; }
+.callout { margin-top:26px; background:rgba(0,223,237,.06); border-left:4px solid var(--ntt-turquoise); padding:19px 26px; border-radius:0 12px 12px 0; max-width:920px; }
+.callout b { display:block; font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.14em; color:var(--ntt-turquoise); margin-bottom:9px; }
+.callout p { margin:0; font-size:15.5px; line-height:1.6; color:rgba(255,255,255,.87); }
+.checkcard { background:rgba(0,203,93,.08); border:1px solid rgba(0,203,93,.35); border-radius:14px; padding:26px 30px; }
+.checkcard > b { display:block; font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.12em; color:var(--ntt-green); margin-bottom:16px; }
+.checkcard ul { margin:0; padding:0; list-style:none; }
+.checkcard li { padding:7px 0 7px 26px; position:relative; font-size:15.5px; color:rgba(255,255,255,.87); }
+.checkcard li::before { content:"\2713"; position:absolute; left:0; color:var(--ntt-green); font-weight:700; }
+
+/* ---- cost chart ---- */
+.costchart { margin-top:52px; max-width:980px; }
+.cc-row { display:grid; grid-template-columns:210px 1fr 120px; gap:18px; align-items:center; margin-bottom:16px; font-size:15px; color:rgba(255,255,255,.82); }
+.cc-track { display:flex; height:20px; border:1.5px dashed rgba(255,255,255,.35); border-radius:10px; overflow:hidden; padding:2px; gap:2px; }
+.cc-seg { height:100%; border-radius:7px; box-sizing:border-box; }
+.cc-note { font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.06em; font-style:normal; }
+.cc-legend { font-size:13.5px; color:rgba(255,255,255,.65); line-height:1.7; }
+.cc-legend i { display:inline-block; width:11px; height:11px; border-radius:3px; margin:0 6px -1px 0; }
+
+/* ---- minirules ---- */
+.minirules { display:grid; gap:16px; margin-top:30px; font-size:16px; line-height:1.65; }
+.minirules b { color:#fff; }
+
+/* ---- debts ---- */
+.debts { margin-top:40px; align-items:stretch; }
+.debt { display:flex; flex-direction:column; }
+.debt .callout, .debt .debt-stats { margin-top:auto; }
+.debt { background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:32px 34px; }
+.debt-t { font-family:var(--font-display); font-size:30px; color:#fff; }
+.debt-lead { font-weight:700; color:#fff; margin:14px 0 4px; font-size:16px; }
+.debt ul { margin:12px 0 0; padding-left:18px; }
+.debt li { margin:8px 0; font-size:15.5px; line-height:1.6; color:rgba(255,255,255,.76); }
+.debt-stats { display:flex; gap:36px; margin-top:26px; }
+.debt-stats b { display:block; font-family:var(--font-display); font-size:30px; color:var(--ntt-orange-100); }
+.debt-stats span { font-size:13px; color:rgba(255,255,255,.6); }
+
+/* ---- terminal / moves / cold ---- */
+.term { max-width:640px; margin:0 auto; background:#0e1117; border:1px solid #23283a; border-radius:14px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.5); }
+.term-bar { display:flex; align-items:center; gap:7px; padding:12px 16px; background:#161a24; }
+.term-bar i { width:11px; height:11px; border-radius:50%; background:#FF5F57; }
+.term-bar i:nth-child(2) { background:#FEBC2E; } .term-bar i:nth-child(3) { background:#28C840; }
+.term-bar span { margin-left:10px; font:600 12px/1 var(--font-mono); color:rgba(255,255,255,.45); }
+.term pre { margin:0; padding:26px 30px 30px; font:500 clamp(15px,1.6vw,19px)/1.7 var(--font-mono); color:#e6edf3; }
+.term pre b { color:var(--ntt-turquoise); }
+.term-cap { max-width:680px; margin:26px auto 0; text-align:center; font-size:15px; line-height:1.65; color:rgba(255,255,255,.62); }
+.moves { max-width:760px; margin:76px auto 0; }
+.moves ol { margin:0 0 30px; padding:0; list-style:none; counter-reset:mv; }
+.moves li { counter-increment:mv; display:flex; gap:22px; align-items:baseline; padding:16px 0; border-bottom:1px solid rgba(255,255,255,.1); font-size:16.5px; }
+.moves li::before { content:counter(mv); font-family:var(--font-display); font-weight:700; font-size:26px; color:var(--ntt-turquoise); flex:none; width:30px; }
+.cold { margin-top:96px; }
+.xlist { margin:0; padding:0; list-style:none; }
+.xlist li { padding:12px 0 12px 26px; position:relative; font-size:16px; line-height:1.65; color:rgba(255,255,255,.75); border-bottom:1px solid rgba(255,255,255,.08); }
+.xlist li::before { content:"\00d7"; position:absolute; left:0; color:var(--ntt-orange-100); font-weight:700; font-size:18px; }
+.readcard { background:rgba(0,114,188,.12); border:1px solid rgba(0,114,188,.45); border-radius:16px; padding:30px 32px; }
+.readcard b { display:block; font-family:var(--font-display); font-size:24px; line-height:1.3; color:#fff; margin-bottom:14px; }
+.readcard code { font-family:var(--font-mono); color:var(--ntt-turquoise); }
+.readcard p { margin:0; font-size:16px; line-height:1.65; color:rgba(255,255,255,.78); }
+
+/* ---- manifesto ---- */
+.manifesto { margin:44px 0 0; padding:0; list-style:none; counter-reset:mf; }
+.manifesto li { counter-increment:mf; display:grid; grid-template-columns:110px 1fr 220px; gap:30px; align-items:baseline; padding:30px 0; border-top:1px solid rgba(255,255,255,.12); }
+.manifesto li::before { content:"0" counter(mf); font-family:var(--font-display); font-weight:700; font-size:56px; line-height:1; color:var(--ntt-turquoise); }
+.manifesto b { display:block; font-family:var(--font-display); font-weight:700; font-size:clamp(20px,2.2vw,28px); line-height:1.2; color:#fff; letter-spacing:-.01em; }
+.manifesto p { margin:12px 0 0; font-size:15.5px; line-height:1.65; color:rgba(255,255,255,.7); grid-column:2; }
+.manifesto span { font:700 12px/1.5 var(--font-body); text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.38); text-align:right; align-self:start; padding-top:14px; }
+
+/* ---- epilogue ---- */
+#v-epilogue.active { display:flex; flex-direction:column; height:var(--sch, 100svh); overflow:hidden; }
+.epi { text-align:left; flex:1; min-height:0; padding:70px 40px 10px; justify-content:center; }
+.epi .act-t { font-size:clamp(38px,5.2vw,70px); }
+.epi .act-s { margin:20px 0 0; }
+.epi::before { content:""; position:absolute; top:0; left:50%; width:1px; height:56px; background:linear-gradient(rgba(0,223,237,0), var(--ntt-turquoise)); }
+.epi-list { margin:52px 0 0; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:auto auto auto; column-gap:48px; }
+.epi-list > div { display:grid; grid-template-rows:subgrid; grid-row:span 3; align-content:start; min-width:0; }
+.epi-list b { font-family:var(--font-display); font-weight:700; font-size:32px; line-height:1; color:var(--ntt-turquoise); flex:none; }
+.epi-list u { display:block; text-decoration:none; font-family:var(--font-display); font-weight:700; font-size:clamp(19px,2.05vw,26px); line-height:1.22; color:#fff; letter-spacing:-.01em; margin:16px 0 12px; align-self:start; }
+.epi-list p { margin:0; align-self:start; font-size:15.5px; color:rgba(255,255,255,.66); }
+.closer em { font-style:italic; color:var(--ntt-turquoise); }
+.foot { border-top:1px solid rgba(255,255,255,.12); }
+.foot-grid { max-width:1280px; margin:0 auto; padding:18px 40px 20px; display:grid; grid-template-columns:1fr 1.3fr; gap:56px; align-items:center; font-size:12px; line-height:1.6; color:rgba(255,255,255,.5); }
+.foot-brand p { margin:8px 0 0; }
+.foot-brand img { margin-left:-9px; display:block; }
+.foot-src b { display:block; font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.14em; color:rgba(255,255,255,.45); margin-bottom:6px; }
+.foot-src p { margin:0; }
+
+/* ---- tabs (scoreboard exhibit) ---- */
+.sb-tabs > input { position:absolute; opacity:0; pointer-events:none; }
+.sbbar { display:flex; gap:30px; border-bottom:1px solid var(--border-subtle); margin-bottom:20px; }
+.sbbar label { cursor:pointer; font:700 14px/1 var(--font-body); padding:12px 4px; color:var(--text-muted); border-bottom:2.5px solid transparent; }
+.sb-tabs:has(#sb-value:checked) label[for="sb-value"],
+.sb-tabs:has(#sb-tax:checked) label[for="sb-tax"] { color:var(--ntt-smart-navy); border-bottom-color:var(--ntt-future-blue); }
+.sb-panel { display:none; }
+.sb-tabs:has(#sb-value:checked) [data-sb="value"] { display:block; }
+.sb-tabs:has(#sb-tax:checked) [data-sb="tax"] { display:block; }
+.sbintro { margin:0 0 18px; font-size:15.5px; color:var(--text-body); }
+
+/* ---- chrome: bar + index ---- */
+#bar { position:fixed; top:0; left:0; right:0; z-index:900; display:flex; align-items:center; gap:22px; padding:0 26px; height:54px; background:rgba(7,15,38,.86); backdrop-filter:blur(10px); border-bottom:1px solid rgba(255,255,255,.08); transform:translateY(-100%); transition:transform .3s ease; }
+#bar.on { transform:none; }
+#bar img { width:96px; }
+#bar-acts { flex:1; display:flex; justify-content:center; gap:clamp(14px,2.4vw,34px); overflow:hidden; }
+#bar-acts a { display:flex; align-items:center; gap:7px; font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.11em; color:rgba(255,255,255,.5); text-decoration:none; white-space:nowrap; transition:color .15s; }
+#bar-acts a b { font-family:var(--font-display); font-weight:700; font-size:13px; line-height:1; letter-spacing:0; color:rgba(255,255,255,.65); position:relative; top:-1px; }
+#bar-acts a:hover { color:#fff; text-decoration:none; }
+#bar-acts a.on, #bar-acts a.on b { color:var(--ntt-turquoise); }
+#idxbtn { background:none; border:1px solid rgba(255,255,255,.3); color:#fff; font:700 12px/1 var(--font-body); letter-spacing:.12em; text-transform:uppercase; border-radius:999px; padding:8px 18px; cursor:pointer; }
+#idxbtn:hover { border-color:var(--ntt-turquoise); color:var(--ntt-turquoise); }
+#prog { position:absolute; left:0; bottom:-1px; height:2px; width:0; background:linear-gradient(90deg, var(--ntt-future-blue), var(--ntt-turquoise)); }
+#chindex { position:fixed; inset:0; z-index:1000; background:rgba(7,15,38,.98); backdrop-filter:blur(8px); display:none; overflow:auto; }
+#chindex.open { display:block; }
+.chin { max-width:820px; margin:0 auto; padding:56px 36px 80px; }
+.chin-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:50px; }
+#idxclose { background:none; border:1.5px solid rgba(255,255,255,.4); color:#fff; width:44px; height:44px; border-radius:50%; font-size:22px; cursor:pointer; }
+.chrow { display:flex; gap:26px; align-items:baseline; padding:24px 0; border-bottom:1px solid rgba(255,255,255,.14); text-decoration:none; }
+.chrow span { font-family:var(--font-display); font-weight:700; font-size:18px; color:var(--ntt-turquoise); width:40px; flex:none; }
+.chrow b { font-family:var(--font-display); font-weight:700; font-size:clamp(24px,3.2vw,36px); color:#fff; letter-spacing:-.01em; }
+.chrow:hover b { color:var(--ntt-turquoise); }
+
+/* ---- native: timeline ---- */
+.tline { display:grid; grid-template-columns:1fr 130px 1fr 130px 1fr; grid-template-rows:auto auto auto auto; gap:0; margin-top:44px; }
+.tl-node { text-align:center; padding:0 18px; display:grid; grid-template-rows:subgrid; grid-row:span 4; align-items:start; justify-items:center; }
+.tl-dot { width:62px; height:62px; border:2px solid; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto; background:rgba(255,255,255,.03); grid-row:1; }
+.tl-node u { display:block; text-decoration:none; font:700 12px/1.3 var(--font-body); text-transform:uppercase; letter-spacing:.08em; color:rgba(255,255,255,.75); margin-top:18px; align-self:end; }
+.tl-node b { display:block; font-family:var(--font-display); font-weight:700; font-size:22px; line-height:1.2; color:#fff; margin:7px 0 10px; align-self:start; }
+.tl-node p { margin:0 auto; font-size:15px; line-height:1.6; color:rgba(255,255,255,.66); max-width:340px; }
+.tl-link { position:relative; height:62px; display:flex; align-items:center; justify-content:center; grid-row:1; }
+.tline > :nth-child(1) { grid-column:1; }
+.tline > :nth-child(2) { grid-column:2; }
+.tline > :nth-child(3) { grid-column:3; }
+.tline > :nth-child(4) { grid-column:4; }
+.tline > :nth-child(5) { grid-column:5; }
+.tl-node { grid-row:1 / span 4; }
+.tl-link::before { content:""; position:absolute; left:-46px; right:-46px; top:50%; border-top:2px dashed rgba(255,255,255,.3); }
+.tl-pill { position:relative; z-index:1; background:var(--ntt-smart-navy); border:1.5px solid var(--ntt-turquoise); border-radius:13px; padding:8px 14px; text-align:center; font:600 12px/1.3 var(--font-body); text-transform:uppercase; letter-spacing:.07em; color:var(--ntt-turquoise); white-space:nowrap; }
+.tl-pill b { display:block; font-family:var(--font-display); font-weight:700; font-size:16px; line-height:1; color:#fff; }
+/* ---- native: banks ---- */
+.srcnote { margin-top:26px; font-size:12px; line-height:1.6; color:rgba(255,255,255,.4); max-width:900px; }
+.evident { margin-top:40px; }
+.ev-tag { display:flex; align-items:baseline; gap:16px; margin-bottom:8px; }
+.ev-tag b { font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.14em; color:var(--ntt-turquoise); white-space:nowrap; }
+.ev-tag span { font-size:14.5px; color:rgba(255,255,255,.62); }
+.statwall-tight { margin:28px 0 14px; gap:36px; }
+.banklist { margin-top:32px; border-top:1px solid rgba(255,255,255,.14); }
+.bk { display:grid; grid-template-columns:230px 190px 1fr; gap:30px; align-items:baseline; padding:26px 0; border-bottom:1px solid rgba(255,255,255,.1); }
+.bk b { font-family:var(--font-display); font-weight:700; font-size:21px; color:#fff; letter-spacing:-.01em; }
+.bk em { font-family:var(--font-display); font-weight:700; font-style:normal; font-size:19px; color:var(--ntt-turquoise); }
+.bk p { margin:0; font-size:15px; line-height:1.6; color:rgba(255,255,255,.68); }
+.bk span { font:700 12px/1.5 var(--font-body); text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.4); text-align:right; }
+/* ---- native: jagged + vs ---- */
+.jag { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto auto auto; gap:0 56px; margin-top:44px; }
+.jag-col { display:grid; grid-template-rows:subgrid; grid-row:span 3; align-content:start; min-width:0; }
+.vs { display:grid; grid-template-rows:auto auto auto; gap:0 32px; margin-top:44px; }
+.vs-col { display:grid; grid-template-rows:subgrid; grid-row:span 3; align-content:start; min-width:0; }
+.jag .term, .vs .term { align-self:stretch; display:flex; flex-direction:column; }
+.jag .term pre, .vs .term pre { flex:1; }
+.vs { grid-template-columns:1fr 60px 1fr; }
+.jag-t { display:block; font-family:var(--font-display); font-weight:700; font-size:clamp(24px,2.6vw,34px); line-height:1.12; color:#fff; letter-spacing:-.01em; margin:6px 0 16px; }
+.jag-d { margin:6px 0 22px; font-size:16px; line-height:1.65; color:rgba(255,255,255,.72); max-width:500px; }
+.term-sm { max-width:none; margin:0; box-shadow:0 16px 44px rgba(0,0,0,.4); }
+.term-sm pre { font-size:14px; padding:20px 24px 24px; }
+.term-sm .term-bar { padding:10px 14px; }
+.term pre g { color:#3fdf8a; font-style:normal; }
+.term pre r { color:#ff7a70; font-style:normal; }
+.vs-mid { grid-row:1 / span 3; grid-column:2; align-self:center; text-align:center; }
+.vs-col:nth-of-type(1) { grid-column:1; grid-row:1 / span 3; }
+.vs-col:nth-of-type(2) { grid-column:3; grid-row:1 / span 3; }
+.jag-col:nth-of-type(1) { grid-column:1; }
+.jag-col:nth-of-type(2) { grid-column:2; }
+.vs-mid span { display:inline-flex; width:52px; height:52px; border-radius:50%; border:1.5px solid rgba(255,255,255,.3); align-items:center; justify-content:center; font:700 14px/1 var(--font-display); color:rgba(255,255,255,.7); }
+.vs .xlist, .vs .vlist { margin-top:20px; align-self:start; }
+.vlist { margin:0; padding:0; list-style:none; }
+.vlist li { padding:12px 0 12px 26px; position:relative; font-size:16px; line-height:1.6; color:rgba(255,255,255,.75); border-bottom:1px solid rgba(255,255,255,.08); }
+.vlist li::before { content:"\2713"; position:absolute; left:0; color:var(--ntt-green); font-weight:700; }
+.bluetest { display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:44px; max-width:960px; }
+.bluetest > div { background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:22px 26px; }
+.bluetest .bt-you { background:rgba(0,223,237,.07); border-color:rgba(0,223,237,.35); }
+.bluetest b { display:block; font-family:var(--font-display); font-size:19px; color:#fff; margin-bottom:8px; }
+.bluetest p { margin:0; font-size:15px; line-height:1.6; color:rgba(255,255,255,.7); }
+/* ---- native: bank stack + bends ---- */
+.stack { margin-top:40px; max-width:900px; }
+.layer { border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:24px 28px; margin-bottom:14px; background:rgba(255,255,255,.03); }
+.layer-mid { border-color:rgba(0,223,237,.4); background:rgba(0,223,237,.05); }
+.layer-h { display:flex; align-items:baseline; gap:16px; margin-bottom:14px; }
+.layer-h b { font-family:var(--font-display); font-size:20px; color:#fff; }
+.layer-h span { font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.12em; color:var(--ntt-turquoise); }
+.chips { display:flex; flex-wrap:wrap; gap:8px; }
+.chips i { font:600 13px/1 var(--font-body); font-style:normal; color:rgba(255,255,255,.78); border:1px solid rgba(255,255,255,.25); border-radius:999px; padding:7px 13px; }
+.layer p { margin:14px 0 0; font-size:14px; color:rgba(255,255,255,.58); }
+.bends { margin-top:48px; grid-template-columns:1fr 1fr; }
+.bend { background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:30px 32px; }
+.bend > b { display:block; font-family:var(--font-display); font-size:23px; line-height:1.2; color:#fff; margin-bottom:10px; letter-spacing:-.01em; }
+.bend > p { margin:0 0 22px; font-size:15.5px; line-height:1.6; color:rgba(255,255,255,.7); }
+.bstats { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.bstats b { display:block; font-family:var(--font-display); font-size:24px; color:var(--ntt-orange-100); }
+.bstats span { font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.58); display:block; margin-top:4px; }
+/* ---- native: metrics table ---- */
+.mtable { margin-top:40px; border-top:2px solid rgba(255,255,255,.35); }
+.mt-h, .mt-r { display:grid; grid-template-columns:120px 230px 1fr 250px; gap:24px; align-items:baseline; padding:15px 0; border-bottom:1px solid rgba(255,255,255,.1); }
+.mt-h { font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.12em; color:rgba(255,255,255,.45); border-bottom-color:rgba(255,255,255,.25); }
+.mt-r b { font-size:15.5px; color:#fff; }
+.mt-r p { margin:0; font-size:14.5px; line-height:1.55; color:rgba(255,255,255,.66); }
+.mt-r em { font-style:normal; font-size:13.5px; color:var(--ntt-turquoise); }
+.chip { font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.08em; border-radius:999px; padding:6px 11px; white-space:nowrap; justify-self:start; }
+.c-ai { background:rgba(0,223,237,.15); color:var(--ntt-turquoise); border:1px solid rgba(0,223,237,.4); }
+.c-ex { background:rgba(0,114,188,.2); color:#7cc4f0; border:1px solid rgba(0,114,188,.55); }
+.c-rs { background:rgba(0,203,93,.14); color:var(--ntt-green); border:1px solid rgba(0,203,93,.4); }
+/* ---- native: eras + formula ---- */
+.eras { display:grid; grid-template-columns:1fr 34px 1fr 34px 1fr 34px 1.15fr; gap:10px; align-items:stretch; margin-top:40px; }
+.era { background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:22px 22px 24px; }
+.era span { font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.12em; color:rgba(255,255,255,.45); }
+.era b { display:block; font-family:var(--font-display); font-size:19px; line-height:1.2; color:#fff; margin:10px 0 4px; }
+.era u { display:block; text-decoration:none; font:700 12px/1.4 var(--font-body); text-transform:uppercase; letter-spacing:.06em; color:var(--ntt-future-blue-50); margin-bottom:10px; }
+.era p { margin:0; font-size:13.5px; line-height:1.55; color:rgba(255,255,255,.62); }
+.era-now { background:rgba(0,223,237,.08); border-color:rgba(0,223,237,.45); }
+.era-now span, .era-now u { color:var(--ntt-turquoise); }
+.era-arrow { align-self:center; text-align:center; color:rgba(255,255,255,.35); font-size:20px; }
+.formula { background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:28px 32px; }
+.fx { font-family:var(--font-mono); font-size:clamp(17px,1.8vw,22px); color:#fff; margin:6px 0 18px; }
+.fx em { font-style:normal; font-size:.7em; color:rgba(255,255,255,.5); }
+.formula p { margin:0; font-size:14.5px; line-height:1.6; color:rgba(255,255,255,.66); }
+/* ---- light finale band ---- */
+.lightband { background:#fff; color:var(--text-body); }
+.lightband .bigline { color:var(--text-heading); }
+.lightband .bigline em { color:var(--ntt-future-blue); }
+.lightband .prose { color:var(--text-body); }
+.lightband b, .lightband strong { color:var(--text-heading); }
+.lightband .srcnote { color:var(--text-muted); }
+/* ---- horizontal act (scenes) ---- */
+.hview { overflow:hidden; }
+.hdeck { display:flex; height:var(--sch, 100svh); transition:transform .55s cubic-bezier(.2,0,0,1); will-change:transform; }
+.scene { flex:0 0 var(--scw, 100vw); height:100%; overflow-y:auto; overflow-x:hidden; box-sizing:border-box; padding:80px clamp(24px,6vw,90px) 50px; display:flex; flex-direction:column; position:relative; }
+.scene-in { width:100%; max-width:1180px; margin:auto; min-height:0; display:flex; flex-direction:column; }
+.scene-open::before { content:attr(data-n); position:absolute; right:48px; top:90px; font-family:var(--font-display); font-weight:700; font-size:clamp(140px,22vw,280px); line-height:.8; color:transparent; -webkit-text-stroke:1.5px rgba(255,255,255,.10); pointer-events:none; }
+.hhint { margin:44px 0 0; font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.18em; color:rgba(255,255,255,.4); }
+.sc-big { margin:0 0 24px; font-size:clamp(24px,3.1vw,42px); }
+.sc-title { margin:0 0 26px; font-family:var(--font-display); font-weight:700; font-size:clamp(22px,2.4vw,30px); line-height:1.15; letter-spacing:-.01em; color:var(--ntt-turquoise); }
+.pq-who { display:flex; flex-direction:column; gap:3px; text-align:left; }
+.q-pair span.pq-av { width:94px; height:94px; font-size:30px; }
+.pull footer { align-items:center; }
+.pq-who small { font-size:13px; color:rgba(255,255,255,.55); }
+.pull-r .pq-who { text-align:right; }
+.sc-lead { margin:0 0 22px; font-size:16px; line-height:1.6; color:rgba(255,255,255,.74); max-width:800px; }
+.sc2col { display:grid; grid-template-columns:2fr 3fr; gap:56px; align-items:center; }
+.sc2col > div { min-width:0; }
+.sc2col .term { margin:0; max-width:none; }
+.sc2col .term pre { font:500 12.5px/1.8 var(--font-mono); padding:20px 18px 24px; }
+.sc2col .term-cap { font-size:13.5px; }
+.sc2col .term-cap { margin:20px 0 0; text-align:left; max-width:none; }
+.moves-sc { margin:0; max-width:none; }
+.moves-sc ol { margin-bottom:20px; display:grid; grid-template-columns:34px max-content 1fr; }
+.moves-sc li { padding:12px 0; font-size:15.5px; display:grid; grid-column:1 / -1; grid-template-columns:subgrid; column-gap:18px; align-items:baseline; }
+.moves-sc li::before { width:auto; }
+.moves-sc li b { color:#fff; }
+.moves-sc li i { font-style:normal; color:rgba(255,255,255,.62); }
+.sc-card { margin:14px 0 0; flex:1 0 auto; display:flex; flex-direction:column; }
+.sc-cardbody { flex:1; min-height:0; display:flex; flex-direction:column; }
+.sc-cardbody > div { flex:1; min-height:300px !important; }
+.scene .statwall { margin:18px 0 8px; gap:34px; }
+.scene .stat b { font-size:clamp(28px,3vw,42px); }
+.scene .stat i { margin:12px 0 8px; }
+.scene .stat p { font-size:14px; }
+.scene .cols2 { gap:44px; }
+.scene .xlist li { padding:9px 0 9px 24px; font-size:15px; }
+.manifesto-sc { margin:8px 0 0; }
+.manifesto-sc li { grid-template-columns:64px 1fr 200px; gap:22px; padding:14px 0; }
+.manifesto-sc li::before { font-size:32px; }
+.manifesto-sc b { font-size:clamp(16px,1.7vw,21px); }
+.manifesto-sc p { margin:5px 0 0; font-size:14.5px; line-height:1.55; }
+.manifesto-sc span { padding-top:6px; }
+.scene-next .scene-in { align-items:flex-start; }
+.nextcard { display:flex; align-items:baseline; gap:26px; text-decoration:none; border-top:1px solid rgba(255,255,255,.16); padding-top:36px; width:100%; }
+.nextcard span { font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.2em; color:rgba(255,255,255,.45); }
+.nextcard b { flex:1; font-family:var(--font-display); font-weight:700; font-size:clamp(34px,4.6vw,64px); letter-spacing:-.015em; color:#fff; transition:color .15s; }
+.nextcard em { font-style:normal; font-size:34px; color:var(--ntt-turquoise); transition:transform .2s; }
+.nextcard:hover b { color:var(--ntt-turquoise); }
+.nextcard:hover em { transform:translateX(10px); }
+.hdots { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); display:none; gap:10px; z-index:850; }
+.hdots.show { display:flex; }
+.hdots i { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.25); cursor:pointer; transition:background .2s, transform .2s; }
+.hdots i.on { background:var(--ntt-turquoise); transform:scale(1.3); }
+#beatpill { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); z-index:850; display:none; align-items:center; gap:12px; background:rgba(7,15,38,.85); border:1px solid rgba(255,255,255,.18); border-radius:999px; padding:9px 18px; font:700 12px/1 var(--font-body); letter-spacing:.14em; color:rgba(255,255,255,.6); backdrop-filter:blur(6px); }
+#beatpill.show { display:flex; }
+#beatpill b { color:var(--ntt-turquoise); font-family:var(--font-mono); letter-spacing:0; }
+@media (max-height: 850px) and (min-width: 861px) {
+  .scene { padding-top:70px; padding-bottom:34px; }
+  .sc-big { font-size:clamp(22px,2.6vw,34px); margin-bottom:16px; }
+  .sc-lead { font-size:15px; margin-bottom:14px; }
+  .manifesto-sc li { padding:9px 0; }
+  .manifesto-sc p { font-size:13.5px; }
+  .scene .mt-r { padding:6px 0; }
+  .scene .mt-r p { font-size:13.5px; }
+  .sc-cardbody > div { min-height:250px !important; }
+  .scene .statwall { margin:26px 0 4px; }
+  .scene .stat p { font-size:13.5px; }
+  #bc-root { min-height:432px !important; }
+  .manifesto-sc b { font-size:clamp(15px,1.5vw,18px); }
+  .manifesto-sc { margin-top:0; }
+  .manifesto-sc li { padding:7px 0; }
+  .manifesto-sc li::before { font-size:26px; }
+  .sc-lead { margin-bottom:10px; }
+  .scene .ex-label { margin-bottom:12px; }
+  .sc-card { margin-top:6px; }
+  .scene .sect-k { margin-bottom:16px; }
+  .nextstrip { margin-top:24px; padding-top:14px; }
+  .scene .srcnote { margin-top:12px; }
+  .callout { padding:14px 20px; margin-top:18px; }
+  .callout p { font-size:14.5px; }
+  .scene .bk { padding:11px 0; }
+  .scene .bk p { font-size:14px; }
+  .scene-light .sc-lead { margin-bottom:8px; }
+  .scene-light .srcnote { margin-top:16px; font-size:12px; line-height:1.55; max-width:none; }
+  .scene-light .nextstrip { margin-top:12px; padding-top:10px; }
+  .scene-light .sc-big { margin-bottom:10px; }
+}
+@media (max-height: 760px) and (min-width: 861px) {
+  .scene { padding-top:62px; padding-bottom:22px; }
+  .scene .bk { padding:8px 0; }
+  .scene .bk p { font-size:13px; }
+  .scene .bk b { font-size:18px; }
+  .scene .era { padding:12px 15px 14px; }
+  .scene .era p { font-size:12.5px; }
+  .scene .eras { margin-top:16px; }
+  .scene .srcnote { margin-top:8px; }
+  .callout { padding:11px 18px; margin-top:14px; }
+  #bc-root { min-height:390px !important; }
+  .scene-light .sc-big { font-size:clamp(19px,2.1vw,28px); margin-bottom:8px; }
+  .sc-big { margin-bottom:12px; }
+  .sc-lead { margin-bottom:8px; }
+  .nextstrip { margin-top:10px; padding-top:8px; }
+  .nextstrip b { font-size:clamp(17px,1.8vw,24px); }
+}
+@media (max-width: 860px) {
+  .hdeck { display:block; height:auto; }
+  .scene { height:auto; min-height:0; overflow:visible; padding:80px 22px; }
+  .sc2col { grid-template-columns:1fr; gap:44px; }
+  .hdots, #beatpill { display:none !important; }
+}
+/* ---- native dark matrix ---- */
+.sbdark .sbbar { border-bottom-color:rgba(255,255,255,.16); }
+.sbdark .sbbar label { color:rgba(255,255,255,.5); }
+.sb-tabs.sbdark:has(#sb-value:checked) label[for="sb-value"],
+.sb-tabs.sbdark:has(#sb-tax:checked) label[for="sb-tax"] { color:#fff; border-bottom-color:var(--ntt-turquoise); }
+.sbdark .sbintro { color:rgba(255,255,255,.7); }
+.mx-dark [style*="color:var(--text-heading)"] { color:#fff !important; }
+.mx-dark [style*="color:var(--text-muted)"] { color:rgba(255,255,255,.55) !important; }
+.mx-dark [style*="color:var(--text-body)"] { color:rgba(255,255,255,.75) !important; }
+.mx-dark [style*="color:var(--ntt-green-150)"] { color:var(--ntt-green) !important; }
+.mx-dark [style*="color:#B3261E"] { color:#ff9086 !important; }
+.mx-dark [style*="border-bottom:2px solid var(--ntt-smart-navy)"] { border-bottom-color:rgba(255,255,255,.55) !important; }
+.mx-dark [style*="border-bottom:1px solid var(--border-subtle)"] { border-bottom-color:rgba(255,255,255,.13) !important; }
+.mx-dark [style*="background:#FBEAE8"] { background:rgba(228,38,0,.14) !important; }
+/* ---- scene variants ---- */
+.scene .mega, .sc-mega { padding:0; margin:0; max-width:none; }
+.scene-split { padding:54px 0 0; justify-content:stretch; }
+.scene-split .split { flex:1; height:100%; }
+.scene-split .split > div { justify-content:center; padding:40px 7vw 60px; }
+.sc-q1 { margin:34px 0 0 !important; }
+.sc-q1 p { font-size:clamp(26px,3.6vw,48px); }
+.q-pair { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto auto; gap:0 52px; margin-top:52px; }
+.q-pair .pull { display:grid; grid-template-rows:subgrid; grid-row:span 2; align-content:start; }
+.q-pair footer { grid-row:2; align-items:flex-start !important; margin-top:20px !important; }
+.q-pair .pq-who { padding-top:4px; }
+.q-pair .pull { margin:0 !important; }
+.sc-q2 p { font-size:clamp(18px,1.9vw,26px) !important; line-height:1.35; }
+.sc-q2 footer { margin-top:18px; font-size:13.5px; } .sc-q2 footer b { white-space:nowrap; }
+.scene .lad-row { margin-top:10px; }
+.scene .banklist { margin-top:14px; border-top:1px solid rgba(255,255,255,.14); }
+.scene .bk { padding:17px 0; }
+.scene .evident { margin-top:22px; }
+.scene .callout { margin-top:22px; }
+.scene .checkcard li { padding:5px 0 5px 24px; font-size:15px; }
+.scene .checkcard { padding:20px 26px; }
+.scene .costchart { margin-top:52px; }
+.scene .cc-row { margin-bottom:12px; }
+.scene .debt { padding:22px 26px; }
+.scene .debt li { margin:6px 0; font-size:15px; }
+.scene .debt-stats { margin-top:18px; }
+.scene .jag, .scene .vs { margin-top:26px; }
+.scene .bluetest { margin-top:30px; }
+.scene .bluetest > div { padding:16px 22px; }
+.scene .stack { margin-top:20px; }
+.scene .layer { padding:16px 24px; margin-bottom:10px; }
+.scene .layer p { margin:10px 0 0; }
+.scene .bends { margin-top:14px; }
+.scene .bend { padding:22px 26px; }
+.scene .mtable { margin-top:18px; }
+.scene .mt-h { padding:9px 0; }
+.scene .mt-r { padding:8px 0; gap:20px; }
+.scene .mt-r p { font-size:14px; line-height:1.5; }
+.scene .eras { margin-top:26px; }
+.scene .era { padding:16px 18px 18px; }
+.scene .formula { padding:20px 26px; }
+.scene .statwall-3 { margin:34px 0 6px; }
+.scene .srcnote { margin-top:20px; }
+.scene .exhibit { margin:10px 0 0; }
+.act-art-sc { height:min(52vh, 500px); min-height:320px; }
+.scene-light { background:#fff; }
+.scene-light .sect-k { color:var(--ntt-future-blue); }
+.scene-light .srcnote { max-width:none; font-size:12px; line-height:1.55; color:var(--text-muted); }
+.scene-light #bc-root { padding-top:22px; }
+.scene-light .sc-big { margin-bottom:14px; }
+.scene-light .sc-lead { margin-bottom:12px; }
+.scene-light .srcnote { margin-top:12px; }
+.scene-light .nextstrip { margin-top:18px; padding-top:12px; }
+.scene-light #bc-root { min-height:460px !important; }
+.scene > .nextstrip { width:100%; max-width:1180px; margin:14px auto 0; }
+.nextstrip { border-top:1px solid rgba(255,255,255,.14); padding-top:12px; display:flex; align-items:baseline; gap:18px; }
+.nextstrip span { font:700 12px/1 var(--font-body); letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.38); }
+.nextstrip a { flex:1; display:flex; justify-content:space-between; align-items:baseline; text-decoration:none; }
+.nextstrip b { font-family:var(--font-display); font-weight:700; font-size:clamp(13px,1vw,16px); letter-spacing:-.01em; color:rgba(255,255,255,.8); transition:color .15s; }
+.nextstrip em { font-style:normal; font-size:14px; color:var(--ntt-turquoise); transition:transform .2s; }
+.nextstrip a:hover b { color:var(--ntt-turquoise); }
+.nextstrip a:hover em { transform:translateX(8px); }
+.lightband .nextstrip { border-color:rgba(7,15,38,.18); }
+.lightband .nextstrip span { color:var(--text-muted); }
+.lightband .nextstrip b { color:var(--text-heading); }
+.lightband .nextstrip a:hover b { color:var(--ntt-future-blue); }
+/* ---- bun phase-D live replay ---- */
+#bunlive { background:#0e1117; border:1px solid #23283a; border-radius:14px; padding:16px 20px 14px; font-family:var(--font-mono); min-height:300px; display:flex; flex-direction:column; }
+.bl-head { display:flex; justify-content:space-between; align-items:center; gap:16px; }
+.bl-badge { font:700 12px/1 var(--font-mono); letter-spacing:.08em; color:#E8632A; border:1px solid rgba(232,99,42,.55); border-radius:999px; padding:6px 12px; text-transform:uppercase; }
+.bl-clock { font:500 12px/1 var(--font-mono); color:rgba(255,255,255,.55); }
+.bl-hero { display:flex; justify-content:space-between; align-items:baseline; margin:12px 0 12px; }
+.bl-errors b { font-family:var(--font-display); font-weight:700; font-size:clamp(26px,2.6vw,36px); color:#fff; }
+.bl-errors span { margin-left:10px; font-size:12.5px; color:rgba(255,255,255,.5); }
+#bl-replay { background:transparent; border:1px solid rgba(255,255,255,.35); color:rgba(255,255,255,.85); font:600 12px/1 var(--font-mono); border-radius:8px; padding:8px 14px; cursor:pointer; transition:border-color .15s,color .15s; }
+#bl-replay:hover { border-color:var(--ntt-turquoise); color:var(--ntt-turquoise); }
+.bl-cols { display:grid; grid-template-columns:1.15fr .95fr 1.1fr; gap:18px; flex:1; min-height:0; }
+.bl-queue { background:#12161f; border:1px solid #23283a; border-radius:10px; padding:10px 12px; display:flex; flex-direction:column; min-height:0; }
+.bl-qhead { display:flex; justify-content:space-between; font-size:12px; color:rgba(255,255,255,.55); margin-bottom:8px; }
+.bl-qhead b { color:#fff; }
+.bl-qlist { overflow:hidden; flex:1; min-height:0; }
+.bl-qlist div { font-size:12px; line-height:1.75; color:#ff8a7a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.bl-qlist div b { color:#ff5f57; font-weight:700; }
+.bl-whead { font:700 12px/1 var(--font-mono); letter-spacing:.08em; color:rgba(255,255,255,.6); text-transform:uppercase; margin-bottom:10px; }
+.bl-wgrid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.bl-wt { border:1px solid #23283a; border-radius:8px; padding:8px 10px; }
+.bl-wt em { display:block; font-style:normal; font-size:12px; color:rgba(255,255,255,.5); margin-bottom:6px; }
+.bl-loop { display:flex; align-items:center; gap:4px; margin:4px 0; }
+.bl-loop i { width:10px; height:10px; border-radius:3px; background:#262b3a; transition:background .25s, box-shadow .25s; }
+.bl-loop s { color:rgba(255,255,255,.3); font-size:12px; text-decoration:none; }
+.bl-loop i.f.on { background:#f5c451; box-shadow:0 0 6px rgba(245,196,81,.7); }
+.bl-loop i.r.on { background:#7c6cf0; box-shadow:0 0 6px rgba(124,108,240,.7); }
+.bl-loop i.a.on { background:#37b26b; box-shadow:0 0 6px rgba(55,178,107,.7); }
+.bl-loop i.done { background:#2c5c41; }
+.bl-legend { margin-top:10px; font-size:12px; color:rgba(255,255,255,.55); display:flex; align-items:center; }
+.bl-legend i { width:9px; height:9px; border-radius:3px; display:inline-block; margin-right:6px; }
+.bl-legend .lf { background:#f5c451; } .bl-legend .lr { background:#7c6cf0; } .bl-legend .la { background:#37b26b; }
+.bl-clist { display:flex; flex-direction:column; gap:5px; }
+.bl-cr { display:grid; grid-template-columns:104px 1fr 40px; gap:8px; align-items:center; font-size:12px; }
+.bl-cr span { color:rgba(255,255,255,.65); text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.bl-cr u { text-decoration:none; height:7px; border-radius:4px; background:#262b3a; position:relative; overflow:hidden; display:block; }
+.bl-cr u i { position:absolute; inset:0 auto 0 0; width:0%; border-radius:4px; transition:width .3s; }
+.bl-cr b { color:#fff; font-weight:700; text-align:right; }
+.bl-more { margin-top:8px; font-size:12px; color:rgba(255,255,255,.35); }
+.term pre c { color:rgba(255,255,255,.35); font-style:normal; }
+.swatches { display:grid; grid-template-columns:repeat(21,1fr); gap:3px; margin:12px 0 12px; }
+.swatches i { display:block; aspect-ratio:1; border-radius:3px; }
+.swatch-one { grid-template-columns:repeat(21,1fr); }
+.swatch-one i { outline:2px solid #fff; outline-offset:1px; }
+@media (max-width:860px){ .bl-cols { grid-template-columns:1fr; } }
+/* ---- routed views ---- */
+.view { display:none; }
+.view.active { display:block; animation:pageIn .55s cubic-bezier(.16,1,.3,1) both; }
+@keyframes pageIn { from { opacity:0; transform:translateY(26px); } to { opacity:1; transform:none; } }
+@media (prefers-reduced-motion: reduce) { .view.active { animation:none; } }
+.pager { max-width:1280px; margin:0 auto; padding:0 40px 90px; }
+.pager a { display:flex; align-items:baseline; justify-content:space-between; gap:24px; border-top:1px solid rgba(255,255,255,.16); padding:34px 4px 0; text-decoration:none; }
+.pager span { font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.2em; color:rgba(255,255,255,.45); }
+.pager b { flex:1; font-family:var(--font-display); font-weight:700; font-size:clamp(24px,3.2vw,40px); letter-spacing:-.015em; color:#fff; transition:color .15s; }
+.pager em { font-style:normal; font-size:26px; color:var(--ntt-turquoise); transition:transform .2s; }
+.pager a:hover b { color:var(--ntt-turquoise); }
+.pager a:hover em { transform:translateX(8px); }
+/* ---- reveal ---- */
+@keyframes riseIn { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } }
+.pre-rv { opacity:0; }
+.rv { animation:riseIn .7s cubic-bezier(.16,1,.3,1) both; }
+
+/* ---- responsive ---- */
+@media (max-width: 1020px) {
+  .cover-in, .act-flex { flex-direction:column; align-items:flex-start; }
+  .cover-art, .act-art { width:100%; max-width:480px; height:auto; aspect-ratio:4/5; align-self:center; }
+  .act-art { aspect-ratio:1/1; }
+  .statwall { grid-template-columns:repeat(2,1fr); }
+  .split { grid-template-columns:1fr; }
+  .split > div { min-height:0; padding:70px 8vw; }
+  .cols2 { grid-template-columns:1fr; }
+  .lad-row { grid-template-columns:1fr 1fr; }
+  .tline { grid-template-columns:1fr; gap:26px; }
+  .tl-link { height:auto; padding:4px 0; }
+  .tl-link::before { display:none; }
+  .epi-list { grid-template-columns:1fr; }
+  .foot-grid { grid-template-columns:1fr; gap:36px; }
+  .manifesto li { grid-template-columns:70px 1fr; }
+  .manifesto span { grid-column:2; text-align:left; margin-top:8px; }
+  .manifesto p { grid-column:2; }
+  .jag, .bluetest, .bends { grid-template-columns:1fr; }
+  .vs { grid-template-columns:1fr; }
+  .vs-mid { display:none; }
+  .bk { grid-template-columns:1fr; gap:6px; }
+  .bk span { text-align:left; }
+  .eras { grid-template-columns:1fr; }
+  .era-arrow { transform:rotate(90deg); }
+  .mt-h { display:none; }
+  .mt-r { grid-template-columns:1fr; gap:6px; }
+}
+@media (max-width: 760px) {
+  .flow, .quotes, .mega { padding-left:22px; padding-right:22px; }
+  .jag, .vs, .jag > div, .vs > div, .jag-col, .vs-col, .cols2 > div { min-width:0; }
+  .term { max-width:100%; overflow-x:auto; }
+  .term pre { font-size:12px; }
+  .mega-num { font-size:clamp(90px,26vw,140px); }
+  .tickline { padding-left:16px; padding-right:16px; }
+  #bc-root { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  #bc-root > * { min-width:880px; }
+  #bar-acts a span { display:none; }
+  .actline { gap:14px 26px; padding:22px 18px 26px; }
+  .actline a { font-size:12px; letter-spacing:.08em; }
+  .act-open, .epi { padding-left:22px; padding-right:22px; }
+  .exhibit { padding:24px 20px; border-radius:14px; overflow-x:auto; }
+  .ex-body > * { min-width:860px; }
+  .exhibit .sb-tabs .mx { min-width:860px; }
+  .statwall, .lad-row { grid-template-columns:1fr; }
+  .cc-row { grid-template-columns:1fr; gap:6px; }
+  .mega { padding-top:80px; padding-bottom:80px; }
+  .ex-body div[style*="display:flex"] { flex-wrap:wrap; }
+}
+/* ═══ the new beat of work · assembly chain ═══ */
+.nbchain { margin-top:10px; position:relative; }
+.nb-flow { display:flex; align-items:flex-start; gap:0; }
+.nb-st { flex:0 0 168px; text-align:center; }
+.nb-st p { margin:12px auto 0; font-size:12px; line-height:1.45; color:rgba(255,255,255,.55); max-width:140px; }
+.nb-ring { position:relative; width:112px; height:112px; margin:0 auto; border-radius:50%; border:2px solid rgba(0,223,237,.22); display:flex; align-items:center; justify-content:center; }
+.nb-ring::before { content:''; position:absolute; inset:-2px; border-radius:50%; border:2px solid transparent; border-top-color:var(--ntt-turquoise); }
+.nb-ring b { font-family:var(--font-display); font-weight:700; font-size:14.5px; line-height:1.2; color:#fff; max-width:86px; }
+.nb-a { position:absolute; inset:0; border-radius:50%; }
+.nb-a::after { content:''; position:absolute; top:-4px; left:50%; margin-left:-3.5px; width:7px; height:7px; border-radius:50%; background:var(--ntt-turquoise); box-shadow:0 0 8px rgba(0,223,237,.8); }
+.nb-a.a2::after { width:5px; height:5px; top:-3px; opacity:.75; }
+.nb-a.a3::after { width:5px; height:5px; top:-3px; opacity:.55; }
+.nb-link { flex:1 1 auto; position:relative; height:112px; min-width:60px; }
+.nb-link::before { content:''; position:absolute; top:55px; left:-6px; right:-6px; height:2px; background:rgba(255,255,255,.15); }
+.nb-wu { position:absolute; top:52px; left:0; width:8px; height:8px; border-radius:50%; background:var(--ntt-turquoise); opacity:0; }
+.nb-gate { position:absolute; top:178px; left:50%; transform:translateX(-50%); text-align:center; width:196px; }
+.nb-gate::before { content:''; position:absolute; top:-119px; left:50%; width:1px; height:114px; background:linear-gradient(to bottom, rgba(0,223,237,0), rgba(0,223,237,.5)); }
+.nb-gate svg { display:block; margin:0 auto; width:20px; height:20px; stroke:#fff; stroke-width:1.8; fill:none; stroke-linecap:round; opacity:.9; }
+.nb-gate span { display:block; margin-top:4px; font-size:12px; line-height:1.35; color:rgba(255,255,255,.72); }
+.nb-gate em { display:block; margin-top:3px; font-style:normal; font:700 12px/1.2 var(--font-body); letter-spacing:.04em; color:var(--ntt-turquoise); }
+.srcnote a { color:var(--ntt-turquoise); text-decoration:none; border-bottom:1px solid rgba(0,223,237,.4); }
+.srcnote a:hover { border-bottom-color:var(--ntt-turquoise); }
+.nb-arc { display:block; width:calc(100% - 160px); height:64px; margin:104px auto 0; overflow:visible; }
+.nb-arcpath { stroke:rgba(0,223,237,.5); stroke-width:1.6; stroke-dasharray:7 6; }
+.nb-arctip { stroke:rgba(0,223,237,.7); stroke-width:1.6; }
+.nb-arclabel { margin:8px 0 0; text-align:center; font-size:12px; color:rgba(0,223,237,.75); letter-spacing:.02em; }
+.nb-cap { margin-top:22px; display:flex; align-items:baseline; gap:16px; justify-content:center; flex-wrap:wrap; }
+.nb-cap b { font-family:var(--font-display); font-size:19px; color:#fff; }
+.nb-cap span { font-size:13.5px; color:rgba(255,255,255,.55); }
+@keyframes nbspin { to { transform:rotate(360deg); } }
+@keyframes nbflow { 0% { left:2%; opacity:0; } 12% { opacity:1; } 82% { opacity:1; } 96% { left:92%; opacity:0; } 100% { left:92%; opacity:0; } }
+@keyframes nbpulse { 0%, 82%, 100% { transform:scale(1); box-shadow:0 0 0 0 rgba(0,223,237,0); } 88% { transform:scale(1.05); box-shadow:0 0 0 9px rgba(0,223,237,.07); } }
+@keyframes nbdash { to { stroke-dashoffset:-52; } }
+.nbchain.play .nb-ring::before { animation:nbspin 5.2s linear infinite; }
+.nbchain.play .nb-st:nth-child(3) .nb-ring::before { animation-duration:4.4s; }
+.nbchain.play .nb-st:nth-child(5) .nb-ring::before { animation-duration:3.6s; }
+.nbchain.play .nb-st:nth-child(7) .nb-ring::before { animation-duration:4.8s; }
+.nbchain.play .nb-st:nth-child(9) .nb-ring::before { animation-duration:5.6s; }
+.nbchain.play .nb-ring { animation:nbpulse 3.2s ease-in-out infinite; }
+.nbchain.play .nb-st:nth-child(3) .nb-ring { animation-delay:.64s; }
+.nbchain.play .nb-st:nth-child(5) .nb-ring { animation-delay:1.28s; }
+.nbchain.play .nb-st:nth-child(7) .nb-ring { animation-delay:1.92s; }
+.nbchain.play .nb-st:nth-child(9) .nb-ring { animation-delay:2.56s; }
+.nbchain.play .nb-a.a1 { animation:nbspin 3.6s linear infinite; }
+.nbchain.play .nb-a.a2 { animation:nbspin 5s linear infinite; animation-delay:-1.6s; }
+.nbchain.play .nb-a.a3 { animation:nbspin 6.6s linear infinite; animation-delay:-3.8s; }
+.nbchain.play .nb-wu { animation:nbflow 3.2s linear infinite; }
+.nbchain.play .nb-wu.w2 { animation-delay:1.6s; }
+.nbchain.play .nb-link:nth-child(4) .nb-wu { animation-delay:.8s; }
+.nbchain.play .nb-link:nth-child(4) .nb-wu.w2 { animation-delay:2.4s; }
+.nbchain.play .nb-link:nth-child(6) .nb-wu { animation-delay:1.6s; }
+.nbchain.play .nb-link:nth-child(6) .nb-wu.w2 { animation-delay:3.2s; }
+.nbchain.play .nb-link:nth-child(8) .nb-wu { animation-delay:2.4s; }
+.nbchain.play .nb-link:nth-child(8) .nb-wu.w2 { animation-delay:4s; }
+.nbchain.play .nb-arcpath { animation:nbdash 2.6s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .nbchain.play *, .nbchain.play .nb-ring::before { animation:none !important; } .nb-wu { opacity:.9; left:46%; } }
+
+/* ═══ nouns vs verbs · role roster ═══ */
+.nv-grid { display:grid; grid-template-columns:1.35fr 1fr; grid-template-rows:repeat(8,auto); column-gap:56px; margin-top:6px; }
+.nv-roles, .nv-verbs { list-style:none; margin:0; padding:0; display:grid; grid-template-rows:subgrid; grid-row:1 / span 8; row-gap:0; }
+.nv-roles::before, .nv-verbs::before { content:attr(data-h); font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.14em; color:var(--ntt-turquoise); padding-bottom:12px; border-bottom:1px solid rgba(255,255,255,.14); }
+.nv-roles li, .nv-verbs li { padding:9px 0 9px 6px; border-bottom:1px solid rgba(255,255,255,.08); transition:background .2s; }
+.nv-roles li:hover, .nv-verbs li:hover { background:rgba(0,223,237,.045); }
+.nv-roles li { display:grid; grid-template-columns:22px auto auto 1fr; gap:2px 10px; align-items:center; }
+.nv-roles li > svg { width:16px; height:16px; stroke:rgba(255,255,255,.85); stroke-width:1.8; fill:none; stroke-linecap:round; }
+.nv-roles b { font-size:14.5px; color:#fff; white-space:nowrap; }
+.nv-roles i { font-style:normal; font:700 12px/1 var(--font-body); text-transform:uppercase; letter-spacing:.09em; padding:3px 8px 2px; border-radius:20px; justify-self:start; }
+.nv-roles .tag-new { background:var(--ntt-turquoise); color:#07101e; }
+.nv-roles .tag-evo { border:1px solid rgba(255,255,255,.3); color:rgba(255,255,255,.6); }
+.nv-roles span { font-size:12px; color:rgba(0,223,237,.7); text-align:right; }
+.nv-roles p { grid-column:2 / -1; margin:0; font-size:12.5px; line-height:1.45; color:rgba(255,255,255,.6); }
+@keyframes nvin { from { opacity:0; transform:translateY(9px); } to { opacity:1; transform:none; } }
+.nv-grid.rv .nv-roles li, .nv-grid.rv .nv-verbs li { animation:nvin .45s ease both; }
+.nv-grid.rv .nv-roles li:nth-child(1) { animation-delay:.05s; } .nv-grid.rv .nv-verbs li:nth-child(1) { animation-delay:.10s; }
+.nv-grid.rv .nv-roles li:nth-child(2) { animation-delay:.15s; } .nv-grid.rv .nv-verbs li:nth-child(2) { animation-delay:.20s; }
+.nv-grid.rv .nv-roles li:nth-child(3) { animation-delay:.25s; } .nv-grid.rv .nv-verbs li:nth-child(3) { animation-delay:.30s; }
+.nv-grid.rv .nv-roles li:nth-child(4) { animation-delay:.35s; } .nv-grid.rv .nv-verbs li:nth-child(4) { animation-delay:.40s; }
+.nv-grid.rv .nv-roles li:nth-child(5) { animation-delay:.45s; } .nv-grid.rv .nv-verbs li:nth-child(5) { animation-delay:.50s; }
+.nv-grid.rv .nv-roles li:nth-child(6) { animation-delay:.55s; } .nv-grid.rv .nv-verbs li:nth-child(6) { animation-delay:.60s; }
+.nv-grid.rv .nv-roles li:nth-child(7) { animation-delay:.65s; } .nv-grid.rv .nv-verbs li:nth-child(7) { animation-delay:.70s; }
+.nv-verbs li { display:grid; grid-template-columns:14px 64px 1fr; gap:0 10px; align-items:center; }
+.nv-verbs li::before { content:''; width:11px; height:11px; border-radius:50%; border:2px solid rgba(0,223,237,.25); border-top-color:var(--ntt-turquoise); animation:nbspin 2.6s linear infinite; }
+.nv-verbs li:nth-child(even)::before { animation-duration:3.4s; }
+.nv-verbs b { font-size:14.5px; color:#fff; }
+.nv-verbs p { margin:0; font-size:12.5px; line-height:1.4; color:rgba(255,255,255,.6); }
+.nv-gone { margin-top:16px; }
+.nv-gone s { color:rgba(255,255,255,.45); text-decoration-color:rgba(0,223,237,.55); }
+.scene .nv-gone + .callout, .scene .nv-grid + .callout { margin-top:18px; }
+@media (max-width: 980px) {
+  .nb-flow { flex-wrap:wrap; row-gap:26px; justify-content:center; }
+  .nb-link { min-width:120px; flex:0 0 140px; }
+  .nb-arc, .nb-arclabel { display:none; }
+  .nv-grid { grid-template-columns:1fr; grid-template-rows:none; }
+  .nv-roles, .nv-verbs { grid-row:auto; grid-template-rows:none; }
+}
+@media print { #bar, #chindex, .scrollcue { display:none !important; } body { background:#fff; } }
+</style><style>
+.dm-wrap{margin-top:14px}
+.dm-svg{width:100%;height:auto;display:block}
+.blk{cursor:pointer;outline:none}
+.blk rect.bx{transition:fill .2s,stroke-width .2s}
+.blk:hover rect.bx,.blk:focus-visible rect.bx{stroke-width:3.5}
+.blk.sel .bx{stroke-width:4;fill-opacity:.4}
+.blk:hover .bx,.blk:focus-visible .bx{stroke-width:3.5}
+.blk text{pointer-events:none}
+.pn{margin-top:18px;display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:22px 26px;min-height:150px}
+.pn h4{margin:0 0 8px;font:700 24px/1.15 var(--font-display);color:#fff}
+.pn .own{display:inline-block;font:700 12px/1 var(--font-body);letter-spacing:.06em;padding:6px 10px;border-radius:20px;border:1px solid currentColor}
+.pn ul{margin:0;padding:0;list-style:none}
+.pn li{padding:7px 0 7px 22px;position:relative;font-size:15.5px;line-height:1.45;color:rgba(255,255,255,.85)}
+.pn li::before{content:"";position:absolute;left:0;top:15px;width:10px;height:3px;background:var(--ntt-turquoise)}
+.pn .sla{grid-column:1 / -1;font-size:13px;color:rgba(255,255,255,.55);border-top:1px solid rgba(255,255,255,.1);padding-top:10px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin:10px 0 0;font-size:13px;color:rgba(255,255,255,.7)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 20px}
+.tb{font:700 14px/1 var(--font-body);color:#fff;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:11px 18px;cursor:pointer;transition:all .2s}
+.tb:hover{background:rgba(255,255,255,.14)}
+.tb.on{background:var(--ntt-turquoise);color:#070F26;border-color:var(--ntt-turquoise)}
+.tb:focus-visible,.stair button:focus-visible,.aq button:focus-visible{outline:3px solid var(--ntt-yellow);outline-offset:2px}
+.tsrow{display:grid;grid-template-columns:230px 1fr 40px;gap:14px;align-items:center;margin:11px 0}
+.tsrow span{font-size:14px;color:rgba(255,255,255,.8)}
+.tsrow em{font:700 20px var(--font-display);font-style:normal;color:#fff;text-align:right}
+.tsbar{height:26px;background:rgba(255,255,255,.07);border-radius:6px;overflow:hidden}
+.tsbar b{display:block;height:100%;border-radius:6px;width:0;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.tstot{display:flex;align-items:baseline;gap:14px;margin-top:16px;border-top:1px solid rgba(255,255,255,.14);padding-top:14px}
+.tstot b{font:700 56px/1 var(--font-display);color:var(--ntt-turquoise)}
+.tstot span{font-size:15px;color:rgba(255,255,255,.75)}
+.loc{font:700 11px/1 var(--font-body);letter-spacing:.08em;padding:4px 8px;border-radius:12px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);margin-left:6px;white-space:nowrap}
+.stair{display:flex;gap:6px;align-items:flex-end;margin:10px 0 0}
+.stair button{flex:1;border:0;border-radius:10px 10px 0 0;background:rgba(255,196,0,.14);border-top:4px solid var(--ntt-yellow);color:#fff;text-align:left;padding:14px 14px 12px;cursor:pointer;transition:background .2s,transform .2s;font-family:var(--font-body)}
+.stair button:hover{transform:translateY(-4px)}
+.stair button.on{background:rgba(255,196,0,.34)}
+.stair b{display:block;font:700 12px var(--font-body);letter-spacing:.08em;color:var(--ntt-yellow)}
+.stair u{display:block;text-decoration:none;font:700 19px/1.15 var(--font-display);margin-top:6px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chips span{font-size:13px;padding:6px 11px;border-radius:8px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.85)}
+.chips span b{color:var(--ntt-turquoise)}
+.aq{display:grid;grid-template-columns:1fr 1.2fr;gap:26px;margin-top:10px}
+.aq .qs{display:flex;flex-direction:column;gap:8px}
+.aq button{text-align:left;font:600 15px/1.35 var(--font-body);color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:13px 16px;cursor:pointer;transition:all .2s}
+.aq button:hover{background:rgba(255,255,255,.12)}
+.aq button.on{background:rgba(0,223,237,.16);border-color:var(--ntt-turquoise)}
+.ans{background:#fff;color:#2E404D;border-radius:16px;padding:24px 28px;box-shadow:0 24px 60px rgba(0,0,0,.4);min-height:260px}
+.ans h4{margin:0 0 4px;font:700 22px/1.2 var(--font-display);color:#070F26}
+.ans .rec{margin:14px 0;border-left:4px solid var(--ntt-future-blue);padding:6px 0 6px 14px;font:13px/1.5 var(--font-mono);color:#2E404D;background:#F4F5F6;border-radius:0 8px 8px 0}
+.ans dl{margin:0;display:grid;grid-template-columns:100px 1fr;gap:6px 12px;font-size:14px}
+.ans dt{font-weight:700;color:var(--ntt-future-blue)}
+.ans dd{margin:0}
+.flow{stroke-dasharray:7 7;animation:dash 1.6s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-28}}
+.pulse{animation:pls 2.4s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes pls{0%,100%{opacity:.55}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.flow,.pulse{animation:none}.tsbar b{transition:none}}
+@media(max-width:900px){.pn,.aq{grid-template-columns:1fr}.stair{flex-direction:column;align-items:stretch}.tsrow{grid-template-columns:100px 1fr 30px}}
+
+.ut td b{color:var(--text-heading)}
+.tw{overflow-x:auto}
+.scene .ladder{margin-top:28px}
+.lad .note-s{margin-top:14px;font-size:13px}
+
+:root{--cd:var(--ntt-turquoise)}
+.ut{width:100%;border-collapse:collapse;font-size:13px;line-height:1.45;color:var(--text-body)}
+.ut th{font:700 11px/1.3 var(--font-body);letter-spacing:.06em;text-align:left;padding:8px 10px;border-bottom:2px solid var(--ntt-future-blue);color:var(--ntt-future-blue)}
+.ut td{padding:8px 10px;border-bottom:1px solid var(--ntt-grey-50);vertical-align:top}
+.ut td:first-child{font:700 12px var(--font-mono);color:var(--ntt-future-blue)}
+.cover-art svg,.cp svg{width:100%;height:auto;max-width:560px;display:block;margin:0 auto}
+@keyframes orb{to{transform:rotate(360deg)}}
+.orb{transform-origin:260px 260px;animation:orb 38s linear infinite}
+.orb2{animation-duration:55s;animation-direction:reverse}
+@media (prefers-reduced-motion:reduce){.orb{animation:none}}
+.cp{margin-top:20px}
+.gbx{margin:0 0 22px}
+.src{font-size:11.5px;line-height:1.9;color:rgba(255,255,255,.55);word-break:break-all}
+.src a{color:var(--ntt-turquoise-50);margin-right:10px;white-space:normal;overflow-wrap:anywhere}
+.lad-row5{grid-template-columns:repeat(5,1fr)}
+.note-s{font-size:13px;color:rgba(255,255,255,.55);margin-top:18px;max-width:900px}
+.tl-node p{font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.7);margin:0;text-align:center}
+@media(max-width:900px){.tline{display:block}.tl-link{display:none}.tl-node{display:block;margin-bottom:28px}.foot-grid{display:block}.lad-row5{grid-template-columns:1fr}.ut{font-size:12px}}
+</style></head><body><section class="cover" id="prologue"><div class="cover-in"><div class="cover-copy">
+<p class="eyebrow">AI Centre of Excellence &middot; Interim proposal v2 &middot; 22 Nov 2026</p>
+<h1 class="mast">The client holds the controls.<br>We bring Core and Flex.</h1>
+<p class="stand"><b style="color:var(--ntt-turquoise);">The model:</b> the client keeps every accountable role and owns the tenancy. Our Core is a committed team of key delivery roles. Our Flex is a set of pods that scale up and down on capped call-offs.</p>
+<p class="byline">Draft for review &middot; client name withheld &middot; illustrative figures, not legal advice</p></div>
+<div class="cover-art"><svg viewBox="0 0 520 520" role="img" aria-label="Our Core team inside the client tenancy, Flex pods orbiting it">
+<circle cx="260" cy="260" r="236" fill="none" stroke="rgba(255,255,255,.22)" stroke-dasharray="3 7"/>
+<circle cx="260" cy="260" r="170" fill="none" stroke="rgba(0,223,237,.35)"/>
+<circle cx="260" cy="260" r="96" fill="rgba(0,114,188,.35)" stroke="#00DFED" stroke-width="2"/>
+<text x="260" y="256" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="30" font-weight="700">Core</text>
+<text x="260" y="282" text-anchor="middle" fill="rgba(255,255,255,.75)" font-family="Arial" font-size="13">our committed team</text>
+<g class="orb"><circle cx="260" cy="90" r="26" fill="#FF7A00"/><text x="260" y="95" text-anchor="middle" fill="#070F26" font-family="Arial" font-size="12" font-weight="700">Pod</text></g>
+<g class="orb orb2"><circle cx="260" cy="24" r="22" fill="#FFC400"/><text x="260" y="29" text-anchor="middle" fill="#070F26" font-family="Arial" font-size="12" font-weight="700">Pod</text></g>
+<text x="260" y="508" text-anchor="middle" fill="rgba(255,255,255,.6)" font-family="Arial" font-size="13">Core and Flex work inside the client tenancy</text>
+</svg></div></div>
+<nav class="actline" aria-label="Acts"><a href="#act1"><b>I</b><span>Why now</span></a><a href="#act2"><b>II</b><span>Core and Flex</span></a><a href="#act3"><b>III</b><span>Delivery model</span></a><a href="#act4"><b>IV</b><span>Governance layer</span></a><a href="#act5"><b>V</b><span>Start and return</span></a></nav>
+<a class="scrollcue" href="#act1">Scroll<span>&darr;</span></a></section>
+<section class="scene scene-open" data-n="I" id="act1"><div class="scene-in"><p class="act-k">Act I</p><h2 class="act-t">Adoption is easy.<br>Control is the scarce thing.</h2><p class="act-s">Where UK firms are, what the FCA's Mills Review signals, and what has not changed.</p></div></section>
+<section class="scene"><div class="mega mega-blue"><div class="mega-num">86%</div><div class="mega-side"><p class="mega-lead">of UK financial firms surveyed by the Bank of England and FCA in 2026 already use AI (196 firms).</p><p class="mega-punch">80% of their agents only support decisions; 2% have broad autonomy. Only 35% of critical, hard-to-substitute cloud relationships have a tested exit plan.</p></div></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Pilots are cheap. Ownership, redesign and governance are what scale.</h3>
+<div class="statwall statwall-3">
+<div class="stat"><b>~1/3</b><i></i><u>Scaling</u><p>of organisations are scaling AI; about 6% are high performers (McKinsey, 2025). High performers redesigned workflows.</p></div>
+<div class="stat"><b>5%</b><i></i><u>Value at scale</u><p>of 1,250 firms get value at scale; 60% get little (BCG, Oct 2025).</p></div>
+<div class="stat"><b>21%</b><i></i><u>Agent governance</u><p>have mature governance for agents (Deloitte, 2026), while about three quarters plan to deploy them.</p></div></div>
+<p class="prose">Governance is not only a brake. Gartner found that organisations running regular AI assessments were about three times as likely to report high GenAI value (Nov 2025). The CoE is where that discipline lives.</p></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">The Mills Review, 6 July 2026: the human moves from doing the work to setting the boundaries</h3>
+<div class="ladder"><div class="lad-row lad-row5">
+<div class="lad l1"><b>L1</b><u>Operator</u><p>Human does the task with AI help.</p></div>
+<div class="lad l2"><b>L2</b><u>Collaborator</u><p>Human and AI work the task together.</p></div>
+<div class="lad l3"><b>L3</b><u>Consultant</u><p>AI does the task; human is consulted.</p></div>
+<div class="lad l3"><b>L4</b><u>Approver</u><p>AI acts; human approves or vetoes.</p></div>
+<div class="lad l4"><b>L5</b><u>Observer</u><p>AI acts; human monitors outcomes.</p></div></div>
+<p class="ex-note">Role names per the Review's five-role spectrum; one-line glosses are ours. The Review expects not every use case to reach L5. Its seven recommendations are for the FCA Board, so they create no direct firm obligations. The Review judged SM&amp;CR robust at lower autonomy, with pressure at Approver and Observer, and sought no change to Consumer Duty.</p></div></div></section>
+<section class="scene"><div class="scene-in"><p class="bigline">You can buy the model.<br><em>You cannot buy the accountability.</em></p>
+<div class="jag"><div class="jag-col"><div class="jag-t">What has not changed</div><div class="jag-d">The FCA plans no AI-specific rules. It relies on existing duties.</div>
+<ul class="vlist"><li>Consumer Duty and SM&amp;CR apply to AI as to any other tool; SYSC is a benchmark whose scope for this firm type is unconfirmed</li><li>Firms may outsource AI but remain responsible for outcomes</li><li>FCA good practice points to mapping AI responsibilities across SMFs, with one senior person accountable for overall oversight</li></ul></div>
+<div class="jag-col"><div class="jag-t">What the FCA expects to see</div><div class="jag-d">Governance at design stage, not after deployment.</div>
+<ul class="vlist"><li>Real human oversight, not a tick box</li><li>Records of prompts, outputs, model versions and overrides</li><li>Visibility of supplier model changes, plus contingency plans</li></ul></div></div></div></section>
+<section class="scene scene-open" data-n="II" id="act2"><div class="scene-in"><p class="act-k">Act II</p><h2 class="act-t">Client, Core and Flex.<br>The client keeps the keys.</h2><p class="act-s">The client is accountable. Our Core is committed. Our Flex is elastic. Control is built in, not only written into the contract.</p></div></section>
+<section class="scene scene-split"><div class="split"><div class="split-l"><p class="split-k">Core: ours, committed</p><p class="split-big">Leads.<br>Runs.<br>Evidences.</p><p class="split-d">A fixed team of key delivery roles: delivery lead, architect, platform engineer, the embedded FDE team and a separate evaluation pod. It runs the platform and keeps the evidence for the client.</p></div>
+<div class="split-r"><p class="split-k">Flex: ours, elastic</p><p class="split-big">Builds.<br>Flexes.<br>Dissolves.</p><p class="split-d">Pods we scale up and down against the client's backlog: build, evaluation and Academy delivery. Capped call-offs with a mission and an expiry. Runbooks and tests stay behind.</p></div></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">What the client keeps: every accountable role</h3><ol class="manifesto manifesto-sc"><li><b>Executive sponsor</b><p>Gives the mandate and budget and takes AI to the board.</p><span>Sponsors</span></li><li><b>Accountable executive</b><p>A named senior manager, recorded in their Statement of Responsibilities, owns AI oversight and signs higher-tier releases. Which SMF is the firm's choice: no FCA statement names one.</p><span>Decides</span></li><li><b>Compliance and governance</b><p>Tiers every use case, approves acceptance criteria, reads the evaluation pod's findings directly and attests before release. Compliance, Legal and the DPO review at set gates.</p><span>Assures</span></li><li><b>Product owner</b><p>Holds requirements and priorities, approves each Flex call-off and its spend, and signs off outcomes in the ledger.</p><span>Directs</span></li><li><b>Business users</b><p>Use AI at the level they are licensed for, review outputs and sign them off where the licence says so.</p><span>Use and sign off</span></li></ol></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Control is structural: the client owns the tenancy Core and Flex work in</h3><div class="cp"><svg viewBox="0 0 1000 400" role="img" aria-label="Client tenancy: accountable client roles, client-owned control plane, our Core and Flex working inside">
+<rect x="10" y="10" width="980" height="380" rx="18" fill="rgba(0,114,188,.12)" stroke="#0072BC" stroke-width="2"/>
+<rect x="30" y="50" width="290" height="320" rx="12" fill="rgba(0,223,237,.12)" stroke="#00DFED"/>
+<text x="175" y="84" text-anchor="middle" font-weight="700" font-size="21" fill="#00DFED">Client: accountable</text>
+<g fill="rgba(255,255,255,.85)" font-size="16" text-anchor="middle"><text x="175" y="130">Executive sponsor</text><text x="175" y="166">Accountable executive</text><text x="175" y="202">Compliance and governance</text><text x="175" y="238">Product owner</text><text x="175" y="274">Business users</text><text x="175" y="318" fill="#00DFED" font-weight="700">Sign-offs and requirements</text></g>
+<rect x="350" y="50" width="300" height="320" rx="12" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.5)"/>
+<text x="500" y="84" text-anchor="middle" font-weight="700" font-size="21" fill="#fff">Control plane</text>
+<g fill="rgba(255,255,255,.85)" font-size="16" text-anchor="middle"><text x="500" y="130">Identity and access</text><text x="500" y="166">Model gateway</text><text x="500" y="202">Prompts and evals</text><text x="500" y="238">Logs and evidence</text><text x="500" y="274" fill="#FF8A80" font-weight="700">Kill switch and exit</text><text x="500" y="318" fill="#00DFED" font-weight="700">Client-owned</text></g>
+<rect x="680" y="50" width="290" height="320" rx="12" fill="rgba(255,122,0,.12)" stroke="#FF7A00"/>
+<text x="825" y="84" text-anchor="middle" font-weight="700" font-size="21" fill="#FFC400">Our Core and Flex</text>
+<g fill="rgba(255,255,255,.85)" font-size="16" text-anchor="middle"><text x="825" y="130">Core: committed key roles</text><text x="825" y="166">Embedded FDE team</text><text x="825" y="202">Evaluation pod, separate</text><text x="825" y="238">Flex pods: build, scale, dissolve</text><text x="825" y="274">Work inside the tenancy</text><text x="825" y="318" fill="#FFC400" font-weight="700">Revoke access, and we are out</text></g>
+<path d="M322 210H346M654 210H676" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+</svg></div><p class="note-s">Design choice, our judgement. Fits the FCA's outsourcing expectations to supervise, terminate and retain access, though SYSC 8's applicability to this firm type is unconfirmed. Exit becomes a credential revocation, not a negotiation.</p></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Who holds which decision</h3><div class="banklist"><div class="bk"><b>Which use cases run</b><em>Client product owner</em><p>Our Core recommends. The AI register is the single list: nothing runs that is not on it.</p></div><div class="bk"><b>Risk tier</b><em>Client compliance and governance</em><p>We propose a tier. The client decides, records it and reviews it when the use case changes.</p></div><div class="bk"><b>Release to production</b><em>Client accountable executive</em><p>On a decision pack from our Core and evaluation pod: purpose, data, test results, oversight design, vendor map, rollback.</p></div><div class="bk"><b>Stop or pause</b><em>Client, unilaterally</em><p>The kill switch is drilled, not just documented.</p></div><div class="bk"><b>Flex scope and spend</b><em>Client product owner</em><p>We propose the pod and the cap. The client approves each call-off, with a mission and an expiry date.</p></div><div class="bk"><b>Model or vendor change</b><em>Client, on our advice</em><p>Supplier notice triggers a re-test before the change goes live.</p></div><div class="bk"><b>Step-in</b><em>Client, or a nominated second supplier</em><p>Take over any pod's work using client-held repos and runbooks: immediately on an incident, otherwise on notice (30 days is our assumption).</p></div><div class="bk"><b>Exit</b><em>Client</em><p>An annual handover rehearsal, reported to the board.</p></div></div></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">How it is bought: fixed Core, capped Flex, a small slice for outcomes</h3><ol class="manifesto manifesto-sc"><li><b>Core retainer</b><p>Our committed key roles: delivery lead, architect, platform engineer, evaluation pod and embedded FDE team. Fixed, because continuity and evidence cannot be a variable cost. The evaluation pod is kept separate from the build pods.</p><span>Fixed</span></li><li><b>Flex call-off</b><p>Pods scale up when the ledger shows evidenced backlog and the client's product owner approves, within a pod limit and the monthly cap. Scale down on 30 days notice (assumption) or at the stage gate.</p><span>Capped</span></li><li><b>At-risk slice, 10-15%</b><p>Released against outcomes verified in the client's own ledger. Our judgement on the share.</p><span>Incentive</span></li><li><b>Consumption at cost</b><p>Model and token spend passed through with a cap, so agent costs cannot drift unseen.</p><span>Pass-through</span></li></ol><div class="callout"><b>Why the incentive stays small</b><p>Bain finds only about one in ten hybrid AI meters is outcome-based. Finance and HR productivity is hard to attribute, so most of the fee should not hang on it.</p></div></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Where this differs from a standard CoE</h3>
+<div class="jag"><div class="jag-col"><div class="jag-t">Standard CoE, bank-scale</div><div class="jag-d">A bank-scale reference design (illustrative).</div>
+<ul class="xlist"><li>A central hub of 18 to 24 people builds and runs delivery</li><li>Control rests on the contract</li><li>Assurance sits inside delivery</li><li>Success is counted in pilots shipped</li></ul></div>
+<div class="jag-col"><div class="jag-t">This model, sized for a mortgage firm</div><div class="jag-d">Client-held accountability, committed Core, elastic Flex.</div>
+<ul class="vlist"><li>Client keeps every accountable role; our Core is small and committed, our Flex scales</li><li>Control sits in the client's tenancy</li><li>Assurance is separate from build, and Flex fees tie to the ledger</li><li>Success is counted in verified value and a tested exit</li></ul></div></div>
+<p class="note-s">McKinsey's 2024-25 operating-model survey shows firms under $500m revenue more often centralise talent and adoption. No fetched evidence shows hub-and-spoke beating a central team on scale. Core size is our judgement.</p></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Seven design choices, all our judgement, none yet proven in a firm like this</h3><ol class="manifesto manifesto-sc"><li><b>Client-owned control plane, vendor-operated</b><p>Control is structural, so exit is a credential revocation.</p><span>Control</span></li><li><b>Independent evaluation pod</b><p>A pod separate from build validates every release for the client's compliance function. The scarce asset is credible oversight, not engineering.</p><span>Assurance</span></li><li><b>Outcome ledger</b><p>Baseline, benefit, cost, tier and owner for every use case, in one place.</p><span>Value</span></li><li><b>Tiered autonomy licences</b><p>Each use case holds a licence with an owner, scope and expiry.</p><span>Autonomy</span></li><li><b>Regulator-ready evidence by default</b><p>Every release generates its own decision pack, stored client-side.</p><span>Evidence</span></li><li><b>Flex as a capped call-off that dissolves</b><p>Mission, budget cap, expiry and a knowledge-transfer sprint are in the SOW.</p><span>Flex</span></li><li><b>Exit rehearsal as a service level</b><p>An annual drill with the client team or a second supplier.</p><span>Exit</span></li></ol></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Autonomy is licensed, not assumed</h3>
+<div class="ladder"><div class="lad-row">
+<div class="lad l1"><b>A0</b><u>Assist</u><p>AI answers or flags. A person decides and acts.</p></div>
+<div class="lad l2"><b>A1</b><u>Draft, then approve</u><p>AI drafts. A named person approves each output.</p><span class="lad-tag">START HERE</span></div>
+<div class="lad l3"><b>A2</b><u>Act with sampling</u><p>AI acts on proven, low-risk cases. Samples are checked.</p></div>
+<div class="lad l4"><b>A3</b><u>Act within limits</u><p>Not in the initial scope. Needs ledger evidence and board visibility.</p></div></div>
+<p class="ex-note">Licence levels A0 to A3 are our own scale. Indicative crosswalk to the Mills roles (judgement): A0 is Operator or Collaborator, A1 is Consultant or Approver, A2 is Approver or Observer with sampling, A3 is Observer. Each licence has an owner, scope, expiry and review date. Promotion needs evidence from the outcome ledger.</p></div></div></section>
+<section class="scene scene-open" data-n="III" id="act3"><div class="scene-in"><p class="act-k">Act III</p><h2 class="act-t">The delivery model.<br>Who does what, and where.</h2><p class="act-s">Click through the building blocks, the team, the Academy and the evaluation loop.</p></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Every building block, and who owns it</h3><div class="dm-wrap" id="bb"><svg class="dm-svg" viewBox="0 0 1000 612" role="img" aria-label="Delivery building blocks: client accountable roles, our Core and Flex, control plane"><defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5 0 9z" fill="rgba(255,255,255,.75)"/></marker></defs><rect x="8" y="8" width="984" height="596" rx="18" fill="none" stroke="#00DFED" stroke-width="2" stroke-dasharray="4 8"/><text x="28" y="34" fill="#00DFED" font-family="Arial" font-size="14" font-weight="700">Client tenancy: owned and revocable by the client</text><text x="40" y="58" fill="#fff" font-family="Georgia,serif" font-size="17" font-weight="700">Client: the accountable firm</text><g class="blk" data-k="sponsor" tabindex="0" role="button" aria-label="Executive sponsor"><rect x="40" y="70" width="230" height="84" rx="12" fill="#070F26"/><rect class="bx" x="40" y="70" width="230" height="84" rx="12" fill="#00DFED" fill-opacity=".14" stroke="#00DFED" stroke-width="2"/><text x="155.0" y="110.0" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700">Executive sponsor</text><text x="155.0" y="132.0" text-anchor="middle" fill="rgba(255,255,255,.72)" font-family="Arial" font-size="13">mandate, budget</text></g><g class="blk" data-k="users" tabindex="0" role="button" aria-label="Business users"><rect x="290" y="70" width="200" height="84" rx="12" fill="#070F26"/><rect class="bx" x="290" y="70" width="200" height="84" rx="12" fill="#00DFED" fill-opacity=".14" stroke="#00DFED" stroke-width="2"/><text x="390.0" y="110.0" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700">Business users</text><text x="390.0" y="132.0" text-anchor="middle" fill="rgba(255,255,255,.72)" font-family="Arial" font-size="13">use, review, sign off</text></g><g class="blk" data-k="comp" tabindex="0" role="button" aria-label="Compliance, governance"><rect x="510" y="70" width="210" height="84" rx="12" fill="#070F26"/><rect class="bx" x="510" y="70" width="210" height="84" rx="12" fill="#00DFED" fill-opacity=".14" stroke="#00DFED" stroke-width="2"/><text x="615.0" y="110.0" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700">Compliance, governance</text><text x="615.0" y="132.0" text-anchor="middle" fill="rgba(255,255,255,.72)" font-family="Arial" font-size="13">tiers, attests, signs off</text></g><g class="blk" data-k="product" tabindex="0" role="button" aria-label="Product owner"><rect x="740" y="70" width="220" height="84" rx="12" fill="#070F26"/><rect class="bx" x="740" y="70" width="220" height="84" rx="12" fill="#00DFED" fill-opacity=".14" stroke="#00DFED" stroke-width="2"/><text x="850.0" y="110.0" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700">Product owner</text><text x="850.0" y="132.0" text-anchor="middle" fill="rgba(255,255,255,.72)" font-family="Arial" font-size="13">requirements, call-offs</text></g><rect x="24" y="170" width="952" height="256" rx="14" fill="rgba(255,122,0,.06)" stroke="#FF7A00" stroke-width="1.5"/><text x="40" y="196" fill="#fff" font-family="Georgia,serif" font-size="17" font-weight="700">Our side</text><g class="blk" data-k="core" tabindex="0" role="button" aria-label="Core"><rect x="40" y="212" width="230" height="96" rx="12" fill="#070F26"/><rect class="bx" x="40" y="212" width="230" height="96" rx="12" fill="#FF7A00" fill-opacity=".14" stroke="#FF7A00" stroke-width="2"/><text x="155.0" y="258.0" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700">Core</text><text x="155.0" y="280.0" text-anchor="middle" fill="rgba(255,255,255,.72)" font-family="Arial" font-size="13">delivery lead, architect, platform</text><text x="155" y="298" text-anchor="middle" fill="#FFC400" font-family="Arial" font-size="11" font-weight="700">COMMITTED</text></g><g class="blk" data-k="fde" tabindex="0" role="button" aria-label="Embedded FDE"><rect x="290" y="212" width="200" height="96" rx="12" fill="#070F26"/><rect class="bx" x="290" y="212" width="200" height="96" rx="12" fill="#FF7A00" fill-opacity=".14" stroke="#FF7A00" stroke-width="2"/><text x="390.0" y="258.0" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700">Embedded FDE</text><text x="390.0" y="280.0" text-anchor="middle" fill="rgba(255,255,255,.72)" font-family="Arial" font-size="13">user support team</text><text x="390" y="298" text-anchor="middle" fill="#FFC400" font-family="Arial" font-size="11" font-weight="700">CORE, ON SITE</text></g><g class="blk" data-k="eval" tabindex="0" role="button" aria-label="Evaluation pod"><rect x="510" y="212" width="210" height="96" rx="12" fill="#070F26"/><rect class="bx" x="510" y="212" width="210" height="96" rx="12" fill="#00CB5D" fill-opacity=".14" stroke="#00CB5D" stroke-width="2"/><text x="615.0" y="258.0" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700">Evaluation pod</text><text x="615.0" y="280.0" text-anchor="middle" fill="rgba(255,255,255,.72)" font-family="Arial" font-size="13">separate from build</text><text x="615" y="298" text-anchor="middle" fill="#FFC400" font-family="Arial" font-size="11" font-weight="700">CORE, SEPARATE</text></g><g class="blk" data-k="flex" tabindex="0" role="button" aria-label="Flex build pods"><rect x="740" y="212" width="220" height="96" rx="12" fill="#070F26"/><rect class="bx" x="740" y="212" width="220" height="96" rx="12" fill="#FF7A00" fill-opacity=".14" stroke="#FF7A00" stroke-width="2" stroke-dasharray="7 5"/><text x="850.0" y="258.0" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700">Flex build pods</text><text x="850.0" y="280.0" text-anchor="middle" fill="rgba(255,255,255,.72)" font-family="Arial" font-size="13">scale up and down</text><text x="850" y="298" text-anchor="middle" fill="#FFC400" font-family="Arial" font-size="11" font-weight="700">ELASTIC, NEAR-SHORE</text></g><g class="blk" data-k="academy" tabindex="0" role="button" aria-label="AI Academy"><rect x="40" y="328" width="230" height="84" rx="12" fill="#070F26"/><rect class="bx" x="40" y="328" width="230" height="84" rx="12" fill="#FFC400" fill-opacity=".14" stroke="#FFC400" stroke-width="2"/><text x="155.0" y="368.0" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700">AI Academy</text><text x="155.0" y="390.0" text-anchor="middle" fill="rgba(255,255,255,.72)" font-family="Arial" font-size="13">five levels</text></g><g class="blk" data-k="audit" tabindex="0" role="button" aria-label="Governance on audit"><rect x="290" y="328" width="670" height="84" rx="12" fill="#070F26"/><rect class="bx" x="290" y="328" width="670" height="84" rx="12" fill="#19A3FC" fill-opacity=".14" stroke="#19A3FC" stroke-width="2"/><text x="625.0" y="368.0" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700">Governance on audit</text><text x="625.0" y="390.0" text-anchor="middle" fill="rgba(255,255,255,.72)" font-family="Arial" font-size="13">evidence the client, auditors and FCA can read</text></g><g class="blk" data-k="plane" tabindex="0" role="button" aria-label=""><rect x="24" y="448" width="952" height="148" rx="12" fill="#070F26"/><rect class="bx" x="24" y="448" width="952" height="148" rx="12" fill="#00DFED" fill-opacity=".14" stroke="#00DFED" stroke-width="2"/><text x="500.0" y="528.0" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700"></text><text x="500" y="474" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700">Control plane: client-owned, we operate it under client identity</text><g font-family="Arial" font-size="13" fill="#fff" text-anchor="middle"><rect x="46" y="494" width="168" height="84" rx="9" fill="rgba(255,255,255,.08)"/><text x="130" y="541">Identity and access</text><rect x="226" y="494" width="168" height="84" rx="9" fill="rgba(255,255,255,.08)"/><text x="310" y="541">Model gateway</text><rect x="406" y="494" width="168" height="84" rx="9" fill="rgba(255,255,255,.08)"/><text x="490" y="541">Prompts and evals</text><rect x="586" y="494" width="168" height="84" rx="9" fill="rgba(255,255,255,.08)"/><text x="670" y="541">Logs and evidence</text><rect x="766" y="494" width="190" height="84" rx="9" fill="rgba(228,38,0,.25)" stroke="#E42600"/><text x="861" y="541" font-weight="700">Kill switch and exit</text></g></g><g stroke="rgba(255,255,255,.75)" stroke-width="2" fill="none" marker-end="url(#ah)"><path class="flow" d="M155 156V210"/><path class="flow" d="M850 156V210"/><path class="flow" d="M615 212V158"/><path class="flow" d="M390 212V158"/><path class="flow" d="M625 446V414"/></g></svg><div class="legend"><span><i style="background:#00DFED"></i>Client: accountable</span><span><i style="background:#FF7A00"></i>Our Core: committed</span><span><i style="background:transparent;border:2px dashed #FF7A00"></i>Our Flex: elastic</span><span><i style="background:#00CB5D"></i>Evaluation pod, separate from build</span><span><i style="background:#FFC400"></i>Academy</span></div><div class="pn" id="bbp"><div><h4></h4><span class="own"></span></div><ul></ul><div class="sla">Service levels: to be agreed with the client. Click any block.</div></div></div></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Team shape: starts small, grows by pod, settles lower</h3><div class="tabs" id="tst" role="tablist"><button class="tb on" data-p="0">Start: days 0-90</button><button class="tb" data-p="1">Scale: months 4-12</button><button class="tb" data-p="2">Steady state</button></div><div id="tsb"></div><div class="tstot"><b id="tsn">11</b><span id="tsc"></span></div><p class="note-s">Our headcounts for a firm of about 400 staff, not a quote. Client roles (sponsor, product owner, compliance, users) are not counted here.</p></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Embedded FDE: a small team sitting with the users</h3><div class="dm-wrap" id="fdeb"><svg class="dm-svg" viewBox="0 0 1000 380" role="img" aria-label="Embedded FDE team with Finance, HR and Operations"><g stroke="rgba(255,255,255,.35)" stroke-width="2" fill="none"><path class="flow" d="M500 190L320 100"/><path class="flow" d="M500 190L320 285"/><path class="flow" d="M500 190L680 190"/></g><g class="blk pulse" data-k="hub" tabindex="0" role="button" aria-label="Embedded FDE team"><circle cx="500" cy="190" r="92" fill="#070F26"/><circle cx="500" cy="190" r="92" fill="#FF7A00" fill-opacity=".2" stroke="#FF7A00" stroke-width="3" class="bx"/><text x="500" y="182" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="22" font-weight="700">Embedded FDE</text><text x="500" y="208" text-anchor="middle" fill="rgba(255,255,255,.75)" font-family="Arial" font-size="14">2 to 3 people</text></g><g class="blk" data-k="fin" tabindex="0" role="button" aria-label="Finance"><rect x="60" y="50" width="260" height="100" rx="12" fill="#070F26"/><rect class="bx" x="60" y="50" width="260" height="100" rx="12" fill="#FFFFFF" fill-opacity=".14" stroke="#FFFFFF" stroke-width="2"/><text x="190.0" y="98.0" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700">Finance</text><text x="190.0" y="120.0" text-anchor="middle" fill="rgba(255,255,255,.72)" font-family="Arial" font-size="13">AP · reconciliations · fee leakage</text></g><g class="blk" data-k="hr" tabindex="0" role="button" aria-label="HR"><rect x="60" y="235" width="260" height="100" rx="12" fill="#070F26"/><rect class="bx" x="60" y="235" width="260" height="100" rx="12" fill="#FFFFFF" fill-opacity=".14" stroke="#FFFFFF" stroke-width="2"/><text x="190.0" y="283.0" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700">HR</text><text x="190.0" y="305.0" text-anchor="middle" fill="rgba(255,255,255,.72)" font-family="Arial" font-size="13">policy Q&amp;A · onboarding</text></g><g class="blk" data-k="ops" tabindex="0" role="button" aria-label="Operations"><rect x="680" y="140" width="260" height="100" rx="12" fill="#070F26"/><rect class="bx" x="680" y="140" width="260" height="100" rx="12" fill="#FFFFFF" fill-opacity=".14" stroke="#FFFFFF" stroke-width="2"/><text x="810.0" y="188.0" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="19" font-weight="700">Operations</text><text x="810.0" y="210.0" text-anchor="middle" fill="rgba(255,255,255,.72)" font-family="Arial" font-size="13">case admin · chasers</text></g></svg><div class="chips" style="justify-content:center"><span><b>Observe</b> the workflow</span><span><b>Fix</b> in place</span><span><b>Teach</b> the team</span><span><b>Hand over</b> to champions</span></div><div class="pn" id="fdep"><div><h4></h4><span class="own"></span></div><ul></ul></div></div></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Near-shore for build and evaluation, on site for people</h3><div class="dm-wrap"><svg class="dm-svg" viewBox="0 0 1000 400" role="img" aria-label="On-site and near-shore delivery inside one client tenancy"><rect x="8" y="8" width="984" height="384" rx="18" fill="rgba(0,223,237,.05)" stroke="#00DFED" stroke-width="2" stroke-dasharray="4 8"/><text x="28" y="36" fill="#00DFED" font-family="Arial" font-size="14" font-weight="700">One client tenancy. Both sides work inside it.</text><rect x="30" y="64" width="410" height="300" rx="14" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.3)"/><text x="235" y="96" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="22" font-weight="700">On site, UK</text><g font-family="Arial" font-size="15" fill="#fff" text-anchor="middle"><rect x="60" y="120" width="170" height="64" rx="10" fill="rgba(0,223,237,.18)" stroke="#00DFED"/><text x="145" y="157">Client roles</text><rect x="240" y="120" width="170" height="64" rx="10" fill="rgba(255,122,0,.18)" stroke="#FF7A00"/><text x="325" y="157">Core and FDE team</text><rect x="60" y="200" width="170" height="64" rx="10" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.4)"/><text x="145" y="237">Business users</text><rect x="240" y="200" width="170" height="64" rx="10" fill="rgba(255,196,0,.15)" stroke="#FFC400"/><text x="325" y="237">Academy sessions</text><text x="235" y="304" fill="rgba(255,255,255,.7)" font-size="14">Client decides. Core leads and supports</text><text x="235" y="328" fill="rgba(255,255,255,.7)" font-size="14">where the work happens</text></g><rect x="560" y="64" width="410" height="300" rx="14" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.3)"/><text x="765" y="96" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="22" font-weight="700">Near-shore</text><g font-family="Arial" font-size="15" fill="#fff" text-anchor="middle"><rect x="590" y="120" width="170" height="64" rx="10" fill="rgba(255,122,0,.18)" stroke="#FF7A00"/><text x="675" y="157">Flex build pod</text><rect x="770" y="120" width="170" height="64" rx="10" fill="rgba(255,122,0,.18)" stroke="#FF7A00"/><text x="855" y="157">Flex build pod</text><rect x="590" y="200" width="350" height="64" rx="10" fill="rgba(0,203,93,.18)" stroke="#00CB5D"/><text x="765" y="237">Evaluation engineers (lead on site, Core)</text><text x="765" y="304" fill="rgba(255,255,255,.7)" font-size="14">Flex builds, tests, evaluates</text><text x="765" y="328" fill="rgba(255,255,255,.7)" font-size="14">with overlapping working hours</text></g><g stroke="#FFC400" stroke-width="3" fill="none"><path class="flow" d="M440 150H560"/><path class="flow" d="M560 232H440"/></g><text x="500" y="140" text-anchor="middle" fill="#FFC400" font-family="Arial" font-size="12" font-weight="700">backlog</text><text x="500" y="256" text-anchor="middle" fill="#FFC400" font-family="Arial" font-size="12" font-weight="700">releases</text></svg><div class="chips" style="justify-content:center"><span><b>Client identity</b> is the only way in</span><span><b>No data copies</b> leave the tenancy</span><span><b>Overlapping hours</b> with the on-site team</span><span><b>Client</b> stays accountable</span></div><p class="note-s">Location is not chosen. Criteria: time-zone overlap, data residency, rate and language. Residency needs counsel and the client's data-protection officer.</p></div></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">The AI Academy: five levels, each one unlocks something</h3><div class="dm-wrap" id="acad"><div class="stair" id="stair" style="min-height:0"></div><div class="pn" id="acp"><div><h4></h4><span class="own"></span></div><ul></ul><div class="sla"></div></div></div></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Evaluation pod: validating agents, continuously</h3><div class="dm-wrap" id="evb"><svg class="dm-svg" viewBox="0 0 1000 440" role="img" aria-label="Continuous evaluation loop"><circle cx="500" cy="220" r="150" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2" stroke-dasharray="3 9"/><circle cx="500" cy="220" r="150" fill="none" stroke="#00CB5D" stroke-width="3" stroke-dasharray="26 18" class="flow" opacity=".55"/><text x="500" y="212" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-size="22" font-weight="700">Evaluation pod</text><text x="500" y="238" text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="Arial" font-size="14">holds a release until tests pass</text><g id="evn"></g></svg><div class="pn" id="evp"><div><h4></h4><span class="own"></span></div><ul></ul></div><div class="chips"><span><b>Separate</b> from the build pods, inside our Core</span><span><b>Findings</b> go straight to client compliance</span><span><b>Owns</b> the eval suites and acceptance tests</span></div></div></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Governance on audit: ask the auditor anything</h3><div class="aq" id="aud"><div class="qs"></div><div class="ans"><h4></h4><div class="rec"></div><dl></dl></div></div><p class="note-s">Evidence is produced as the work happens and stored client-side. Retention periods and service levels are still to be agreed.</p></div></section>
+<section class="scene scene-open" data-n="IV" id="act4"><div class="scene-in"><p class="act-k">Act IV</p><h2 class="act-t">The governance layer.<br>Built once, reused for every use case.</h2><p class="act-s">A tiering gate and evidence by tier. UK duties bind today; the EU AI Act is the design benchmark.</p></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">One gate sorts every use case into a tier</h3>
+<div class="ladder"><div class="lad-row">
+<div class="lad l1"><b>T0</b><u>Internal productivity</u><p>No personal data on customers or staff, and no decisions about people.</p><p class="note-s">Inventory entry, owner, acceptable-use acknowledgement, vendor terms check.</p></div>
+<div class="lad l2"><b>T1</b><u>Transparency</u><p>Customer-facing or generated content. Personal data, but no decision on a person.</p><p class="note-s">Adds Art 50 disclosure design, DPIA screen, Consumer Duty check, test log.</p></div>
+<div class="lad l3"><b>T2</b><u>Assistive on people</u><p>Supports a human decision about customers or staff. Run as if high-risk-lite.</p><p class="note-s">Adds risk assessment, bias and accuracy test report, oversight procedure with override and sampling, and SMF-owner sign-off.</p></div>
+<div class="lad l4"><b>T3</b><u>High-risk equivalent</u><p>Hiring, performance, or affordability scoring of individuals. Stop-and-review.</p><p class="note-s">Adds a DPIA, plus a FRIA where Art 27 applies (such as credit scoring), oversight authorisation, worker and affected-person notices, and board visibility (our addition).</p></div></div>
+<p class="ex-note">Tiers and artefacts are our design, judgement-based. Any prohibited-practice hit stops the use case. Hits include emotion recognition on staff.</p></div></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">When the EU AI Act bites on a UK mortgage firm</h3><div class="banklist"><div class="bk"><b>2 Feb 2025</b><em>In force</em><p>Prohibited practices and the AI literacy duty. The Omnibus eased the literacy duty: no per-person sufficiency test. A documented programme is our proposed evidence.</p></div><div class="bk"><b>27 Jul 2026</b><em>In force</em><p>Digital Omnibus, Regulation (EU) 2026/1744, delays the high-risk dates. We did not read the Official Journal text: verify before client use.</p></div><div class="bk"><b>2 Aug 2026</b><em>In force</em><p>Transparency duties for chatbots and generated content (Art 50). A grace period for marking generative output on the market before this date runs to 2 Dec 2026.</p></div><div class="bk"><b>2 Dec 2027</b><em>Upcoming</em><p>High-risk duties for Annex III, including employment and credit scoring.</p></div><div class="bk"><b>2 Aug 2028</b><em>Upcoming</em><p>High-risk duties for AI embedded in regulated products.</p></div></div><div class="callout"><b>Reach</b><p>A UK-only firm with no EU customers, staff or entities is largely outside the Act. It bites where AI output is used in the EU (Art 2(1)(c)). Consumer Duty, SM&CR and UK GDPR are the binding drivers; the AI Act is the benchmark and the contract flow-down.</p></div></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Duty or supervisory expectation, mapped to a CoE control</h3><div class="banklist"><div class="bk"><b>Firm remains responsible for outcomes incl. external models</b><em>Mills Review PDF</em><p>Named SMF owner; AI use-case register with business owner per use case</p></div><div class="bk"><b>Meaningful human oversight, not tick-box</b><em>Mills Review</em><p>Oversight design spec per use case (reviewer authority, info, override, escalation thresholds, blind review where useful); autonomy cap A0-A2 initially (A1 at launch)</p></div><div class="bk"><b>Live model risk monitoring (drift, bias)</b><em>Mills Review rec 3</em><p>Post-deployment monitoring, periodic revalidation, out-of-bounds detection, kill switch</p></div><div class="bk"><b>Third-party/model provider dependency, exit plans, notice of model…</b><em>FCA good/poor practice</em><p>Vendor inventory, procurement gate with Legal/Compliance/Risk, contract clauses for model change notice, exit and contingency tests, multi-provider architecture</p></div><div class="bk"><b>Auditable logs of prompts, outputs, model version, overrides</b><em>FCA good/poor practice</em><p>Logging and retention standard; sampling QA</p></div><div class="bk"><b>Operational incident reporting from 18 Mar 2027</b><em>FCA PS26/2</em><p>AI incident taxonomy linked to firm incident process; check PS26/2 thresholds with Compliance</p></div><div class="bk"><b>Consumer Duty outcomes, vulnerability, route to human</b><em>FCA good/poor practice</em><p>Duty impact screen at intake; any customer-facing or advice-adjacent use case out of scope pending separate approval</p></div><div class="bk"><b>ADM safeguards, special category limits, DPIA</b><em>DUAA 2025 s.80, in force 5 Feb 2026</em><p>ADM screening question at intake; DPIA; block solely-automated HR decisions; candidate/employee transparency and challenge route</p></div><div class="bk"><b>Advice and suitability records (MCOB 4)</b><em>FCA Handbook (not fetched)</em><p>Wave 1: no AI output enters the advice file or suitability record. Wave 2 (O2, O3, O4, O6): only adviser-approved, logged extracts, after Compliance review against MCOB. Rule detail is unverified.</p></div><div class="bk"><b>Senior management systems and controls (SYSC)</b><em>FCA Handbook</em><p>Used as the benchmark for supervising outsourced work, keeping access to data and holding a contingency plan. Scope for this firm type is unconfirmed.</p></div></div><p class="note-s">Mills Review rows are direction of travel, not rules. Drawn from the Mills Review text, FCA good and poor practice, PS26/2 and the Data (Use and Access) Act. PS26/2 incident reporting applies from 18 Mar 2027; a solo mortgage intermediary appears out of scope for its third-party register, which is our inference.</p></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">One backbone, three lenses</h3><ol class="manifesto manifesto-sc"><li><b>ISO/IEC 42001 as the management system</b><p>Policies, risk and impact assessment, internal audit, continual improvement. Certifiability is unverified.</p><span>Backbone</span></li><li><b>NIST AI RMF for the risk practice</b><p>Govern, Map, Measure, Manage. Map is the inventory and tiering gate; Manage is treatment and incidents.</p><span>Practice</span></li><li><b>EU AI Act as the benchmark</b><p>Used for classification, oversight, logging, literacy and incident duties. Mapping to articles is our judgement.</p><span>Benchmark</span></li></ol></div></section>
+<section class="scene"><div class="scene-in"><p class="bigline">Hiring and performance AI<br>is <em>high-risk by default</em><br>under the EU Act, where it reaches you.</p>
+<div class="callout"><b>Applied to the first portfolio</b><p>Annex III lists recruitment and worker evaluation; the Act's narrow carve-outs never apply where individuals are profiled. CV screening (H4) and performance analytics (H5) are out of the initial scope. Where used at all, they stay at assist-only, with aggregate themes and no individual scoring. UK GDPR now allows automated decisions with safeguards, but the ICO's guidance is still draft in sources we checked, and its recruitment report asks for bias monitoring and a route to challenge.</p></div></div></section>
+<section class="scene scene-open" data-n="V" id="act5"><div class="scene-in"><p class="act-k">Act V</p><h2 class="act-t">Where it starts,<br>and what it returns.</h2><p class="act-s">Eighteen candidate use cases in Finance, HR and Operations, and a benefits case that is honest about cash.</p></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">The starting portfolio: 18 use cases, wave 1 has no customer-facing output</h3><div class="exhibit exhibit-wide"><div class="ex-label"><span class="ex-num">PORTFOLIO</span><span class="ex-title">CoE tier, EU AI Act view and autonomy are proposals. Benefit logic is directional.</span></div><div class="tw"><table class="ut"><thead><tr><th>ID</th><th>Use case</th><th>CoE tier</th><th>EU AI Act view</th><th>Autonomy</th><th>Benefit logic</th></tr></thead><tbody><tr><td>F1</td><td><b>AP invoice capture and coding</b></td><td><b>T0</b></td><td>Minimal</td><td>A1 draft+approve (A2 w/ sampling for low-value, repeat suppliers after 3 mo)</td><td>Cuts keying/coding time; cost-per-invoice and cycle-time benchmarks</td></tr><tr><td>F2</td><td><b>Bank/ledger reconciliations and break triage</b></td><td><b>T0</b></td><td>Minimal</td><td>A1; A2 for rule-matched items with sampling</td><td>Auto-match + explain breaks; fewer manual matches; faster close</td></tr><tr><td>F3</td><td><b>Month-end close commentary and variance analysis drafting</b></td><td><b>T0</b></td><td>Minimal</td><td>A1 draft+approve</td><td>Drafting is the strongest evidenced AI task; analyst time redeployed to insight. Caution: Excel analysis was worse in DBT observed tasks</td></tr><tr><td>F4</td><td><b>Expense audit (policy checks, duplicate/receipt matching)</b></td><td><b>T2</b></td><td>Minimal (flag employee-affecting outcomes: no auto-sanction)</td><td>A0 flag; A2 auto-approve in-policy with sampling</td><td>Full-population checks vs sampling; leakage reduction</td></tr><tr><td>F5</td><td><b>Commission / procuration-fee reconciliation (lender vs CRM vs adviser…</b></td><td><b>T1</b></td><td>Minimal</td><td>A1; A2 for exact matches with sampling</td><td>Revenue-assurance: catch missing/underpaid procfees; clawback tracking. Possible genuine cash benefit</td></tr><tr><td>F6</td><td><b>Regulatory returns drafting and checking (RMAR, fees/levy support)</b></td><td><b>T0</b></td><td>Minimal/limited</td><td>A1 draft; human sign-off (SMF accountability)</td><td>Pre-populate, cross-check to prior periods; audit trail. Accountability stays with SMF</td></tr><tr><td>H1</td><td><b>HR policy Q&amp;A assistant (employee self-service, grounded in policy…</b></td><td><b>T1</b></td><td>Limited (transparency: disclose AI chatbot)</td><td>A0 answer+cite; route to HR on low confidence</td><td>Query deflection; IBM claims 94% containment (vendor)</td></tr><tr><td>H2</td><td><b>Onboarding checklists, content and admin drafting</b></td><td><b>T1</b></td><td>Minimal</td><td>A1</td><td>Time to productivity; HR admin hours</td></tr><tr><td>H3</td><td><b>Job description / advert drafting</b></td><td><b>T0</b></td><td>Minimal (note: adverts targeting = Annex III 4(a) if AI targets/filters)</td><td>A1</td><td>Drafting speed; consistency; bias language check</td></tr><tr><td>H4</td><td><b>Recruitment CV screening / candidate ranking</b></td><td><b>T3</b></td><td>HIGH-RISK (Annex III 4(a)) if EU AI Act applies</td><td>A0 only / defer; not in initial scope</td><td>Defer: compliance burden (conformity, oversight, logging) outweighs early benefit</td></tr><tr><td>H5</td><td><b>Performance / engagement analytics</b></td><td><b>T3 (T2 if aggregate only)</b></td><td>HIGH-RISK (Annex III 4(b)) if used to evaluate/monitor workers; aggregate anonymised survey…</td><td>A0 aggregate themes only; no individual scoring</td><td>Theme summarisation of survey comments only; defer individual-level</td></tr><tr><td>H6</td><td><b>Payroll query handling and triage</b></td><td><b>T1</b></td><td>Limited</td><td>A1 draft reply; A0 for pay-affecting changes</td><td>Deflect repetitive queries; payroll team keeps decisions</td></tr><tr><td>O1</td><td><b>Case admin and workflow triage (task routing, chasers, status notes)</b></td><td><b>T1</b></td><td>Minimal</td><td>A1; A2 chasers with sampling</td><td>Admin hours; SLA speed</td></tr><tr><td>O2</td><td><b>Document extraction (ID, income, mortgage docs to structured fields)</b></td><td><b>T2</b></td><td>Minimal/limited (not creditworthiness scoring; if used to assess credit = Annex III 5(b)…</td><td>A1 verify; A2 with sampling after accuracy proven</td><td>High volume, repeatable; extraction accuracy measurable</td></tr><tr><td>O3</td><td><b>File-check / QC sampling support (checklist pre-fill, gap flagging)</b></td><td><b>T2</b></td><td>Minimal</td><td>A0 flag; human reviewer decides</td><td>Widens QC coverage vs sampling; consistent checks; Consumer Duty evidence</td></tr><tr><td>O4</td><td><b>Complaints triage and categorisation, draft acknowledgement</b></td><td><b>T2</b></td><td>Limited</td><td>A1; human decides outcome</td><td>Speed to DISP deadlines; theme MI</td></tr><tr><td>O5</td><td><b>Training and competence records (T&amp;C) tracking, reminders, evidence…</b></td><td><b>T2</b></td><td>Minimal (if used to assess staff competence/performance, Annex III 4(b) risk)</td><td>A1 reminders/evidence; no individual scoring</td><td>Audit-readiness; admin time</td></tr><tr><td>O6</td><td><b>Call/file note summarisation for internal MI (not advice outputs)</b></td><td><b>T1</b></td><td>Limited</td><td>A1 human check; not used for advice record without adviser approval</td><td>Summaries showed strong time savings in DBT observed task (12.5 vs 41.5 min); quality uplift</td></tr></tbody></table></div><p class="ex-note">Finance F1-F6, HR H1-H6, Operations O1-O6. Source: shard S4, our assumptions. CoE tiers T0 to T3 are our judgement and need counsel to confirm; O2, O3, O4 and O6 are wave 2 and stay out of the advice file (see the boundary decision). Wave 1 is F1 to F6, H1 to H3, H6, O1 and O5.</p></div></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Illustrative base case: time is released, but cash is only a quarter of it</h3>
+<div class="gapbars"><div class="gbx"><div class="gb-head"><span>Time value released per year</span><b>&pound;249k</b></div><div class="gb-track"><div class="gb-fill" style="--w:100%;background:var(--ntt-future-blue)"></div></div></div>
+<div class="gbx"><div class="gb-head"><span>Cash realised at 25% capture</span><b>&pound;62k</b></div><div class="gb-track"><div class="gb-fill" style="--w:25%;background:var(--ntt-turquoise)"></div></div></div>
+<div class="gbx"><div class="gb-head"><span>Assumed run cost</span><b>&pound;100k</b></div><div class="gb-track"><div class="gb-fill" style="--w:40%;background:var(--ntt-orange)"></div></div></div></div>
+<div class="statwall statwall-3"><div class="stat"><b>&minus;&pound;94k</b><i></i><u>Low, net cash</u><p>0.5 h a week, 50% adoption, 10% capture.</p></div><div class="stat"><b>&minus;&pound;38k</b><i></i><u>Base, net cash</u><p>1.5 h a week, 70% adoption, 25% capture.</p></div><div class="stat"><b>+&pound;185k</b><i></i><u>High, net cash</u><p>3 h a week, 80% adoption, 50% capture.</p></div></div>
+<p class="note-s">Every input is an assumption: 400 staff, 120 users, 44 weeks, &pound;45 an hour loaded. The &pound;100k run cost covers licences, support and governance tooling only. It excludes Core and Flex fees, so net cash here is before those; a full-cost view is next. Base case is about 5,500 hours, or 3.4 FTE at roughly 1,650 hours per FTE (44 weeks of 37.5 hours, also an assumption).</p></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">What the time-saved case is worth only if cash levers are named</h3>
+<div class="jag"><div class="jag-col"><div class="jag-t">Levers that turn time into cash</div><div class="jag-d">Each needs an owner and a target in the ledger.</div>
+<ul class="vlist"><li>Invoice and reconciliation automation (F1, F2)</li><li>Procuration-fee leakage recovery (F5): potentially direct cash, size unknown</li><li>Vacancy avoidance, and contractor or overtime reduction</li><li>Redeployed capacity with a named destination</li></ul></div>
+<div class="jag-col"><div class="jag-t">Why not assume it</div><div class="jag-d">Independent evidence shows time saved is not cash saved.</div>
+<ul class="xlist"><li>UK government Copilot trial: 26 minutes a day, self-reported; use of saved time unknown</li><li>DBT evaluation: no robust evidence that time savings improved productivity</li><li>Gartner HR survey: 88% of HR leaders have not realised significant value</li><li>McKinsey: only 39% report any EBIT impact, mostly under 5%</li></ul></div></div></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">First 90 days (our proposal)</h3>
+<div class="tline">
+<div class="tl-node"><div class="tl-dot" style="border-color:var(--ntt-turquoise)">&#9679;</div><u>Days 0-30</u><b>Stand up client roles and our Core</b><p>Sponsor, accountable executive and product owner named. Our Core in place. AI register, tiering gate, acceptable-use rules, literacy programme. Minimal control plane.</p></div>
+<div class="tl-link"><span></span></div>
+<div class="tl-node"><div class="tl-dot" style="border-color:var(--ntt-orange)">&#9679;</div><u>Days 31-60</u><b>First Flex pod</b><p>Three use cases on the paved path, with baselines in the outcome ledger. Decision packs drafted for each.</p></div>
+<div class="tl-link"><span></span></div>
+<div class="tl-node"><div class="tl-dot" style="border-color:var(--ntt-green)">&#9679;</div><u>Days 61-90</u><b>Release and review</b><p>First releases at A1. Kill-switch drill and exit tabletop. Board review decides scale, stop or change.</p></div></div>
+<p class="note-s">First three use cases are not chosen: we suggest picking from F1, F2, F5, H1 and O1 once baselines exist. O2, O3, O4 and O6 touch advice-file or customer material, so they wait for wave 2 with MCOB and Consumer Duty controls. In wave 1, O1 chasers are internal or lender-facing only.</p></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">Decisions we need from you</h3><ol class="manifesto manifesto-sc"><li><b>Who is the accountable executive?</b><p>Which SMF carries AI oversight, and how is it recorded?</p><span>Governance</span></li><li><b>Who holds the client roles, and how big is our Core?</b><p>Sponsor, accountable executive, product owner and compliance owners on the client side. Core size and key roles on ours.</p><span>Resourcing</span></li><li><b>Where does the control plane live?</b><p>Which tenancy, and which of our platform engineers hold admin access under client identity.</p><span>Platform</span></li><li><b>What are the Flex cap and the at-risk share?</b><p>Monthly cap, notice period, and the 10-15% starting point.</p><span>Commercial</span></li><li><b>Is there any EU nexus?</b><p>EU borrowers, staff or group entities decide how hard the AI Act bites.</p><span>Regulatory</span></li><li><b>Which first three use cases?</b><p>And which cash lever each one is accountable for.</p><span>Scope</span></li><li><b>What stays out of scope?</b><p>Confirm: no customer-facing, advice-file or hiring decisions at launch, and O2, O3, O4 and O6 deferred to wave 2.</p><span>Boundary</span></li></ol></div></section>
+<section class="scene"><div class="scene-in"><h3 class="sc-title">What we have not verified, and what we assumed</h3>
+<div class="jag"><div class="jag-col"><div class="jag-t">Not verified</div><div class="jag-d">Do not present these as fact.</div>
+<ul class="xlist"><li>MCOB 4 specifics; SYSC 15A scope; PS26/2 thresholds for a solo-regulated firm</li><li>Which SMF should own AI: no FCA statement found</li><li>The EU Official Journal text of the Omnibus; Council adoption date (29 or 30 June)</li><li>Share of firms with a formal AI CoE; escrow, data-residency and kill-switch practice</li><li>UK mortgage-intermediary benchmarks; AP cost figures are vendor, secondhand</li></ul></div>
+<div class="jag-col"><div class="jag-t">Assumed</div><div class="jag-d">Change any of these and the numbers move.</div>
+<ul class="vlist"><li>A solo-regulated mortgage advice firm, roughly 400 staff, 120 shared-service users</li><li>Initial use is internal; no customer-facing or advice-file use</li><li>Run cost of &pound;100k, loaded cost of &pound;45 an hour</li><li>Not legal advice: counsel should confirm tiers and regulatory scope</li></ul></div></div></div></section>
+<section class="epi" id="epilogue"><p class="act-k">In summary</p><h2 class="act-t">The client stays accountable.<br>Make control structural.</h2><p class="act-s">Productivity is the entry point. Accountability is what the model protects.</p>
+<div class="epi-list"><div><b>01</b><u>Hold the keys.</u><p>The client keeps every accountable role and owns the tenancy. Our committed Core and elastic Flex work inside it.</p></div><div><b>02</b><u>Tier once, reuse always.</u><p>One gate and evidence by tier serve the FCA, UK GDPR and the EU AI Act benchmark.</p></div><div><b>03</b><u>Count cash, not hours.</u><p>The ledger names a cash lever and an owner for each use case before Flex fees are earned.</p></div></div></section>
+<footer class="foot"><div class="foot-grid"><div class="foot-brand"><p>AI CoE proposal &middot; interim v2<br>Draft for review &middot; 22 Nov 2026<br>Illustrative; not legal advice</p></div><div class="foot-src"><b>Sources</b><p class="src"><a href="https://artificialintelligenceact.eu/annex/3/" rel="noopener">artificialintelligenceact.eu/annex/3/</a> <a href="https://artificialintelligenceact.eu/article/12/" rel="noopener">artificialintelligenceact.eu/article/12/</a> <a href="https://artificialintelligenceact.eu/article/14/" rel="noopener">artificialintelligenceact.eu/article/14/</a> <a href="https://artificialintelligenceact.eu/article/2/" rel="noopener">artificialintelligenceact.eu/article/2/</a> <a href="https://artificialintelligenceact.eu/article/26/" rel="noopener">artificialintelligenceact.eu/article/26/</a> <a href="https://artificialintelligenceact.eu/article/27/" rel="noopener">artificialintelligenceact.eu/article/27/</a> <a href="https://artificialintelligenceact.eu/article/4/" rel="noopener">artificialintelligenceact.eu/article/4/</a> <a href="https://artificialintelligenceact.eu/article/5/" rel="noopener">artificialintelligenceact.eu/article/5/</a> <a href="https://artificialintelligenceact.eu/article/50/" rel="noopener">artificialintelligenceact.eu/article/50/</a> <a href="https://artificialintelligenceact.eu/article/6/" rel="noopener">artificialintelligenceact.eu/article/6/</a> <a href="https://artificialintelligenceact.eu/implementation-timeline/" rel="noopener">artificialintelligenceact.eu/implementation-timeline/</a> <a href="https://arxiv.org/html/2504.11443v1" rel="noopener">arxiv.org/html/2504.11443v1</a> <a href="https://arxiv.org/pdf/2408.11925" rel="noopener">arxiv.org/pdf/2408.11925</a> <a href="https://assets.publishing.service.gov.uk/media/68adbe409e1cebdd2c96a19d/dbt-microsoft-365-copilot-evaluation.pdf" rel="noopener">assets.publishing.service.gov.uk/media/68adbe409e1cebdd2c96a19</a> <a href="https://bfi.uchicago.edu/working-paper/large-language-models-small-labor-market-effects/" rel="noopener">bfi.uchicago.edu/working-paper/large-language-models-small-lab</a> <a href="https://eeas.europa.eu/delegations/chile/artificial-intelligence-council-gives-final-green-light-simplify-and-streamline-rules_en" rel="noopener">eeas.europa.eu/delegations/chile/artificial-intelligence-counc</a> <a href="https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/" rel="noopener">fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pil</a> <a href="https://handbook.fca.org.uk/handbook/sysc8/sysc8s1" rel="noopener">handbook.fca.org.uk/handbook/sysc8/sysc8s1</a> <a href="https://ico.org.uk/about-the-ico/media-centre/news-and-blogs/2026/02/statement-on-the-commencement-of-the-data-use-and-access-act-duaa" rel="noopener">ico.org.uk/about-the-ico/media-centre/news-and-blogs/2026/02/s</a> <a href="https://ico.org.uk/about-the-ico/media-centre/news-and-blogs/2026/03/automated-decisions-can-streamline-the-hiring-process-with-the-right-safeguards-in-place/" rel="noopener">ico.org.uk/about-the-ico/media-centre/news-and-blogs/2026/03/a</a> <a href="https://ico.org.uk/for-organisations/adm/" rel="noopener">ico.org.uk/for-organisations/adm/</a> <a href="https://media-publications.bcg.com/The-Widening-AI-Value-Gap-October-2025.pdf" rel="noopener">media-publications.bcg.com/The-Widening-AI-Value-Gap-October-2</a> <a href="https://techinsights.linklaters.com/post/102ms10/omnibus-agreement-how-the-eu-ai-act-changes" rel="noopener">techinsights.linklaters.com/post/102ms10/omnibus-agreement-how</a> <a href="https://www.apqc.org/blog/4-kpis-set-good-accounts-payable-organizations-apart" rel="noopener">apqc.org/blog/4-kpis-set-good-accounts-payable-organizations-a</a> <a href="https://www.bain.com/insights/ai-pricing-a-reality-check-on-effort-usage-and-outcomes/" rel="noopener">bain.com/insights/ai-pricing-a-reality-check-on-effort-usage-a</a> <a href="https://www.bankofengland.co.uk/report/2024/artificial-intelligence-in-uk-financial-services-2024" rel="noopener">bankofengland.co.uk/report/2024/artificial-intelligence-in-uk-</a> <a href="https://www.bankofengland.co.uk/report/2026/artificial-intelligence-in-uk-financial-services-2026" rel="noopener">bankofengland.co.uk/report/2026/artificial-intelligence-in-uk-</a> <a href="https://www.businesswire.com/news/home/20250609892641/en/The-Hackett-Group-Digital-World-Class-Finance-Teams-Operate-at-45-Lower-Cost-and-Deliver-Faster-Smarter-Insights" rel="noopener">businesswire.com/news/home/20250609892641/en/The-Hackett-Group</a> <a href="https://www.cgi.com/us/en-us/article/managed-it-outsourcing-services/pricing-ai" rel="noopener">cgi.com/us/en-us/article/managed-it-outsourcing-services/prici</a> <a href="https://www.deloitte.com/us/en/about/press-room/state-of-ai-report-2026" rel="noopener">deloitte.com/us/en/about/press-room/state-of-ai-report-2026</a> <a href="https://www.deloitte.com/us/en/pages/operations/articles/2025-global-business-services-survey.html" rel="noopener">deloitte.com/us/en/pages/operations/articles/2025-global-busin</a> <a href="https://www.dlapiper.com/en-au/insights/publications/2024/01/the-role-of-harmonised-standards-as-tools-for-ai-act-compliance" rel="noopener">dlapiper.com/en-au/insights/publications/2024/01/the-role-of-h</a> <a href="https://www.europarl.europa.eu/news/sv/press-room/20260323IPR38829/artificial-intelligence-act-delayed-application-ban-on-nudifier-apps" rel="noopener">europarl.europa.eu/news/sv/press-room/20260323IPR38829/artific</a> <a href="https://www.fca.org.uk/firms/ai-approach" rel="noopener">fca.org.uk/firms/ai-approach</a> <a href="https://www.fca.org.uk/firms/innovation/ai-approach" rel="noopener">fca.org.uk/firms/innovation/ai-approach</a> <a href="https://www.fca.org.uk/firms/outsourcing-and-operational-resilience" rel="noopener">fca.org.uk/firms/outsourcing-and-operational-resilience</a> <a href="https://www.fca.org.uk/publication/corporate/the-mills-review.pdf" rel="noopener">fca.org.uk/publication/corporate/the-mills-review.pdf</a> <a href="https://www.fca.org.uk/publication/policy/ps26-2.pdf" rel="noopener">fca.org.uk/publication/policy/ps26-2.pdf</a> <a href="https://www.fca.org.uk/publications/corporate-documents/mills-review" rel="noopener">fca.org.uk/publications/corporate-documents/mills-review</a> <a href="https://www.fca.org.uk/publications/good-poor-practice/ai-financial-services" rel="noopener">fca.org.uk/publications/good-poor-practice/ai-financial-servic</a> <a href="https://www.fca.org.uk/publications/policy-statements/ps26-2-operational-incident-third-party-reporting" rel="noopener">fca.org.uk/publications/policy-statements/ps26-2-operational-i</a> <a href="https://www.fullstack.com/blog/staff-augmentation-vs-consulting-where-fdes-fit-for-ai" rel="noopener">fullstack.com/blog/staff-augmentation-vs-consulting-where-fdes</a> <a href="https://www.gartner.com/en/newsroom/press-releases/2025-06-30-gartner-survey-finds-forty-five-percent-of-organizations-with-high-artificial-intelligence-maturity-keep-artificial-intelligence-projects-operational-for-at-least-three-years" rel="noopener">gartner.com/en/newsroom/press-releases/2025-06-30-gartner-surv</a> <a href="https://www.gartner.com/en/newsroom/press-releases/2025-10-28-gartner-survey-shows-88-percent-of-hr-leaders-say-their-organizations-have-not-realized-significant-business-value-from-ai-tools" rel="noopener">gartner.com/en/newsroom/press-releases/2025-10-28-gartner-surv</a> <a href="https://www.gartner.com/en/newsroom/press-releases/2025-11-04-gartner-survey-finds-regular-ai-system-assessments-triple-the-likelihood-of-high-genai-value" rel="noopener">gartner.com/en/newsroom/press-releases/2025-11-04-gartner-surv</a> <a href="https://www.gov.uk/government/publications/microsoft-365-copilot-experiment-cross-government-findings-report/microsoft-365-copilot-experiment-cross-government-findings-report-html" rel="noopener">gov.uk/government/publications/microsoft-365-copilot-experimen</a> <a href="https://www.gtlaw.com/ar/insights/2026/11/ai-in-uk-financial-services-fca-highlights-good-practice-and-areas-for-improvement" rel="noopener">gtlaw.com/ar/insights/2026/11/ai-in-uk-financial-services-fca-</a> <a href="https://www.ibm.com/case-studies/ibm-askhr" rel="noopener">ibm.com/case-studies/ibm-askhr</a> <a href="https://www.legislation.gov.uk/uksi/2026/82/regulation/2/made" rel="noopener">legislation.gov.uk/uksi/2026/82/regulation/2/made</a> <a href="https://www.lewissilkin.com/insights/2026/07/27/the-digital-omnibus-on-ai-enters-into-force-today" rel="noopener">lewissilkin.com/insights/2026/07/27/the-digital-omnibus-on-ai-</a> <a href="https://www.lewissilkin.com/insights/2026/09/14/ai-judgment-day-on-the-horizon-while-uk-lawmakers-play-catch-up" rel="noopener">lewissilkin.com/insights/2026/09/14/ai-judgment-day-on-the-hor</a> <a href="https://www.lewissilkin.com/insights/2026/10/23/building-ai-the-right-way-fca-shares-good-and-bad-practice-102o6ay" rel="noopener">lewissilkin.com/insights/2026/10/23/building-ai-the-right-way-</a> <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-2025" rel="noopener">mckinsey.com/capabilities/quantumblack/our-insights/the-state-</a> <a href="https://www.mckinsey.com/our-insights/the-state-of-ai-how-organizations-are-rewiring-to-capture-value" rel="noopener">mckinsey.com/our-insights/the-state-of-ai-how-organizations-ar</a> <a href="https://www.nber.org/papers/w31161" rel="noopener">nber.org/papers/w31161</a> <a href="https://www.netguru.com/blog/ai-staff-augmentation-vs-forward-deployed-engineering" rel="noopener">netguru.com/blog/ai-staff-augmentation-vs-forward-deployed-eng</a> <a href="https://www.nist.gov/itl/ai-risk-management-framework" rel="noopener">nist.gov/itl/ai-risk-management-framework</a> <a href="https://www.ons.gov.uk/businessindustryandtrade/business/businessservices/articles/artificialintelligenceinukbusinesses/2023to2026" rel="noopener">ons.gov.uk/businessindustryandtrade/business/businessservices/</a> <a href="https://www.simmons-simmons.com/en/publications/cmn8y53420056ustopg00frn1/fca-policy-statement-on-operational-incident-and-third-party-reporting" rel="noopener">simmons-simmons.com/en/publications/cmn8y53420056ustopg00frn1/</a> <a href="https://www.stephensonharwood.com/post/102o6iw/fca-sets-expectations-for-ai-what-do-reasonable-steps-look-like-for-senior-managers/" rel="noopener">stephensonharwood.com/post/102o6iw/fca-sets-expectations-for-a</a> <a href="https://www.traverssmith.com/knowledge/knowledge-container/uks-data-protection-reforms-take-effect-a-new-era-for-automated-decision-making/" rel="noopener">traverssmith.com/knowledge/knowledge-container/uks-data-protec</a> <a href="https://www.tsia.com/blog/state-of-ai-technology-services-2026-ai-economics" rel="noopener">tsia.com/blog/state-of-ai-technology-services-2026-ai-economic</a> <a href="https://www.wexinc.com/resources/blog/what-does-it-cost-to-process-an-invoice-ap-benchmarks-every-finance-team-should-know/" rel="noopener">wexinc.com/resources/blog/what-does-it-cost-to-process-an-invo</a> <a href="https://www.whitecase.com/insight-alert/eu-ai-omnibus-enters-force-amending-ai-act" rel="noopener">whitecase.com/insight-alert/eu-ai-omnibus-enters-force-amendin</a> </p></div></div></footer><header id="bar"><nav id="bar-acts" aria-label="Acts"><a href="#act1" data-op="act1"><b>I</b><span>Why now</span></a><a href="#act2" data-op="act2"><b>II</b><span>Core and Flex</span></a><a href="#act3" data-op="act3"><b>III</b><span>Delivery model</span></a><a href="#act4" data-op="act4"><b>IV</b><span>Governance layer</span></a><a href="#act5" data-op="act5"><b>V</b><span>Start and return</span></a><a href="#epilogue" data-op="epilogue"><b>&middot;</b><span>Summary</span></a></nav><button id="idxbtn">Index</button><div id="prog"></div></header><div id="chindex" role="dialog" aria-modal="true"><div class="chin"><div class="chin-head"><span></span><button id="idxclose" aria-label="Close">&times;</button></div><a class="chrow" href="#prologue"><span>&middot;</span><b>The client holds the controls</b></a><a class="chrow" href="#act1"><span>I</span><b>Why now</b></a><a class="chrow" href="#act2"><span>II</span><b>Core and Flex</b></a><a class="chrow" href="#act3"><span>III</span><b>Delivery model</b></a><a class="chrow" href="#act4"><span>IV</span><b>Governance layer</b></a><a class="chrow" href="#act5"><span>V</span><b>Start and return</b></a><a class="chrow" href="#epilogue"><span>&middot;</span><b>Summary</b></a></div></div><script>
+/* reveal-on-scroll: fade/rise each direct child of a scene as it enters view.
+   Content-agnostic — works on any deck built from this skeleton. */
+(function(){
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!('IntersectionObserver' in window)) return;
+  var targets = document.querySelectorAll('.scene-in > *, .epi > *, .cover-copy > *, .split > div');
+  targets.forEach(function(t){ if(!reduced) t.classList.add('pre-rv'); });
+  var io = new IntersectionObserver(function(ents){
+    ents.forEach(function(en){
+      if(!en.isIntersecting) return;
+      io.unobserve(en.target);
+      en.target.classList.add('rv');
+    });
+  }, {threshold: 0.1, rootMargin:'0px 0px -6% 0px'});
+  targets.forEach(function(t){ io.observe(t); });
+})();
+
+/* sticky act bar: show after leaving the cover, track scroll progress,
+   highlight the current act. Determines "current act" by which section
+   is nearest the top of the viewport — simpler than tracking a separate
+   view/paging state, and works for a single continuous scroll page. */
+(function(){
+  var bar = document.getElementById('bar'), prog = document.getElementById('prog');
+  var links = Array.prototype.slice.call(document.querySelectorAll('#bar-acts a'));
+  var acts = Array.prototype.slice.call(document.querySelectorAll('[id^="act"], #epilogue'));
+  var cover = document.getElementById('prologue');
+  function upd(){
+    var y = window.scrollY;
+    bar.classList.toggle('on', y > (cover ? cover.offsetHeight * 0.6 : 200));
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (h > 0 ? (y / h * 100) : 0) + '%';
+    var cur = '';
+    acts.forEach(function(s){ if(s.getBoundingClientRect().top <= window.innerHeight * 0.4) cur = s.id; });
+    links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('data-op') === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function(){ if(!tick){ tick = true; requestAnimationFrame(function(){ upd(); tick = false; }); } }, {passive:true});
+  upd();
+  var ov = document.getElementById('chindex');
+  function open(){ ov.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function close(){ ov.classList.remove('open'); document.body.style.overflow = ''; }
+  document.getElementById('idxbtn').addEventListener('click', open);
+  document.getElementById('idxclose').addEventListener('click', close);
+  ov.addEventListener('click', function(e){ if(e.target === ov) close(); });
+  ov.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', close); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+})();
+</script>
+<script>
+(function(){
+var D={
+sponsor:{t:"Executive sponsor",o:"Client",c:"#00DFED",l:["Gives the mandate and the budget","Takes AI to the board","Escalation point for step-in and exit"]},
+product:{t:"Product owner",o:"Client",c:"#00DFED",l:["Owns requirements and priorities","Approves every Flex call-off and its spend","Signs off outcomes in the ledger"]},
+comp:{t:"Compliance and governance",o:"Client",c:"#00DFED",l:["Decides the risk tier of each use case","Approves acceptance criteria and reads evaluation findings directly","Attests before release; accountable executive signs higher tiers"]},
+users:{t:"Business users",o:"Client",c:"#00DFED",l:["Use AI at the level they are licensed for","Review outputs and sign off where the licence says so","Trained through the Academy, helped by the embedded FDE team"]},
+core:{t:"Core",o:"Ours: committed capacity, key roles",c:"#FF7A00",l:["Delivery lead, solution architect, platform engineer","Fixed team, so continuity does not depend on demand","Runs the platform and keeps the register, ledger and evidence for the client"]},
+fde:{t:"Embedded FDE team",o:"Ours: part of Core, on site",c:"#FF7A00",l:["Two to three people sitting with users","Fix, tune and teach inside the workflow","Feed the backlog to Flex; hand patterns to champions"]},
+eval:{t:"Evaluation pod",o:"Ours: separate from the build pods",c:"#00CB5D",l:["Owns eval suites and acceptance tests","Validates agent outputs before and after release","Findings go straight to client compliance; a release is held until tests pass"]},
+flex:{t:"Flex build pods",o:"Ours: elastic, near-shore",c:"#FF7A00",l:["Pods scale up and down with the client\'s backlog","Capped call-off with a mission and an expiry","Hand over runbooks and evals, then dissolve"]},
+academy:{t:"AI Academy",o:"Ours: delivery by Core lead and Flex cohorts",c:"#FFC400",l:["Five levels, from aware to leader","Each level unlocks an autonomy licence","Training records double as AI literacy evidence"]},
+audit:{t:"Governance on audit",o:"Evidence produced by us, held by the client",c:"#19A3FC",l:["Evidence produced continuously, not before the audit","Auditors, FCA and board read the same record","Quarterly attestation by the accountable executive"]},
+plane:{t:"Control plane",o:"Client-owned, operated by us",c:"#00DFED",l:["Identity, model gateway, prompts and evals, logs, kill switch","Our platform engineers work under client identity","Revoke access and any pod is out"]}};
+function fill(p,d){p.querySelector("h4").textContent=d.t;var o=p.querySelector(".own");o.textContent=d.o;o.style.color=d.c;var u=p.querySelector("ul");u.innerHTML="";d.l.forEach(function(x){var li=document.createElement("li");li.textContent=x;u.appendChild(li);});}
+function wire(root,data,panel,start){var items=root.querySelectorAll(".blk");function sel(k){items.forEach(function(g){g.classList.toggle("sel",g.getAttribute("data-k")===k);});if(data[k])fill(panel,data[k]);}
+items.forEach(function(g){g.addEventListener("click",function(){sel(g.getAttribute("data-k"));});g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();sel(g.getAttribute("data-k"));}});});sel(start);}
+var bb=document.getElementById("bb");if(bb)wire(bb,D,document.getElementById("bbp"),"comp");
+
+/* team shape */
+var TS=[{n:"Core leads and platform",c:"#FF7A00",loc:"Core",g:0,v:[3,4,5]},{n:"Embedded FDE",c:"#FFA040",loc:"Core, on site",g:0,v:[2,3,2]},{n:"Evaluation pod",c:"#00CB5D",loc:"Core, separate",g:0,v:[2,3,3]},{n:"Build pods",c:"#19A3FC",loc:"Flex, near-shore",g:1,v:[3,6,3]},{n:"Academy cohorts",c:"#FFC400",loc:"Flex",g:1,v:[1,2,1]}];
+var cap=["Core is in place; one Flex pod proves the paved path on three use cases.","Two pods take on wave 2; Academy scales.","Champions take over day-to-day support, so the FDE team shrinks. Flex is back on call-off."];
+var tsb=document.getElementById("tsb");
+if(tsb){TS.forEach(function(r){var d=document.createElement("div");d.className="tsrow";d.innerHTML="<span>"+r.n+"<i class=loc>"+r.loc+"</i></span><div class=tsbar><b style=\"background:"+r.c+"\"></b></div><em></em>";tsb.appendChild(d);});
+function rend(p){var tot=0,cr=0;Array.prototype.forEach.call(tsb.children,function(row,i){var v=TS[i].v[p];tot+=v;if(TS[i].g==0)cr+=v;row.querySelector("b").style.width=(v/7*100)+"%";row.querySelector("em").textContent=v;});document.getElementById("tsn").textContent=tot;document.getElementById("tsc").textContent="people on our side: "+cr+" Core and "+(tot-cr)+" Flex. "+cap[p];}
+var bt=document.querySelectorAll("#tst .tb");bt.forEach(function(b){b.addEventListener("click",function(){bt.forEach(function(x){x.classList.toggle("on",x===b);});rend(+b.getAttribute("data-p"));});});setTimeout(function(){rend(0);},300);}
+
+/* FDE hub */
+var F={hub:{t:"Embedded FDE team",o:"Ours: Core, on site with the users",c:"#FF7A00",l:["Two to three people, shared across functions","Sit in the workflow, not in a service queue","Shrink as champions take over"]},
+fin:{t:"Finance",o:"Wave 1 focus",c:"#fff",l:["Invoice capture and coding","Reconciliations and break triage","Procuration-fee reconciliation, a possible cash lever"]},
+hr:{t:"HR",o:"Wave 1 focus",c:"#fff",l:["Policy Q and A assistant","Onboarding admin drafting","CV screening and performance scoring stay out"]},
+ops:{t:"Operations",o:"Wave 1 limited",c:"#fff",l:["Internal case admin and chasers","Document extraction waits for wave 2","Nothing enters the advice file in wave 1"]}};
+var fb=document.getElementById("fdeb");if(fb)wire(fb,F,document.getElementById("fdep"),"hub");
+
+/* Academy */
+var A=[{b:"LEVEL 1",t:"Aware",o:"Everyone",c:"#FFC400",l:["90-minute session and a short check","Use approved tools at A0, assist only","Starts the AI literacy record"],s:"Measure: completion and pass rate"},
+{b:"LEVEL 2",t:"Practitioner",o:"Shared-service users",c:"#FFC400",l:["Two half-days, labs on their own work","Unlocks A1: draft, then approve","Learn to spot wrong answers"],s:"Measure: use in the workflow, errors caught"},
+{b:"LEVEL 3",t:"Champion",o:"One or two per team",c:"#FFC400",l:["Six-week part-time cohort with the FDE team","Runs the team backlog, trains peers","Takes over first-line support"],s:"Measure: peers trained, ideas shipped"},
+{b:"LEVEL 4",t:"Reviewer",o:"People who sign off AI output",c:"#FFC400",l:["One day plus an assessed practical","Seeded-error test: can you find the planted mistakes?","Required to approve at A1 or A2, and to run sampling"],s:"Measure: seeded-error catch rate"},
+{b:"LEVEL 5",t:"Leader",o:"Accountable executive, SMFs, board",c:"#FFC400",l:["Half-day briefing and a tabletop incident","Quarterly attestation of the AI register","Owns risk appetite for autonomy"],s:"Measure: tabletop done, attestation signed"}];
+var st=document.getElementById("stair"),ap=document.getElementById("acp");
+if(st&&ap){A.forEach(function(a,i){var b=document.createElement("button");b.style.paddingTop=(14+i*16)+"px";b.innerHTML="<b>"+a.b+"</b><u>"+a.t+"</u>";b.addEventListener("click",function(){Array.prototype.forEach.call(st.children,function(x){x.classList.toggle("on",x===b);});fill(ap,a);ap.querySelector(".sla").textContent=a.s+". Format and durations are our proposal.";});st.appendChild(b);});st.children[1].click();}
+
+/* Evaluation loop */
+var E=[{t:"Define",o:"Before any build",c:"#00CB5D",l:["Success criteria and evals written first","Client compliance approves them","Artefact: eval suite"]},
+{t:"Test",o:"Pre-release",c:"#00CB5D",l:["Accuracy, bias, safety, adversarial prompts","Run against real, redacted examples","Artefact: test report"]},
+{t:"Gate",o:"Release decision",c:"#00CB5D",l:["Client compliance signs off, or blocks","Accountable executive signs for higher tiers","Artefact: decision pack"]},
+{t:"Sample",o:"Live outputs",c:"#00CB5D",l:["Trained reviewers score a sample of outputs","Planted errors prove the reviewers are alert","Artefact: sampling log"]},
+{t:"Monitor",o:"Always on",c:"#00CB5D",l:["Drift, cost, overrides, incidents","Alerts reach client compliance and our Core, not the build pod","Artefact: monitoring record"]},
+{t:"Improve",o:"Continuous",c:"#00CB5D",l:["Findings become backlog for Flex","Every change is re-tested before release","Artefact: change record"]}];
+var g=document.getElementById("evn"),ep=document.getElementById("evp");
+if(g&&ep){var NS="http://www.w3.org/2000/svg",nodes=[];E.forEach(function(e,i){var ang=-Math.PI/2+i*2*Math.PI/6,x=500+150*Math.cos(ang),y=220+150*Math.sin(ang);
+var gr=document.createElementNS(NS,"g");gr.setAttribute("class","blk");gr.setAttribute("tabindex","0");gr.setAttribute("role","button");gr.setAttribute("aria-label",e.t);
+gr.innerHTML="<circle cx="+x+" cy="+y+" r=46 fill=#070F26 /><circle class=bx cx="+x+" cy="+y+" r=46 fill=#00CB5D fill-opacity=.16 stroke=#00CB5D stroke-width=2.5 /><text x="+x+" y="+(y+6)+" text-anchor=middle fill=#fff font-family=Georgia,serif font-size=17 font-weight=700>"+(i+1)+". "+e.t+"</text>";
+function go(){nodes.forEach(function(n){n.classList.toggle("sel",n===gr);});fill(ep,e);}gr.addEventListener("click",go);gr.addEventListener("keydown",function(ev){if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();go();}});g.appendChild(gr);nodes.push(gr);});
+nodes[0].dispatchEvent(new Event("click"));}
+
+/* Audit */
+var Q=[{q:"Show me every AI in use.",h:"AI register",r:"id | owner | tier | licence | expiry | last review",w:"Client register, one list",u:"Updated on every change"},
+{q:"Who approved this release?",h:"Decision pack",r:"purpose | data | test report | oversight design | rollback | sign-offs",w:"Client evidence store",u:"One per release"},
+{q:"How do you know the agent is right?",h:"Evaluation and sampling log",r:"eval results | reviewer | score | planted-error catch rate",w:"Client evidence store",u:"Continuous, summarised monthly"},
+{q:"Can you stop it?",h:"Kill-switch drill record",r:"drill date | scope | time to stop | access revoked | lessons",w:"Client control plane",u:"Drilled on a set cadence, to agree"},
+{q:"What did it do on a given day?",h:"Interaction log",r:"prompt | output | model version | human override",w:"Client logs",u:"Retention period to agree"},
+{q:"Are your people trained?",h:"Academy record",r:"person | level | assessment | seeded-error score | date",w:"Client learning record",u:"Updated after each cohort"}];
+var au=document.getElementById("aud");
+if(au){var qs=au.querySelector(".qs"),an=au.querySelector(".ans");Q.forEach(function(x,i){var b=document.createElement("button");b.textContent=x.q;b.addEventListener("click",function(){Array.prototype.forEach.call(qs.children,function(y){y.classList.toggle("on",y===b);});an.querySelector("h4").textContent=x.h;an.querySelector(".rec").textContent=x.r;an.querySelector("dl").innerHTML="<dt>Held in</dt><dd>"+x.w+"</dd><dt>Updated</dt><dd>"+x.u+"</dd><dt>Read by</dt><dd>Auditors, FCA, board</dd>";});qs.appendChild(b);});qs.children[0].click();}
+})();
+</script></body></html>
